@@ -19,6 +19,106 @@ public class RoadCard{
 			connect[i] = c[i];
 	}
 
+	public RoadCard(String cmd){
+		private static final boolean _T = true;
+		private static final boolean _F = false;
+		switch(cmd){
+			/* Connected */
+			/* 4-Bound */
+			case "intersection":
+				bind = {_T, _T, _T, _T};
+				connect = {_T, _T, _T, _T, _T, _T};
+				break;
+			/* 3-Bound */
+			case "longT":
+				bind = {_T, _T, _T, _F};
+				connect = {_T, _T, _F, _F, _T, _F};
+				break;
+			case "shortT":
+				bind = {_T, _T, _F, _T};
+				connect = {_T, _F, _F, _T, _F, _T};
+				break;
+			/* 2-Bound */
+			case "longI":
+				bind = {_T, _F, _T, _F};
+				connect = {_F, _F, _F, _F, _T, _F};
+				break;
+			case "shortI":
+				bind = {_F, _T, _F, _T};
+				connect = {_F, _F, _F, _F, _F, _T};
+				break;
+			case "LeftTop":
+				bind = {_T, _T, _F, _F};
+				connect = {_T, _F, _F, _F, _F, _F};
+				break;
+			case "RightTop":
+				bind = {_T, _F, _F, _T};
+				connect = {_F, _F, _F, _T, _F, _F};
+				break;
+			/* Blocked */
+			/* 4-Bound */
+			case "fullblock":
+				bind = {_T, _T, _T, _T};
+				connect = {_F, _F, _F, _F, _F, _F};
+				break;
+			/* 3-Bound */
+			case "longTblock":
+				bind = {_T, _T, _T, _F};
+				connect = {_F, _F, _F, _F, _F, _F};
+				break;
+			case "shortTblock":
+				bind = {_T, _T, _F, _T};
+				connect = {_F, _F, _F, _F, _F, _F};
+				break;
+			/* 2-Bound */
+			case "longIblock":
+				bind = {_T, _F, _T, _F};
+				connect = {_F, _F, _F, _F, _F, _F};
+				break;
+			case "shortIblock":
+				bind = {_F, _T, _F, _T};
+				connect = {_F, _F, _F, _F, _F, _F};
+				break;
+			case "LeftTopblock":
+				bind = {_T, _T, _F, _F};
+				connect = {_F, _F, _F, _F, _F, _F};
+				break;
+			case "RightTopblock":
+				bind = {_T, _F, _F, _T};
+				connect = {_F, _F, _F, _F, _F, _F};
+				break;
+			/* 1-Bound */
+			case "longDeadEnd":
+				bind = {_T, _F, _F, _F};
+				connect = {_F, _F, _F, _F, _F, _F};
+				break;
+			case "shortDeadEnd":
+				bind = {_F, _T, _F, _F};
+				connect = {_F, _F, _F, _F, _F, _F};
+				break;
+			default:
+				System.out.println("No such kind of RoadCard");
+				break;
+		}	
+	}
+
+	/* Accessor */
+	public boolean getBind(int n){
+		if(n >= 4 || n < 0){
+			System.out.println("No such bind");
+			return false;
+		}else
+			return bind[n];
+	}
+
+	public boolean getConnect(int n){
+		if(n >= 6 || n < 0){
+			System.out.println("No such connect");
+			return false;
+		}else
+			return connect[n];
+	}
+
 	/* Method */ 
 	public private swap(boolean a, boolean b){
 		boolean tmp;
