@@ -33,9 +33,16 @@ class Position{
 		isCandidate = false;
 		return true;
 	}
-	public void setHaveCard(){ haveCard = true; }
 
-	public void setCandidate(){ isCandidate = true; }
+	public void removeCard(){
+		card = null;
+		haveCard = false;
+		isCandidate = true;
+		return true;
+	}
+
+	public void setHaveCard(boolean b){ haveCard = b; }
+	public void setCandidate(boolean b){ isCandidate = b; }
 }
 
 public class Map{
@@ -48,6 +55,8 @@ public class Map{
 	private boolean[][] vSideCTS[11][5]; // vertical side 
 	private boolean[][] hSideCTS[10][6]; // horizontal side
 	
+	private boolean[][] traced[10][5]; // for spread
+
 
 	/* Constructor */
 	public Map(){
@@ -68,14 +77,14 @@ public class Map{
 		hSideCTS[1][2] = true; // Bottom
 		hSideCTS[1][3] = true; // Top
 		/* set first candidates */
-		pos[1][1].setCandidate() = true; // Bottom
-		pos[1][3].setCandidate() = true; // Top
-		pos[0][2].setCandidate() = true; // Left
-		pos[2][2].setCandidate() = true; // Right
+		pos[1][1].setCandidate(true); // Bottom
+		pos[1][3].setCandidate(true); // Top
+		pos[0][2].setCandidate(true); // Left
+		pos[2][2].setCandidate(true); // Right
 		/* set destinations */
-		pos[9][0].setHaveCard() = true; // Bottom
-		pos[9][2].setHaveCard() = true; // Middle
-		pos[9][4].setHaveCard() = true; // Top
+		pos[9][0].setHaveCard(true); // Bottom
+		pos[9][2].setHaveCard(true); // Middle
+		pos[9][4].setHaveCard(true); // Top
 	}
 
 	/* Method */ 
@@ -122,7 +131,22 @@ public class Map{
 			}
 		}
 		pos[x][y].setCard(c);
-		/* update CTS */
+		/* update CTS & candidates*/
+		traceInit();
+		spread(x, y);
+		
+		return true;
+	}
+
+	protected void traceInit(){
+		for(int i = 0; i < 10; i++)
+			for(int j = 0; j < 5; j++)
+				traced[i][j] = false;
+	}
+
+	protected void spread(int x, int y){
+		if(traced[x][y]) 
+			return;		
 		if(pos[x][y].getConnect(0)){
 			if(vSideCTS[x][y])
 				hSideCTS[x][y+1] = true;
@@ -159,22 +183,76 @@ public class Map{
 			if(vSideCTS[x+1][y])
 				vSideCTS[x][y] = true;
 		}
-		/* update candidates */
+
+		traced[x][y] == true;
+
 		if(x > 0 && !pos[x-1][y].getHaveCard()){ // Left
 			if(vSideCTS[x][y])
-				pos[x-1][y].setCandidate();
-		}else if(x < 9 && !pos[x+1][y].getHaveCard()){ // Right
+				pos[x-1][y].setCandidate(true);
+		}else if(x < 8 && !pos[x+1][y].getHaveCard()){ // Right
 			if(vSideCTS[x+1][y])
-				pos[x+1][y].setCandidate();
+				pos[x+1][y].setCandidate(true);
+		}else if(x == 8 && (y == 1 | y == 3)
+				&& !pos[x+1][y].getHaveCard()){ // Right
+			if(vSideCTS[x+1][y])
+				pos[x+1][y].setCandidate(true);
 		}else if(y > 0 && !pos[x][y-1].getHaveCard()){ // Bottom
 			if(hSideCTS[x][y])
-				pos[x][y-1].setCandidate();
+				pos[x][y-1].setCandidate(true);
 		}else if(y < 4 && !pos[x][y+1].getHaveCard()){ // Top
 			if(hSideCTS[x][y+1])
-				pos[x][y+1].setCandidate();
+				pos[x][y+1].setCandidate(true);
 		}
-		return true;
+
+		if(x > 0 && pos[x-1][y].getHaveCard()) 
+			spread(x-1, y);
+		if(x < 8 && pos[x+1][y].getHaveCard()) 
+			spread(x+1, y);
+		if(x == 8 && (y == 1 || y == 3)
+			&& pos[x+1][y].getHaveCard())
+			spread(x+1, y);
+		if(x < 9 && y > 0 && pos[x][y-1].getHaveCard())
+			spread(x, y-1);
+		if(x < 9 && y < 5 && pos[x][y+1].getHaveCard())
+			spread(x, y+1);
 	}
 
-	
+	public boolean breakRoad(int x, int y){
+		/* check position index */
+		if(x >= 10 || x < 0 || y >= 5 || y < 0){
+			System.out.println("No such position");
+			return false;
+		}
+		/* check haveCard */
+		if(!pos[x][y].getHaveCard()){
+			System.out.println("No road");
+			return false;
+		}
+		pos[x][y].removeCard();
+		/* reset CTS */
+		for(int i = 0; i < 10; i++){
+			for(int j = 0; j < 5; j++){
+				if(pos[i][j].getHaveCard()){
+					vSideCTS[i][j] = false;
+					vSideCTS[i+1][j] = false;
+					hSideCTS[i][j] = false;
+					hSideCTS[i][j+1] = false;
+				}
+			}
+		}
+		vSideCTS[1][2] = true; // Left 
+		vSideCTS[2][2] = true; // Right
+		hSideCTS[1][2] = true; // Bottom
+		hSideCTS[1][3] = true; // Top
+		/* reset candidates */
+		for(int i = 0; i < 10; i++){
+			for(int j = 0; j < 5; j++){
+				pos[i][j].setCandidate(false);
+			}
+		}
+		traceInit();
+		spread(1, 2); // spread from source
+
+		return true;
+	}	
 } 
