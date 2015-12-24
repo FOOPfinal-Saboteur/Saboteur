@@ -34,7 +34,9 @@ class Position{
 		return true;
 	}
 
-	public void removeCard(){
+	public boolean removeCard(){
+		if(!haveCard)
+			return false;
 		card = null;
 		haveCard = false;
 		isCandidate = true;
@@ -50,12 +52,12 @@ public class Map{
 	/* Member variable */
 		/* [x][y], x:horizontal, y:vertical */
 		/* CTS: connected to source */
-	private Position[][] pos[10][5];
+	private Position[][] pos = new Position[10][5];
 
-	private boolean[][] vSideCTS[11][5]; // vertical side 
-	private boolean[][] hSideCTS[10][6]; // horizontal side
+	private boolean[][] vSideCTS = new boolean[11][5]; // vertical side 
+	private boolean[][] hSideCTS = new boolean[10][6]; // horizontal side
 	
-	private boolean[][] traced[10][5]; // for spread
+	private boolean[][] traced = new boolean[10][5]; // for spread
 
 
 	/* Constructor */
@@ -65,10 +67,10 @@ public class Map{
 				pos[i][j] = new Position();
 		for(int i = 0; i < 11; i++)		
 			for(int j = 0; j < 5; j++)
-				vSideCTS = false;
+				vSideCTS[i][j] = false;
 		for(int i = 0; i < 10; i++)		
 			for(int j = 0; j < 6; j++)
-				hSideCTS = false;
+				hSideCTS[i][j] = false;
 		/* set source */
 		RoadCard source = new RoadCard("intersection");
 		pos[1][2].setCard(source);
@@ -100,12 +102,6 @@ public class Map{
 			return false;
 		}
 		/* check bind */
-			if(x == 8 && (y == 0 || y == 2 || y == 4) || x == 9){
-				if(x == 8)
-					almost = 1;
-				else
-					almost = 2;
-			}
 		if(x > 0 && pos[x-1][y].getHaveCard()){ // Left
 			if(pos[x-1][y].getBind(3) != c.getBind(1)){
 			}
@@ -184,7 +180,7 @@ public class Map{
 				vSideCTS[x][y] = true;
 		}
 
-		traced[x][y] == true;
+		traced[x][y] = true;
 
 		if(x > 0 && !pos[x-1][y].getHaveCard()){ // Left
 			if(vSideCTS[x][y])
