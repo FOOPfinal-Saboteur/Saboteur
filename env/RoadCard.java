@@ -20,8 +20,8 @@ public class RoadCard{
 	}
 
 	public RoadCard(String cmd){
-		boolean _T = true;
-		boolean _F = false;
+		boolean _O = true;
+		boolean _X = false;
 		boolean[][] _bind = new boolean[16][];
 		boolean[][] _connect = new boolean[16][];
 		int _case = -1;
@@ -29,90 +29,90 @@ public class RoadCard{
 			/* Connected */
 			/* 4-Bound */
 			if(cmd == "intersection"){
-				_bind[0] = new boolean[]{_T, _T, _T, _T};
-				_connect[0] = new boolean[]{_T, _T, _T, _T, _T, _T};
+				_bind[0] = new boolean[]{_O, _O, _O, _O};
+				_connect[0] = new boolean[]{_O, _O, _O, _O, _O, _O};
 				_case = 0;
 			}
 			/* 3-Bound */
 			else if(cmd == "longT"){
-				_bind[1] = new boolean[]{_T, _T, _T, _F};
-				_connect[1] = new boolean[]{_T, _T, _F, _F, _T, _F};
+				_bind[1] = new boolean[]{_O, _O, _O, _X};
+				_connect[1] = new boolean[]{_O, _O, _X, _X, _O, _X};
 				_case = 1;
 			}
 			else if(cmd == "shortT"){
-				_bind[2] = new boolean[]{_T, _T, _F, _T};
-				_connect[2] = new boolean[]{_T, _F, _F, _T, _F, _T};
+				_bind[2] = new boolean[]{_O, _O, _X, _O};
+				_connect[2] = new boolean[]{_O, _X, _X, _O, _X, _O};
 				_case = 2;
 			}
 			/* 2-Bound */
 			else if(cmd == "longI"){
-				_bind[3] = new boolean[]{_T, _F, _T, _F};
-				_connect[3] = new boolean[]{_F, _F, _F, _F, _T, _F};
+				_bind[3] = new boolean[]{_O, _X, _O, _X};
+				_connect[3] = new boolean[]{_X, _X, _X, _X, _O, _X};
 				_case = 3;
 			}
 			else if(cmd == "shortI"){
-				_bind[4] = new boolean[]{_F, _T, _F, _T};
-				_connect[4] = new boolean[]{_F, _F, _F, _F, _F, _T};
+				_bind[4] = new boolean[]{_X, _O, _X, _O};
+				_connect[4] = new boolean[]{_X, _X, _X, _X, _X, _O};
 				_case = 4;
 			}
 			else if(cmd == "LeftTop"){
-				_bind[5] = new boolean[]{_T, _T, _F, _F};
-				_connect[5] = new boolean[]{_T, _F, _F, _F, _F, _F};
+				_bind[5] = new boolean[]{_O, _O, _X, _X};
+				_connect[5] = new boolean[]{_O, _X, _X, _X, _X, _X};
 				_case = 5;
 			}
 			else if(cmd == "RightTop"){
-				_bind[6] = new boolean[]{_T, _F, _F, _T};
-				_connect[6] = new boolean[]{_F, _F, _F, _T, _F, _F};
+				_bind[6] = new boolean[]{_O, _X, _X, _O};
+				_connect[6] = new boolean[]{_X, _X, _X, _O, _X, _X};
 				_case = 6;
 			}
 			/* Blocked */
 			/* 4-Bound */
 			else if(cmd == "fullblock"){
-				_bind[7] = new boolean[]{_T, _T, _T, _T};
-				_connect[7] = new boolean[]{_F, _F, _F, _F, _F, _F};
+				_bind[7] = new boolean[]{_O, _O, _O, _O};
+				_connect[7] = new boolean[]{_X, _X, _X, _X, _X, _X};
 				_case = 7;
 			}
 			/* 3-Bound */
 			else if(cmd == "longTblock"){
-				_bind[8] = new boolean[]{_T, _T, _T, _F};
-				_connect[8] = new boolean[]{_F, _F, _F, _F, _F, _F};
+				_bind[8] = new boolean[]{_O, _O, _O, _X};
+				_connect[8] = new boolean[]{_X, _X, _X, _X, _X, _X};
 				_case = 8;
 			}
 			else if(cmd == "shortTblock"){
-				_bind[9] = new boolean[]{_T, _T, _F, _T};
-				_connect[9] = new boolean[]{_F, _F, _F, _F, _F, _F};
+				_bind[9] = new boolean[]{_O, _O, _X, _O};
+				_connect[9] = new boolean[]{_X, _X, _X, _X, _X, _X};
 				_case = 9;
 			}
 			/* 2-Bound */
 			else if(cmd == "longIblock"){
-				_bind[10] = new boolean[] {_T, _F, _T, _F};
-				_connect[10] = new boolean[] {_F, _F, _F, _F, _F, _F};
+				_bind[10] = new boolean[] {_O, _X, _O, _X};
+				_connect[10] = new boolean[] {_X, _X, _X, _X, _X, _X};
 				_case = 10;
 			}
 			else if(cmd == "shortIblock"){
-				_bind[11] = new boolean[] {_F, _T, _F, _T};
-				_connect[11] = new boolean[] {_F, _F, _F, _F, _F, _F};
+				_bind[11] = new boolean[] {_X, _O, _X, _O};
+				_connect[11] = new boolean[] {_X, _X, _X, _X, _X, _X};
 				_case = 11;
 			}
 			else if(cmd == "LeftTopblock"){
-				_bind[12] = new boolean[] {_T, _T, _F, _F};
-				_connect[12] = new boolean[] {_F, _F, _F, _F, _F, _F};
+				_bind[12] = new boolean[] {_O, _O, _X, _X};
+				_connect[12] = new boolean[] {_X, _X, _X, _X, _X, _X};
 				_case = 13;
 			}
 			else if(cmd == "RightTopblock"){
-				_bind[13] = new boolean[] {_T, _F, _F, _T};
-				_connect[13] = new boolean[] {_F, _F, _F, _F, _F, _F};
+				_bind[13] = new boolean[] {_O, _X, _X, _O};
+				_connect[13] = new boolean[] {_X, _X, _X, _X, _X, _X};
 				_case = 13;
 			}
 			/* 1-Bound */
 			else if(cmd == "longDeadEnd"){
-				_bind[14] = new boolean[] {_T, _F, _F, _F};
-				_connect[14] = new boolean[] {_F, _F, _F, _F, _F, _F};
+				_bind[14] = new boolean[] {_O, _X, _X, _X};
+				_connect[14] = new boolean[] {_X, _X, _X, _X, _X, _X};
 				_case = 14;
 			}
 			else if(cmd == "shortDeadEnd"){
-				_bind[15] = new boolean[] {_F, _T, _F, _F};
-				_connect[15] = new boolean[] {_F, _F, _F, _F, _F, _F};
+				_bind[15] = new boolean[] {_X, _O, _X, _X};
+				_connect[15] = new boolean[] {_X, _X, _X, _X, _X, _X};
 				_case = 15;
 			}
 			else {
