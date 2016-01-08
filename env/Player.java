@@ -129,8 +129,10 @@ public class Player{
 				status.break(cmd);
 				return true;
 			}
-		}else
+		}else{
+			System.out.println("[ERROR] Break activeness error: command undefined");
 			return false;
+		}
 	}
 
 	public boolean fix(String cmd){
@@ -140,17 +142,19 @@ public class Player{
 				return true;
 			}
 		}else if(cmd == "oil_lamp"){
-			if(status.oil_lampOK()){
+			if(!status.oil_lampOK()){
 				status.fix(cmd);
 				return true;
 			}
 		}else if(cmd == "mine_cart"){
-			if(status.mine_cartOK()){
+			if(!status.mine_cartOK()){
 				status.fix(cmd);
 				return true;
 			}
-		}else
+		}else{
+			System.out.println("[ERROR] Fix activeness error: command undefined");
 			return false;
+		}
 	}
 
 	/* Method */

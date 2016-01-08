@@ -11,8 +11,8 @@ public class FunctionCard{
 	private boolean fix_card = false; // type1
 	private int kind = -1;
 
-	private boolean map_card; // type2
-	private boolean collapse_card; // type3
+	private boolean map_card = false; // type2
+	private boolean collapse_card = false; // type3
 
 	/* Constructor */
 	public FunctionCard(int type, int item){
@@ -80,5 +80,5 @@ public class FunctionCard{
 	public int itemKind(){ return kind;}
 
 	/* Method */ 
-	
+
 }
