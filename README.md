@@ -6,6 +6,8 @@ main: 遊戲進行
 
 gui:之後可能會整合到env，但目前是嘗試的檔案。
 
+gui/img: 目前想把圖檔放在這裡
+
 大家要push pull都要注意別人的branch噢，差太遠就不好merge了。
 
 [makefile 使用注意事項]
