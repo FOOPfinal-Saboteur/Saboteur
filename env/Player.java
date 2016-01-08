@@ -23,7 +23,7 @@ class ActiveStatus{
 		return pick && oil_lamp && mine_cart;
 	}
 	/* Mutator */
-	public void break(String cmd){
+	public void destroy(String cmd){
 		if(cmd == "pick"){
 			pick = false;
 		}else if(cmd == "oil_lamp"){
@@ -113,26 +113,25 @@ public class Player{
 		}
 	}
 		/* Active Status */
-	public boolean break(String cmd){
+	public boolean destroy(String cmd){
 		if(cmd == "pick"){
 			if(status.pickOK()){
-				status.break(cmd);
+				status.destroy(cmd);
 				return true;
 			}
 		}else if(cmd == "oil_lamp"){
 			if(status.oil_lampOK()){
-				status.break(cmd);
+				status.destroy(cmd);
 				return true;
 			}
 		}else if(cmd == "mine_cart"){
 			if(status.mine_cartOK()){
-				status.break(cmd);
+				status.destroy(cmd);
 				return true;
 			}
-		}else{
-			System.out.println("[ERROR] Break activeness error: command undefined");
-			return false;
 		}
+		System.out.println("[ERROR] destroy activeness error: command undefined");
+		return false;
 	}
 
 	public boolean fix(String cmd){
@@ -151,10 +150,9 @@ public class Player{
 				status.fix(cmd);
 				return true;
 			}
-		}else{
-			System.out.println("[ERROR] Fix activeness error: command undefined");
-			return false;
 		}
+		System.out.println("[ERROR] Fix activeness error: command undefined");
+		return false;
 	}
 
 	/* Method */

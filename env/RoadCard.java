@@ -2,7 +2,7 @@ import java.lang.*;
 import java.util.*;
 import java.io.*;
 
-public class RoadCard{
+public class RoadCard extends Card{
 
 	/* Member variable */
 	private boolean[] bind = new boolean[4];

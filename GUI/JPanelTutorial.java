@@ -6,16 +6,18 @@ import java.io.File;
 import java.io.IOException;
 
 public class JPanelTutorial extends JPanel{
-	BufferedImage image;
+	BufferedImage image1, image2;
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
 				JFrame frame = new JFrame();
+				frame.setTitle("GUI test");
 				frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				frame.add(new JPanelTutorial());
-				frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+				frame.setSize(960,720);
+				//frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 				frame.setVisible(true);
 			}
 		});
@@ -23,7 +25,7 @@ public class JPanelTutorial extends JPanel{
 
 	public JPanelTutorial(){
 		try {
-			image = ImageIO.read(new File("/Users/leinadshih/Desktop/BurnTheWay.png"));
+			image1 = ImageIO.read(new File(System.getProperty("user.dir")+"/img/fix_pick.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -31,8 +33,8 @@ public class JPanelTutorial extends JPanel{
 	
 	public void paintComponent(Graphics g){
 		super.paintComponents(g);
-		g.drawImage(image, 0,0,null);
-		g.setColor(Color.RED);
-		g.fillRect(10, 10, 100, 50);
+		g.drawImage(image1,200,200,117,168,null);
+		// g.setColor(Color.RED);
+		// g.fillRect(10, 10, 100, 50);
 	}
 }
