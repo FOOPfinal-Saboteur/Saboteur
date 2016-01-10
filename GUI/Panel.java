@@ -8,18 +8,18 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class Panel extends JPanel{
-	BufferedImage image;
+	BufferedImage image1;
 
 	public Panel(){
-		try{
-			image = ImageIO.read(new File("/Users/leinadshih/Desktop/BurnTheWay.png"));
-		} catch (IOException e){
+		try {
+			image1 = ImageIO.read(new File(System.getProperty("user.dir")+"/img/fix_pick.png"));
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
 	public void paintComponet(Graphics g){
 		super.paintComponents(g);
-		g.drawImage(image, 0,0,null);
+		g.drawImage(image,100,100,117,168,null);
 	}
 }
