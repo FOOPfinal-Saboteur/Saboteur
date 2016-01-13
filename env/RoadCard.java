@@ -2,7 +2,7 @@ import java.lang.*;
 import java.util.*;
 import java.io.*;
 
-public class RoadCard extends Card{
+public class RoadCard{
 
 	/* Member variable */
 	private boolean[] bind = new boolean[4];
@@ -10,7 +10,7 @@ public class RoadCard extends Card{
 	private boolean[] connect = new boolean[6];
 		/* 0:LeftTop, 1:LeftBottom, 3:RightBottom
 		   4:RightTop, 5:Vertical, 6:Horizontal */
-
+	private FunctionCard fun;
 	/* Constructor */
 	public RoadCard(boolean[] b, boolean[] c){
 		for(int i = 0; i < 4; i++)

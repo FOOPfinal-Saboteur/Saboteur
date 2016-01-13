@@ -1,4 +1,4 @@
-TARGET=Saboteur.class Card.class RoadCard.class FunctionCard.class Map.class Player.class 
+TARGET=Saboteur.class FunctionCard.class RoadCard.class Card.class Map.class Player.class 
 ENV=env
 GUI=gui
 MAIN=main
@@ -11,7 +11,7 @@ Saboteur.class: $(MAIN)/Saboteur.java
 
 Card.class: $(ENV)/Card.java
 	@echo "making: " $@
-	javac -d $(MAIN) $(ENV)/Card.java
+	javac -d $(MAIN) -classpath $(MAIN) $(ENV)/Card.java
 
 RoadCard.class: $(ENV)/RoadCard.java
 	@echo "making: " $@

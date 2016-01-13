@@ -2,7 +2,7 @@ import java.lang.*;
 import java.util.*;
 import java.io.*;
 
-public class FunctionCard extends Card{
+public class FunctionCard{
 
 	/* Member variable */
 		/* 0:pick, 1:oil_lamp, 2:mine_cart
