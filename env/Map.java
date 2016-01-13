@@ -104,9 +104,9 @@ public class Map{
 		/* check bind */
 		if(x > 0 && pos[x-1][y].getHaveCard()){ // Left
 			if(pos[x-1][y].getBind(3) != c.getBind(1)){
+				System.out.println("Not matched");
+				return false;
 			}
-			System.out.println("Not matched");
-			return false;
 		}else if(x < 9 && pos[x+1][y].getHaveCard()){ // Right
 			if(x == 8 && (y == 0 || y == 2 || y == 4)){
 			}else if(pos[x+1][y].getBind(1) != c.getBind(3)){
