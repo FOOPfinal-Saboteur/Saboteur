@@ -250,5 +250,50 @@ public class Map{
 		spread(1, 2); // spread from source
 
 		return true;
-	}	
+	}
+	public void printMap(){
+		char[][] simpleMap = new char[41][21];
+		for(int i = 0; i < 41; i ++)
+			for(int j = 0; j < 21; j ++)
+				simpleMap[i][j] = (i % 2 == 0 && (j % 2 == 0) && !((i + j) % 4 == 0)) ? '.':' ';
+			
+		simpleMap[4 * 1 + 2][4 * 2 + 2] = 's';
+		simpleMap[4 * 9 + 2][4 * 0 + 2] = 'b';
+		simpleMap[4 * 9 + 2][4 * 2 + 2] = 'm';
+		simpleMap[4 * 9 + 2][4 * 4 + 2] = 't';
+
+		for(int i = 0; i < 10; i ++)
+			for(int j = 0; j < 5; j ++){
+				if(!pos[i][j].getHaveCard())
+					continue;
+				int centerx = i * 4 + 2;
+				int centery = j * 4 + 2;
+				if(pos[i][j].getConnect(0)){
+					simpleMap[centerx - 1][centery + 1] = '/';
+				}
+				if(pos[i][j].getConnect(1)){
+					simpleMap[centerx - 1][centery - 1] = '\\';
+				}
+				if(pos[i][j].getConnect(2)){
+					simpleMap[centerx + 1][centery - 1] = '/';
+				}
+				if(pos[i][j].getConnect(3)){
+					simpleMap[centerx + 1][centery + 1] = '\\';
+				}
+				if(pos[i][j].getConnect(4)){
+					simpleMap[centerx][centery + 1] = '|';
+					simpleMap[centerx][centery - 1] = '|';
+				}
+				if(pos[i][j].getConnect(0)){
+					simpleMap[centerx - 1][centery] = '-';
+					simpleMap[centerx + 1][centery] = '-';
+				}
+
+			}
+		for(int j = 21; j >= 0; j--){
+			for(int i = 0; i < 41; i ++)
+				System.out.print(simpleMap[i][j]);
+			System.out.print("\n");
+		}
+	}
 } 
