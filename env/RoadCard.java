@@ -8,8 +8,8 @@ public class RoadCard{
 	private boolean[] bind = new boolean[4];
 		/* 0:Top, 1:Left, 2:Bottom, 3:Right */
 	private boolean[] connect = new boolean[6];
-		/* 0:LeftTop, 1:LeftBottom, 3:RightBottom
-		   4:RightTop, 5:Vertical, 6:Horizontal */
+		/* 0:LeftTop, 1:LeftBottom, 2:RightBottom
+		   3:RightTop, 4:Vertical, 5:Horizontal */
 	private FunctionCard fun;
 	/* Constructor */
 	public RoadCard(boolean[] b, boolean[] c){
