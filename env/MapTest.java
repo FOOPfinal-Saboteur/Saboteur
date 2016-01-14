@@ -21,6 +21,14 @@ public class  MapTest{
 					continue;
 				}
 				System.out.println(card);
+				System.out.println("Wanna rotate?(y/n)");
+				String ro = scanner.next();
+				while(ro.charAt(0) == 'y'){
+					card.rotate();
+					System.out.println(card);
+					System.out.println("Still wanna rotate?(y/n)");
+					ro = scanner.next();
+				}
 				System.out.println("Where to place:");
 				x = scanner.nextInt();
 				y = scanner.nextInt();

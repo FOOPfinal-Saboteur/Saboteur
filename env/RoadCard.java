@@ -154,15 +154,12 @@ public class RoadCard{
 		return true;
 	}
 	/* Method */ 
-	public void swap(boolean a, boolean b){
-		boolean tmp;
-		tmp = a; a = b; b = tmp;
-	}
 	public void rotate(){
-		swap(bind[0], bind[2]);
-		swap(bind[1], bind[3]);
-		swap(connect[0], connect[2]);
-		swap(connect[1], connect[3]);
+		boolean tmp;
+		tmp = bind[0]; bind[0] = bind[2]; bind[2] = tmp;
+		tmp = bind[1]; bind[1] = bind[3]; bind[3] = tmp;
+		tmp = connect[0]; connect[0] = connect[2]; connect[2] = tmp;
+		tmp = connect[1]; connect[1] = connect[3]; connect[3] = tmp;
 	}
 	public String toString(){
 		char[][] table = new char[3][3];
