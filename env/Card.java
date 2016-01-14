@@ -24,6 +24,12 @@ public class Card{
 				my_item = new String(item);
 				my_type = new String(type);
 				break;
+			default:
+				System.out.println("[ERROR] WTF do you want?? You bitch");
+		}
+	}
+	public Card(String cmd){
+		switch (type){
 			case "intersection":
 			case "longT":
 			case "shortT":
@@ -39,11 +45,11 @@ public class Card{
 			case "shortDeadEnd":
 				is_road = true;
 				is_function = false;
-				my_type = new String(type);
+				my_type = new String(cmd);
 				break;
 			default:
-				System.out.println("[ERROR] WTF do you want?? You bitch");
-		}
+				System.out.println("[ERROR] WTF do you want?? You bastard");
+		}	
 	}
 	/* Accessor */
 	public FunctionCard Function(){
