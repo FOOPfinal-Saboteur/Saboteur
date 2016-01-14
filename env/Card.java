@@ -14,42 +14,42 @@ public class Card{
 		is_road = false;
 	}
 	public Card(String type, String item){
-		switch (type){
-			case "fix":
-			case "break":
-			case "map":
-			case "collapse":
+		if(type.equals("fix")||
+		   type.equals("break")||
+		   type.equals("map")||
+		   type.equals("collapse")
+		)
 				is_road = false;
 				is_function = true;
 				my_item = new String(item);
 				my_type = new String(type);
-				break;
-			default:
-				System.out.println("[ERROR] WTF do you want?? You bitch");
 		}
+		else
+			System.out.println("[ERROR] WTF do you want?? You bitch");
+		
 	}
 	public Card(String cmd){
-		switch (cmd){
-			case "intersection":
-			case "longT":
-			case "shortT":
-			case "longI":
-			case "LeftTop":
-			case "RightTop":
-			case "fullblock":
-			case "longTblock":
-			case "shortTblock":
-			case "LeftTopblock":
-			case "RightTopblock":
-			case "longDeadEnd":
-			case "shortDeadEnd":
-				is_road = true;
-				is_function = false;
-				my_type = new String(cmd);
-				break;
-			default:
-				System.out.println("[ERROR] WTF do you want?? You bastard");
-		}	
+		if(cmd.eauals("intersection")||
+		   cmd.equals("longT")||
+		   cmd.equals("shortT")||
+		   cmd.equals("longI")||
+		   cmd.equals("LeftTop")||
+		   cmd.equals("RightTop")||
+		   cmd.equals("fullblock")||
+		   cmd.equals("longTblock")||
+		   cmd.equals("shortTblock")||
+		   cmd.equals("LeftTopblock")||
+		   cmd.equals("RightTopblock")||
+		   cmd.equals("longDeadEnd")||
+		   cmd.equals("shortDeadEnd")
+		   ){
+			is_road = true;
+			is_function = false;
+			my_type = new String(cmd);
+		}
+		else
+			System.out.println("[ERROR] WTF do you want?? You bastard");
+	
 	}
 	/* Accessor */
 	public FunctionCard Function(){
