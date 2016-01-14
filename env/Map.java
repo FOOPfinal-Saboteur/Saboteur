@@ -21,6 +21,7 @@ class Position{
 	public boolean getIsCandidate(){ return isCandidate; }
 	public boolean getBind(int n){ return card.getBind(n); }
 	public boolean getConnect(int n){ return card.getConnect(n); }
+	public boolean isBlock(){ return card.isBlock(); } 
 
 	/* Mutator */
 	public boolean setCard(RoadCard c){
@@ -167,13 +168,13 @@ public class Map{
 			if(hSideCTS[x][y+1])
 				vSideCTS[x+1][y] = true;
 		}
-		if(pos[x][y].getConnect(5)){
+		if(pos[x][y].getConnect(4)){
 			if(hSideCTS[x][y])
 				hSideCTS[x][y+1] = true;
 			if(hSideCTS[x][y+1])
 				hSideCTS[x][y] = true;
 		}
-		if(pos[x][y].getConnect(6)){
+		if(pos[x][y].getConnect(5)){
 			if(vSideCTS[x][y])
 				vSideCTS[x+1][y] = true;
 			if(vSideCTS[x+1][y])
@@ -250,5 +251,63 @@ public class Map{
 		spread(1, 2); // spread from source
 
 		return true;
-	}	
+	}
+	public void printMap(){
+		char[][] simpleMap = new char[41][21];
+		for(int i = 0; i < 41; i ++)
+			for(int j = 0; j < 21; j ++)
+				simpleMap[i][j] = (i % 2 == 0 && (j % 2 == 0) && !((i + j) % 4 == 0)) ? '.':' ';
+			
+		simpleMap[4 * 1 + 2][4 * 2 + 2] = 's';
+		simpleMap[4 * 9 + 2][4 * 0 + 2] = 'b';
+		simpleMap[4 * 9 + 2][4 * 2 + 2] = 'm';
+		simpleMap[4 * 9 + 2][4 * 4 + 2] = 't';
+
+		for(int i = 0; i < 10; i ++)
+			for(int j = 0; j < 5; j ++){
+				if(!pos[i][j].getHaveCard())
+					continue;
+				if(i == 9 &&(j == 0 || j == 2 || j == 4))
+					continue;
+				System.out.println(i +" " + j);
+				int centerx = i * 4 + 2;
+				int centery = j * 4 + 2;
+				if(pos[i][j].getConnect(0)){
+					simpleMap[centerx - 1][centery + 1] = '/';
+				}
+				if(pos[i][j].getConnect(1)){
+					simpleMap[centerx - 1][centery - 1] = '\\';
+				}
+				if(pos[i][j].getConnect(2)){
+					simpleMap[centerx + 1][centery - 1] = '/';
+				}
+				if(pos[i][j].getConnect(3)){
+					simpleMap[centerx + 1][centery + 1] = '\\';
+				}
+				if(pos[i][j].getConnect(4)){
+					simpleMap[centerx][centery + 1] = '|';
+					simpleMap[centerx][centery - 1] = '|';
+				}
+				if(pos[i][j].getConnect(5)){
+					simpleMap[centerx - 1][centery] = '-';
+					simpleMap[centerx + 1][centery] = '-';
+				}
+				if(!pos[i][j].getBind(0))
+					simpleMap[centerx][centery + 2] = 'x';
+				if(!pos[i][j].getBind(1))
+					simpleMap[centerx - 2][centery] = 'x';
+				if(!pos[i][j].getBind(2))
+					simpleMap[centerx][centery - 2] = 'x';
+				if(!pos[i][j].getBind(3))
+					simpleMap[centerx + 2][centery] = 'x';
+				if(pos[i][j].isBlock())
+					simpleMap[centerx][centery] = 'b';
+
+			}
+		for(int j = 20; j >= 0; j--){
+			for(int i = 0; i < 41; i ++)
+				System.out.print(simpleMap[i][j]);
+			System.out.print("\n");
+		}
+	}
 } 

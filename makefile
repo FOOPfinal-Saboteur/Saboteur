@@ -1,4 +1,4 @@
-TARGET=Saboteur.class FunctionCard.class RoadCard.class Card.class Map.class Player.class 
+TARGET=Saboteur.class FunctionCard.class RoadCard.class Card.class Map.class Player.class MapTest.class 
 ENV=env
 GUI=gui
 MAIN=main
@@ -28,6 +28,9 @@ Player.class: $(ENV)/Player.java
 Map.class: $(ENV)/Map.java
 	@echo "making: " $@
 	javac -d $(MAIN) -classpath $(MAIN) $(ENV)/Map.java $(ENV)/RoadCard.java
+MapTest.class: $(ENV)/MapTest.java
+	@echo "making: " $@
+	javac -d $(MAIN) -classpath $(MAIN) $(ENV)/Map.java $(ENV)/RoadCard.java $(ENV)/MapTest.java
 
 clean: 
 	rm -rf env/*.class

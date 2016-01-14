@@ -38,33 +38,33 @@ public class FunctionCard{
 	}
 
 	public FunctionCard(String type, String item){
-		if(type == "break"){
+		if(type.equals("break")){
 			break_card = true;
-			if(item == "pick"){
+			if(item.equals("pick")){
 				kind = 0;
-			}else if(item == "oil_lamp"){
+			}else if(item.equals("oil_lamp")){
 				kind = 1;
-			}else if(item == "mine_cart"){
+			}else if(item.equals("mine_cart")){
 				kind = 2;
 			}
-		}else if(type == "fix"){
+		}else if(type.equals("fix")){
 			fix_card = true;
-			if(item == "pick"){
+			if(item.equals("pick")){
 				kind = 0;
-			}else if(item == "oil_lamp"){
+			}else if(item.equals("oil_lamp")){
 				kind = 1;
-			}else if(item == "mine_cart"){
+			}else if(item.equals("mine_cart")){
 				kind = 2;
-			}else if(item == "pick & oil_lamp"){
+			}else if(item.equals("pick & oil_lamp")){
 				kind = 3;
-			}else if(item == "oil_lamp & mine_cart"){
+			}else if(item.equals("oil_lamp & mine_cart")){
 				kind = 4;
-			}else if(item == "mine_cart & pick"){
+			}else if(item.equals("mine_cart & pick")){
 				kind = 5;
 			}
-		}else if(type == "map"){
+		}else if(type.equals("map")){
 			map_card = true;
-		}else if(type == "collapse"){
+		}else if(type.equals("collapse")){
 			collapse_card = true;
 		}else {
 			System.out.println("[ERROR] FunctionCard new error: No such kind");
