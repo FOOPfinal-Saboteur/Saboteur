@@ -167,13 +167,13 @@ public class Map{
 			if(hSideCTS[x][y+1])
 				vSideCTS[x+1][y] = true;
 		}
-		if(pos[x][y].getConnect(5)){
+		if(pos[x][y].getConnect(4)){
 			if(hSideCTS[x][y])
 				hSideCTS[x][y+1] = true;
 			if(hSideCTS[x][y+1])
 				hSideCTS[x][y] = true;
 		}
-		if(pos[x][y].getConnect(6)){
+		if(pos[x][y].getConnect(5)){
 			if(vSideCTS[x][y])
 				vSideCTS[x+1][y] = true;
 			if(vSideCTS[x+1][y])
@@ -266,6 +266,9 @@ public class Map{
 			for(int j = 0; j < 5; j ++){
 				if(!pos[i][j].getHaveCard())
 					continue;
+				if(i == 9 &&(j == 0 || j == 2 || j == 4))
+					continue;
+				System.out.println(i +" " + j);
 				int centerx = i * 4 + 2;
 				int centery = j * 4 + 2;
 				if(pos[i][j].getConnect(0)){
@@ -284,13 +287,13 @@ public class Map{
 					simpleMap[centerx][centery + 1] = '|';
 					simpleMap[centerx][centery - 1] = '|';
 				}
-				if(pos[i][j].getConnect(0)){
+				if(pos[i][j].getConnect(5)){
 					simpleMap[centerx - 1][centery] = '-';
 					simpleMap[centerx + 1][centery] = '-';
 				}
 
 			}
-		for(int j = 21; j >= 0; j--){
+		for(int j = 20; j >= 0; j--){
 			for(int i = 0; i < 41; i ++)
 				System.out.print(simpleMap[i][j]);
 			System.out.print("\n");

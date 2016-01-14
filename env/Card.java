@@ -18,7 +18,7 @@ public class Card{
 		   type.equals("break")||
 		   type.equals("map")||
 		   type.equals("collapse")
-		)
+		){
 				is_road = false;
 				is_function = true;
 				my_item = new String(item);
@@ -29,7 +29,7 @@ public class Card{
 		
 	}
 	public Card(String cmd){
-		if(cmd.eauals("intersection")||
+		if(cmd.equals("intersection")||
 		   cmd.equals("longT")||
 		   cmd.equals("shortT")||
 		   cmd.equals("longI")||

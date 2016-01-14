@@ -7,7 +7,7 @@ public class  MapTest{
 		Scanner scanner = new Scanner(System.in);
 		int x,y;
 		while(true){
-			System.out.println("Action:(place//break./map)");
+			System.out.println("Action:(place//break/map)");
 			cmd = scanner.next();
 			if(cmd.equals("place")){
 				System.out.println("What road you want:");
