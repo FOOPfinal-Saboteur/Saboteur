@@ -29,7 +29,7 @@ public class Card{
 		}
 	}
 	public Card(String cmd){
-		switch (type){
+		switch (cmd){
 			case "intersection":
 			case "longT":
 			case "shortT":
