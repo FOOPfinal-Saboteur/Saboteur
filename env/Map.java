@@ -45,7 +45,7 @@ class Position{
 	}
 
 	public void setHaveCard(boolean b){ haveCard = b; }
-	public void setCandidate(boolean b){ isCandidate = b; }
+	public void setCandidate(boolean b){ isCandidate = b; System.out.println("YEAHYEAHYEAH // "+b);}
 }
 
 public class Map{
@@ -186,17 +186,21 @@ public class Map{
 		if(x > 0 && !pos[x-1][y].getHaveCard()){ // Left
 			if(vSideCTS[x][y])
 				pos[x-1][y].setCandidate(true);
-		}else if(x < 8 && !pos[x+1][y].getHaveCard()){ // Right
+		}
+		if(x < 8 && !pos[x+1][y].getHaveCard()){ // Right
 			if(vSideCTS[x+1][y])
 				pos[x+1][y].setCandidate(true);
-		}else if(x == 8 && (y == 1 | y == 3)
+		}
+		if(x == 8 && (y == 1 || y == 3)
 				&& !pos[x+1][y].getHaveCard()){ // Right
 			if(vSideCTS[x+1][y])
 				pos[x+1][y].setCandidate(true);
-		}else if(y > 0 && !pos[x][y-1].getHaveCard()){ // Bottom
+		}
+		if(y > 0 && !pos[x][y-1].getHaveCard()){ // Bottom
 			if(hSideCTS[x][y])
 				pos[x][y-1].setCandidate(true);
-		}else if(y < 4 && !pos[x][y+1].getHaveCard()){ // Top
+		}
+		if(y < 4 && !pos[x][y+1].getHaveCard()){ // Top
 			if(hSideCTS[x][y+1])
 				pos[x][y+1].setCandidate(true);
 		}
