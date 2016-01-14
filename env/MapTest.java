@@ -11,8 +11,16 @@ public class  MapTest{
 			cmd = scanner.next();
 			if(cmd.equals("place")){
 				System.out.println("What road you want:");
+				System.out.println("intersection/longT/shortT/longI/shortI");
+				System.out.println("LeftTop/RightTop/fullblock/longTblock/shortTblock");
+				System.out.println("LeftTopblock/RightTopblock/longDeadEnd/shortDeadEnd");
 				String kind = scanner.next();
 				RoadCard card = new RoadCard(kind);
+				if(!card.getSuccess()){
+					System.out.println("no what you want");
+					continue;
+				}
+				System.out.println(card);
 				System.out.println("Where to place:");
 				x = scanner.nextInt();
 				y = scanner.nextInt();

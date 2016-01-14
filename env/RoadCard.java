@@ -126,6 +126,12 @@ public class RoadCard{
 	}
 
 	/* Accessor */
+	public boolean getSuccess(){
+		for(int i = 0; i < 4; i ++)
+			if(getBind(i))
+				return true;
+		return false;
+	}
 	public boolean getBind(int n){
 		if(n >= 4 || n < 0){
 			System.out.println("No such bind");
@@ -141,7 +147,12 @@ public class RoadCard{
 		}else
 			return connect[n];
 	}
-
+	public boolean isBlock(){
+		for(int i = 0; i < 6; i ++)
+			if(connect[i])
+				return false;
+		return true;
+	}
 	/* Method */ 
 	public void swap(boolean a, boolean b){
 		boolean tmp;
@@ -152,5 +163,36 @@ public class RoadCard{
 		swap(bind[1], bind[3]);
 		swap(connect[0], connect[2]);
 		swap(connect[1], connect[3]);
+	}
+	public String toString(){
+		char[][] table = new char[3][3];
+		for(int i = 0; i < 3; i ++)
+			for(int j = 0; j < 3; j ++)
+				table[i][j] = ' ';
+		if(getConnect(0)) table[0][0] = '/';
+		if(getConnect(1)) table[2][0] = '\\';
+		if(getConnect(2)) table[2][2] = '/';
+		if(getConnect(3)) table[0][2] = '\\';
+		if(getConnect(4)){
+			table[0][1] = '|';
+			table[2][1] = '|';
+		}
+		if(getConnect(5)){
+			table[1][0] = '-';
+			table[1][2] = '-';
+		}
+		if(!getBind(0)) table[0][1] = 'x';
+		if(!getBind(1)) table[1][0] = 'x';
+		if(!getBind(2)) table[2][1] = 'x';
+		if(!getBind(3)) table[1][2] = 'x';
+		if(isBlock())
+			table[1][1] = 'b';
+
+		String toReturn = "";
+		for(int i = 0; i <3; i++){
+			String str = new String(table[i]);
+			toReturn = toReturn.concat(str + "\n");
+		}
+		return toReturn;
 	}
 }

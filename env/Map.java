@@ -21,6 +21,7 @@ class Position{
 	public boolean getIsCandidate(){ return isCandidate; }
 	public boolean getBind(int n){ return card.getBind(n); }
 	public boolean getConnect(int n){ return card.getConnect(n); }
+	public boolean isBlock(){ return card.isBlock(); } 
 
 	/* Mutator */
 	public boolean setCard(RoadCard c){
@@ -291,6 +292,16 @@ public class Map{
 					simpleMap[centerx - 1][centery] = '-';
 					simpleMap[centerx + 1][centery] = '-';
 				}
+				if(!pos[i][j].getBind(0))
+					simpleMap[centerx][centery + 2] = 'x';
+				if(!pos[i][j].getBind(1))
+					simpleMap[centerx - 2][centery] = 'x';
+				if(!pos[i][j].getBind(2))
+					simpleMap[centerx][centery - 2] = 'x';
+				if(!pos[i][j].getBind(3))
+					simpleMap[centerx + 2][centery] = 'x';
+				if(pos[i][j].isBlock())
+					simpleMap[centerx][centery] = 'b';
 
 			}
 		for(int j = 20; j >= 0; j--){
