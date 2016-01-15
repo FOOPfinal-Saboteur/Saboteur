@@ -58,11 +58,12 @@ class ActiveStatus{
 public class Player{
 
 	/* Member variable */
-	private ArrayList<Card> hand;
-	private int card_num;
-	private String name;
-	private int role; // 0:Saboteur, 1:Miner  
-	private ActiveStatus status = new ActiveStatus();
+	protected ArrayList<Card> hand;
+	protected int card_num;
+	protected String name;
+	protected int role; // 0:Saboteur, 1:Miner  
+	protected ActiveStatus status = new ActiveStatus();
+	protected boolean isAI;
 
 	/* Constructor */
 	public Player(String _name, int _role, int _num){
@@ -70,6 +71,7 @@ public class Player{
 		name = new String(_name);
 		role = _role;
 		card_num = _num;
+		isAI = false;
 	}
 	public Player(String _name, String _role, int _num){
 		hand = new ArrayList<Card>();
@@ -80,6 +82,7 @@ public class Player{
 			role = 1;
 		}
 		card_num = _num;
+		is_AI = false;
 	}
 
 	/* Accessor */
@@ -110,7 +113,7 @@ public class Player{
 //		System.out.println(toReturn);
 		return toReturn;		
 	}
-
+	public boolean isAI(){return isAI;}
 	/* Mutator */
 		/* About Hand */
 	public boolean setHand(ArrayList<Card> cards){
