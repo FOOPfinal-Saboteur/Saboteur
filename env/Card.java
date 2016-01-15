@@ -41,6 +41,8 @@ public class Card{
 		   cmd.equals("shortTblock")||
 		   cmd.equals("LeftTopblock")||
 		   cmd.equals("RightTopblock")||
+		   cmd.equals("longIblock")||
+		   cmd.equals("shortIblock")||
 		   cmd.equals("longDeadEnd")||
 		   cmd.equals("shortDeadEnd")
 		   ){
@@ -54,11 +56,11 @@ public class Card{
 	}
 	public Card(Card card){
 		if(card.IsFunction()){
-			my_type = new String(card.getType());
-			my_item = new String(card.getItem());
+			my_type = card.getType();
+			my_item = card.getItem();
 		}
 		if(card.IsRoad())
-			my_type = new String(card.getType());
+			my_type = card.getType();
 	}
 	/* Accessor */
 	public FunctionCard Function(){

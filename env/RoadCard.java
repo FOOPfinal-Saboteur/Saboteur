@@ -96,7 +96,7 @@ public class RoadCard{
 			else if(cmd.equals("LeftTopblock")){
 				_bind[12] = new boolean[] {_O, _O, _X, _X};
 				_connect[12] = new boolean[] {_X, _X, _X, _X, _X, _X};
-				_case = 13;
+				_case = 12;
 			}
 			else if(cmd.equals("RightTopblock")){
 				_bind[13] = new boolean[] {_O, _X, _X, _O};

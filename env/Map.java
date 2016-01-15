@@ -58,7 +58,7 @@ class Position{
 
 	public void setHaveCard(boolean b){ haveCard = b; }
 	public void setDestination(boolean d,boolean g){isDestination = d; isGold = g;}
-	public void setCandidate(boolean b){ isCandidate = b; System.out.println("YEAHYEAHYEAH // "+b);}
+	public void setCandidate(boolean b){ isCandidate = b;/* System.out.println("YEAHYEAHYEAH // "+b);*/}
 }
 
 public class Map{

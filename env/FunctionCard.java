@@ -101,16 +101,16 @@ public class FunctionCard{
 			case 1:
 				toReturn = toReturn.concat("oil_lamp");
 				break;
-			case 3:
+			case 2:
 				toReturn = toReturn.concat("mine_cart");
 				break;
-			case 4:
+			case 3:
 				toReturn = toReturn.concat("pick & oil_lamp");
 				break;
-			case 5:
+			case 4:
 				toReturn = toReturn.concat("oil_lamp & mine_cart");
 				break;
-			case 6:
+			case 5:
 				toReturn = toReturn.concat("mine_cart & pick");
 				break;
 			default:	

@@ -5,8 +5,8 @@ import java.io.*;
 public class Deck{
 	public static String[] func = {
 		"fix","break","map","collapse","pick",
-		"oil_lamp","mine_cart","pick & oil_lamp","oil_lamp & mine_cart",
-		"mine_cart & pick","whatever"};
+		"oil_lamp","mine_cart","pick & oil_lamp","oil_lamp & mine_cart","mine_cart & pick",
+		"whatever"};
 	public static String[] road = {
 		"intersection","longT","shortT","longI","shortI",
 		"LeftTop","RightTop",  "fullblock","longTblock","shortTblock",
@@ -19,12 +19,12 @@ public class Deck{
 		Card card;
 		//collasp
 		for(int i = 0; i < 3; i ++){
-			card = new Card(func[3],func[11]);
+			card = new Card(func[3],func[10]);
 			theDeck.add(card);
 		}
 		//map
 		for(int i = 0; i < 3; i ++){
-			card = new Card(func[2],func[11]);
+			card = new Card(func[2],func[10]);
 			theDeck.add(card);
 		}
 		//break
@@ -46,11 +46,11 @@ public class Deck{
 			theDeck.add(card);
 		}
 		//double fix
+		card = new Card(func[0],func[7]);
+		theDeck.add(card);
 		card = new Card(func[0],func[8]);
 		theDeck.add(card);
 		card = new Card(func[0],func[9]);
-		theDeck.add(card);
-		card = new Card(func[0],func[10]);
 		theDeck.add(card);
 		//road Card
 		//dead end
@@ -61,7 +61,7 @@ public class Deck{
 		card = new Card(road[7]);
 		theDeck.add(card);		
 		for(int i = 0; i < 5; i ++){
-			for(int j = 0; j < 7; i ++){
+			for(int j = 0; j < 7; j ++){
 				card = new Card(road[j]);
 				theDeck.add(card);		
 			}		
@@ -70,7 +70,7 @@ public class Deck{
 	Card giveACard(){
 		Random rand = new Random();
 		int r = rand.nextInt(theDeck.size());
-		Card toReturn = new Card(theDeck.get(r));
+		Card toReturn = theDeck.get(r);
 		theDeck.remove(r);
 		return toReturn;
 	}

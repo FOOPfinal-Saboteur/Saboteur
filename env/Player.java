@@ -66,12 +66,14 @@ public class Player{
 
 	/* Constructor */
 	public Player(String _name, int _role, int _num){
-		name = _name;
+		hand = new ArrayList<Card>();
+		name = new String(_name);
 		role = _role;
 		card_num = _num;
 	}
 	public Player(String _name, String _role, int _num){
-		name = _name;
+		hand = new ArrayList<Card>();
+		name = new String(_name);
 		if(_role == "Saboteur"){
 			role = 0;
 		}else if(_role == "Miner"){
@@ -94,12 +96,14 @@ public class Player{
 		String toReturn = new String();
 		for(Card card:hand)
 			toReturn = toReturn.concat(card.toString() + "\n");
-		return new String(toReturn);
+//		System.out.println(toReturn);
+		return toReturn;
 		
 	}
 	public String showStatus(){
-		String toReturn = new String(status.toString());
-		toReturn.concat(showHand());
+		String toReturn = status.toString();
+		toReturn += showHand();
+//		System.out.println(toReturn);
 		return toReturn;		
 	}
 
@@ -130,6 +134,8 @@ public class Player{
 			System.out.println("[ERROR] Assign card error: too much on hand");
 			return false; // exception
 		}else{
+//			System.out.println(_card);
+//			Card put_in = new Card(_card);
 			hand.add(_card);
 			return true;
 		}
@@ -184,7 +190,10 @@ public class Player{
 	}
 	/* Method */
 	public String toString(){
-		return new String("name:" + name +"\n" + showStatus());
+		String _role = new String();
+		_role += (role == 0)? "Saboteur":"Miner";
+//		System.out.println(showStatus());
+		return new String("name:" + name +"\n" +"role:" + _role +"\n"+ showStatus());
 	} 
 	
 }
