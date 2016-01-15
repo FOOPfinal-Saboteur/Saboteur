@@ -6,12 +6,14 @@ public class Card{
 	/* Member variable */
 	protected boolean is_function;
 	protected boolean is_road;
+	protected boolean is_rotate;
 	private String my_item;
 	private String my_type;
 	/* Constructor */
 	public Card(){
 		is_function = false;
 		is_road = false;
+		is_rotate = false;
 	}
 	public Card(String type, String item){
 		if(type.equals("fix")||
@@ -21,6 +23,7 @@ public class Card{
 		){
 				is_road = false;
 				is_function = true;
+				is_rotate = false;
 				my_item = new String(item);
 				my_type = new String(type);
 		}
@@ -48,6 +51,7 @@ public class Card{
 		   ){
 			is_road = true;
 			is_function = false;
+			is_rotate = false;
 			my_type = new String(cmd);
 		}
 		else
@@ -58,12 +62,14 @@ public class Card{
 		if(card.IsFunction()){
 			is_road = false;
 			is_function = true;
+			is_rotate = false;
 			my_type = card.getType();
 			my_item = card.getItem();
 		}
 		if(card.IsRoad()){
 			is_road =true;
 			is_function = false;
+			is_rotate = card.IsRotate();
 			my_type = card.getType();
 		}
 //		System.out.println(my_type +"  How\n");
@@ -82,20 +88,27 @@ public class Card{
 			System.out.println("[ERROR] This is not a road card!! You whore!!");
 			return null;
 		}
-		RoadCard toReturn = new RoadCard(my_type);
+		RoadCard toReturn = new RoadCard(my_type,is_rotate);
 		return toReturn;
 	
+	}
+	public boolean rotateCard(){
+		if(is_function)
+			return false;
+		is_rotate = !is_rotate;
+		return true;
 	}
 	public String getItem(){return new String(my_item);}
 	public String getType(){return new String(my_type);}
 	public boolean IsFunction(){return is_function;}
 	public boolean IsRoad(){return is_road;}
+	public boolean IsRotate(){return is_rotate;};
 	/* Method */ 
 	public String toString(){
 		if(is_function)
 			return new String(new FunctionCard(my_type,my_item).toString());
 		else if(is_road)
-			return new String(new RoadCard(my_type).toString());
+			return new String(new RoadCard(my_type,is_rotate).toString());
 		else
 			return new  String("Empty");
 	}

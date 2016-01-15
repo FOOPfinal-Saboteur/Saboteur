@@ -11,13 +11,29 @@ public class RoadCard{
 		/* 0:LeftTop, 1:LeftBottom, 3:RightBottom
 		   4:RightTop, 5:Vertical, 6:Horizontal */
 	/* Constructor */
-	public RoadCard(boolean[] b, boolean[] c){
+	private boolean isRotate;
+	public RoadCard(boolean[] b, boolean[] c,boolean rotate){
 		for(int i = 0; i < 4; i++)
 			bind[i] = b[i];
 		for(int i = 0; i < 6; i++)
 			connect[i] = c[i];
+		isRotate = false;
+		if(rotate){
+			isRotate = true;
+			rotate();
+		}
+		
 	}
-
+	public RoadCard(String cmd,boolean rotate){
+		RoadCard tmp = new RoadCard(cmd);
+		for(int i = 0; i < 4; i ++)
+			bind[i] = tmp.getBind(i);
+		for(int i = 0; i < 6; i ++)
+			connect[i] = tmp.getConnect(i);
+		isRotate = rotate;
+		if(isRotate)
+			rotate();
+	}
 	public RoadCard(String cmd){
 		boolean _O = true;
 		boolean _X = false;
@@ -123,6 +139,7 @@ public class RoadCard{
 				for(int i = 0; i < 6; i++)
 					connect[i] = _connect[_case][i];
 			}
+			isRotate = false;
 	}
 
 	/* Accessor */
@@ -147,6 +164,7 @@ public class RoadCard{
 		}else
 			return connect[n];
 	}
+	public boolean getRotate(){return isRotate;}
 	public boolean isBlock(){
 		for(int i = 0; i < 6; i ++)
 			if(connect[i])
@@ -160,6 +178,7 @@ public class RoadCard{
 		tmp = bind[1]; bind[1] = bind[3]; bind[3] = tmp;
 		tmp = connect[0]; connect[0] = connect[2]; connect[2] = tmp;
 		tmp = connect[1]; connect[1] = connect[3]; connect[3] = tmp;
+		isRotate = !isRotate;
 	}
 	public String toString(){
 		char[][] table = new char[3][3];

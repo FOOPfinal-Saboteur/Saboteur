@@ -89,13 +89,17 @@ public class Player{
 			return null; // exception
 		}else{
 			Card toReturn = new Card(hand.get(index));
+			System.out.println("what i get\n" + toReturn);
 			return toReturn;
 		}
 	}
 	public String showHand(){
 		String toReturn = new String();
-		for(Card card:hand)
-			toReturn = toReturn.concat(card.toString() + "\n");
+		int i = 0;
+		for(Card card:hand){
+			toReturn = toReturn.concat(i +"\n" + card.toString() + "\n");
+			i ++;
+		}
 //		System.out.println(toReturn);
 		return toReturn;
 		
@@ -140,6 +144,18 @@ public class Player{
 			hand.add(put_in);
 			return true;
 		}
+	}
+	public boolean rotateCard(int num){
+		if(num >= hand.size() || num < 0){
+			System.out.println("[Error] No such card");
+			return false;
+		}
+		//experiment
+		if(hand.get(num).IsFunction()){
+			System.out.println("Don't rotate function card");
+			return false;
+		}
+		return hand.get(num).rotateCard();
 	}
 		/* Active Status */
 	public boolean destroy(String cmd){
