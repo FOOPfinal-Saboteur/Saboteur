@@ -81,4 +81,41 @@ public class FunctionCard{
 
 	/* Method */ 
 
+	//to String
+	public String toString(){
+		String toReturn = new String();
+		if(map_card)
+			toReturn = toReturn.concat("map");
+		if(collapse_card)
+			toReturn = toReturn.concat("collasp");
+		if(map_card || collapse_card)
+			return toReturn;
+		if(break_card)
+			toReturn = toReturn.concat("break:");
+		if(fix_card)
+			toReturn = toReturn.concat("fix:");
+		switch(kind){
+			case 0:
+				toReturn = toReturn.concat("pick");
+				break;
+			case 1:
+				toReturn = toReturn.concat("oil_lamp");
+				break;
+			case 3:
+				toReturn = toReturn.concat("mine_cart");
+				break;
+			case 4:
+				toReturn = toReturn.concat("pick & oil_lamp");
+				break;
+			case 5:
+				toReturn = toReturn.concat("oil_lamp & mine_cart");
+				break;
+			case 6:
+				toReturn = toReturn.concat("mine_cart & pick");
+				break;
+			default:	
+				toReturn = new String("ERROR");
+		}
+		return toReturn;
+	}
 }

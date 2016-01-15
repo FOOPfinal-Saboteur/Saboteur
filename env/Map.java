@@ -7,21 +7,33 @@ class Position{
 	/* Member variable */
 	private boolean haveCard;
 	private boolean isCandidate;
+	private boolean isDestination;
+	private boolean isGold;
 	private RoadCard card;
 
 	/* Constructor */
 	public Position(){
 		haveCard = false;
 		isCandidate = false;
+		isDestination = false;
+		isGold = false;
 		card = null;
 	}
 
 	/* Accessor */
 	public boolean getHaveCard(){ return haveCard; }
 	public boolean getIsCandidate(){ return isCandidate; }
+	public boolean getIsDestination(){return isDestination;}
+	public boolean getIsGold(){return isGold;}
 	public boolean getBind(int n){ return card.getBind(n); }
-	public boolean getConnect(int n){ return card.getConnect(n); }
-	public boolean isBlock(){ return card.isBlock(); } 
+	public boolean getBindToAny(){
+		for(int i = 0; i < 4; i ++)
+			if(card.getBind(i))
+				return true;
+		return false;
+	}
+	public boolean getConnect(int n){ return card.getConnect(n);}
+	public boolean getIsBlock(){ return card.isBlock();}
 
 	/* Mutator */
 	public boolean setCard(RoadCard c){
@@ -45,6 +57,7 @@ class Position{
 	}
 
 	public void setHaveCard(boolean b){ haveCard = b; }
+	public void setDestination(boolean d,boolean g){isDestination = d; isGold = g;}
 	public void setCandidate(boolean b){ isCandidate = b; System.out.println("YEAHYEAHYEAH // "+b);}
 }
 
@@ -84,7 +97,11 @@ public class Map{
 		pos[1][3].setCandidate(true); // Top
 		pos[0][2].setCandidate(true); // Left
 		pos[2][2].setCandidate(true); // Right
-		/* set destinations */
+		/* set destinations*/
+		pos[9][0].setDestination(true,false); // Bottom
+		pos[9][2].setDestination(true,false); // Middle
+		pos[9][4].setDestination(true,false); // Top
+		// set destination have card
 		pos[9][0].setHaveCard(true); // Bottom
 		pos[9][2].setHaveCard(true); // Middle
 		pos[9][4].setHaveCard(true); // Top
@@ -256,7 +273,7 @@ public class Map{
 
 		return true;
 	}
-	public void printMap(){
+	public char[][] MapStatus(){
 		char[][] simpleMap = new char[41][21];
 		for(int i = 0; i < 41; i ++)
 			for(int j = 0; j < 21; j ++)
@@ -271,7 +288,9 @@ public class Map{
 			for(int j = 0; j < 5; j ++){
 				if(!pos[i][j].getHaveCard())
 					continue;
-				if(i == 9 &&(j == 0 || j == 2 || j == 4))
+				if(pos[i][j].getIsDestination())
+					continue;
+				if(!pos[i][j].getBindToAny())
 					continue;
 				System.out.println(i +" " + j);
 				int centerx = i * 4 + 2;
@@ -304,14 +323,25 @@ public class Map{
 					simpleMap[centerx][centery - 2] = 'x';
 				if(!pos[i][j].getBind(3))
 					simpleMap[centerx + 2][centery] = 'x';
-				if(pos[i][j].isBlock())
+				if(pos[i][j].getIsBlock())
 					simpleMap[centerx][centery] = 'b';
 
-			}
-		for(int j = 20; j >= 0; j--){
-			for(int i = 0; i < 41; i ++)
-				System.out.print(simpleMap[i][j]);
-			System.out.print("\n");
 		}
+		return simpleMap;
+	}
+	public String toString(){
+		char[][] charMap = MapStatus();
+		String toReturn = new String();
+		for(int j = 20; j >= 0; j--){
+			toReturn += (j % 4 == 2) ? Integer.toString(j/4):" ";
+			for(int i = 0; i < 41; i ++){
+				toReturn += charMap[i][j];
+			}
+			toReturn += "\n";
+		}
+		for(int i = 0; i < 42; i ++){
+			toReturn += (i % 4 == 3)? Integer.toString(i/4):" ";
+		}
+		return toReturn;
 	}
 } 

@@ -33,6 +33,7 @@ public class Card{
 		   cmd.equals("longT")||
 		   cmd.equals("shortT")||
 		   cmd.equals("longI")||
+		   cmd.equals("shortI")||
 		   cmd.equals("LeftTop")||
 		   cmd.equals("RightTop")||
 		   cmd.equals("fullblock")||
@@ -51,6 +52,14 @@ public class Card{
 			System.out.println("[ERROR] WTF do you want?? You bastard");
 	
 	}
+	public Card(Card card){
+		if(card.IsFunction()){
+			my_type = new String(card.getType());
+			my_item = new String(card.getItem());
+		}
+		if(card.IsRoad())
+			my_type = new String(card.getType());
+	}
 	/* Accessor */
 	public FunctionCard Function(){
 		if(!is_function){
@@ -58,8 +67,7 @@ public class Card{
 			return null;
 		}
 		FunctionCard toReturn = new FunctionCard(my_type,my_item);
-		return toReturn;
-	
+		return toReturn;	
 	} 
 	public RoadCard Road(){
 		if(!is_road){
@@ -70,14 +78,16 @@ public class Card{
 		return toReturn;
 	
 	}
+	public String getItem(){return new String(my_item);}
+	public String getType(){return new String(my_type);}
 	public boolean IsFunction(){return is_function;}
 	public boolean IsRoad(){return is_road;}
 	/* Method */ 
 	public String toString(){
 		if(is_function)
-			return new String("Function_Card");
+			return new String(new FunctionCard(my_type,my_item).toString());
 		else if(is_road)
-			return new String("Road_Card");
+			return new String(new RoadCard(my_type).toString());
 		else
 			return new  String("Empty");
 	}

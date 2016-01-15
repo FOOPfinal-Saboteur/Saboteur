@@ -36,7 +36,7 @@ public class  MapTest{
 					System.out.println("error");
 					continue;
 				}
-				map.printMap();
+				System.out.println(map);
 
 			}
 			else if (cmd.equals("break")){
@@ -45,10 +45,10 @@ public class  MapTest{
 				y = scanner.nextInt();
 				if(!map.breakRoad(x,y))
 					System.out.println("error");
-				map.printMap();
+				System.out.println(map);
 			}
 			else if(cmd.equals("map"))
-				map.printMap();
+				System.out.println(map);
 			else if(cmd.equals("bye"))
 				break;
 			else

@@ -41,7 +41,16 @@ class ActiveStatus{
 		}else if(cmd == "mine_cart"){
 			mine_cart = true;
 		}
-	}	
+	}
+	public String toString(){
+		String toReturn = new String("pick:");
+		toReturn = toReturn.concat(pick + "\n");
+		toReturn = toReturn.concat("oil_lamp:");
+		toReturn = toReturn.concat(oil_lamp + "\n");
+		toReturn = toReturn.concat("mine_cart:");
+		toReturn = toReturn.concat(mine_cart + "\n");
+		return new String(toReturn);
+	}
 
 	/* Method */
 }
@@ -77,8 +86,21 @@ public class Player{
 			System.out.println("[ERROR] Get card error: index out of bound");
 			return null; // exception
 		}else{
-			return hand.get(index);
+			Card toReturn = new Card(hand.get(index));
+			return toReturn;
 		}
+	}
+	public String showHand(){
+		String toReturn = new String();
+		for(Card card:hand)
+			toReturn = toReturn.concat(card.toString() + "\n");
+		return new String(toReturn);
+		
+	}
+	public String showStatus(){
+		String toReturn = new String(status.toString());
+		toReturn.concat(showHand());
+		return toReturn;		
 	}
 
 	/* Mutator */
@@ -119,16 +141,19 @@ public class Player{
 				status.destroy(cmd);
 				return true;
 			}
+			return false;
 		}else if(cmd == "oil_lamp"){
 			if(status.oil_lampOK()){
 				status.destroy(cmd);
 				return true;
 			}
+			return false;
 		}else if(cmd == "mine_cart"){
 			if(status.mine_cartOK()){
 				status.destroy(cmd);
 				return true;
 			}
+			return false;
 		}
 		System.out.println("[ERROR] destroy activeness error: command undefined");
 		return false;
@@ -140,24 +165,26 @@ public class Player{
 				status.fix(cmd);
 				return true;
 			}
+			return false;
 		}else if(cmd == "oil_lamp"){
 			if(!status.oil_lampOK()){
 				status.fix(cmd);
 				return true;
 			}
+			return false;
 		}else if(cmd == "mine_cart"){
 			if(!status.mine_cartOK()){
 				status.fix(cmd);
 				return true;
 			}
+			return false;
 		}
 		System.out.println("[ERROR] Fix activeness error: command undefined");
 		return false;
 	}
-
 	/* Method */
 	public String toString(){
-		return name;
+		return new String("name:" + name +"\n" + showStatus());
 	} 
 	
 }
