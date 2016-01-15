@@ -13,6 +13,8 @@ public class PlayerTest{
 			player.assignCard(deck.giveACard());
 		}
 		System.out.println(player);
-
+		String cmd ="";
+		while(true){
+		}
 	}
 }
