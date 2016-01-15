@@ -70,7 +70,7 @@ public class Deck{
 	Card giveACard(){
 		Random rand = new Random();
 		int r = rand.nextInt(theDeck.size());
-		Card toReturn = theDeck.get(r);
+		Card toReturn = new Card(theDeck.get(r));
 		theDeck.remove(r);
 		return toReturn;
 	}

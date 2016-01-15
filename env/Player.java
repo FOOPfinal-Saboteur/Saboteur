@@ -135,8 +135,9 @@ public class Player{
 			return false; // exception
 		}else{
 //			System.out.println(_card);
-//			Card put_in = new Card(_card);
-			hand.add(_card);
+			Card put_in = new Card(_card);
+//			System.out.println(put_in.toString());
+			hand.add(put_in);
 			return true;
 		}
 	}

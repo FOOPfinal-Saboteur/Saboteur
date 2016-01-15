@@ -56,11 +56,17 @@ public class Card{
 	}
 	public Card(Card card){
 		if(card.IsFunction()){
+			is_road = false;
+			is_function = true;
 			my_type = card.getType();
 			my_item = card.getItem();
 		}
-		if(card.IsRoad())
+		if(card.IsRoad()){
+			is_road =true;
+			is_function = false;
 			my_type = card.getType();
+		}
+//		System.out.println(my_type +"  How\n");
 	}
 	/* Accessor */
 	public FunctionCard Function(){
