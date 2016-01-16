@@ -49,9 +49,9 @@ Action.class: $(ENV)/Action.java
 	@echo "making: " $@
 	javac -d $(MAIN) -classpath $(MAIN) $(ENV)/FunctionCard.java $(ENV)/RoadCard.java $(ENV)/Action.java
 clean: 
-	rm -rf env/*.class
-	rm -rf GUI/*.class
-	rm -rf main/*.class
+	rm -rf env/*.class env/*.java~
+	rm -rf GUI/*.class GUI/*.java~
+	rm -rf main/*.class main/*.java~
 run:
 	@echo "Games start to run... "
 	java -cp $(MAIN) Saboteur

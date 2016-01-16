@@ -15,6 +15,7 @@ public class Action{
 	private RoadCard road;
 	private FunctionCard func;
 	private ToWhere toWhere;
+	private int fromWho;
 	private int toWhom;
 	//Constructor
 	public Action(){
@@ -24,9 +25,10 @@ public class Action{
 		func = null;
 		toWhere = new ToWhere(-1,-1);
 		toWhom = -1;
+		fromWho = -1;
 	}
 		// all card need to send these num
-	public Action(Card card, int _x, int _y, int whom){
+	public Action(Card card, int _x, int _y, int from, int whom){
 		if(card.IsFunction()){
 			func = card.Function();
 			road = null;
@@ -40,11 +42,14 @@ public class Action{
 			isFunction = false;
 		}
 		toWhere = new ToWhere(_x,_y);
+		fromWho = from;
 		toWhom = whom;
 	}
 	//Accessor
 	public boolean getIsOnMap(){return isOnMap;}
 	public boolean getIsFunction(){return isFunction;}
+	public int getFromWho(){return fromWho;}
+	public int getToWhom(){return toWhom;}
 	public RoadCard getRoadCard(){return new RoadCard(road);}
 	public FunctionCard getFunctionCard(){return new FunctionCard(func);}
 
