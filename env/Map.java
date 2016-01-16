@@ -108,6 +108,20 @@ public class Map{
 	}
 
 	/* Method */ 
+	public boolean receiveCard(Card card,int x,int y){
+		if(card.IsFunction()){
+			if(card.Function().isCollapse())
+				return breakRoad(x,y);
+		}
+		else if(card.IsRoad()){
+			return placeRoad(card.Road(),x,y);
+		}
+		else{
+			System.out.println("Invalid Card");
+			return false;
+		}
+		return false;
+	}
 	public boolean placeRoad(RoadCard c, int x, int y){
 		/* check position index */
 		if(x >= 10 || x < 0 || y >= 5 || y < 0){

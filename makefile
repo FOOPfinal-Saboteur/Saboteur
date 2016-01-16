@@ -1,4 +1,4 @@
-TARGET=Saboteur.class FunctionCard.class RoadCard.class Card.class Map.class Player.class Deck.class MapTest.class PlayerTest.class
+TARGET=Saboteur.class FunctionCard.class RoadCard.class Card.class Map.class Player.class Deck.class MapTest.class PlayerTest.class Action.class
 ENV=env
 GUI=gui
 MAIN=main
@@ -41,6 +41,9 @@ PlayerTest.class: $(ENV)/PlayerTest.java
 	@echo "making: " $@
 	javac -d $(MAIN) -classpath $(MAIN) $(ENV)/FunctionCard.java $(ENV)/RoadCard.java $(ENV)/Card.java $(ENV)/Deck.java $(ENV)/Map.java $(ENV)/Player.java $(ENV)/PlayerTest.java
 
+Action.class: $(ENV)/Action.java
+	@echo "making: " $@
+	javac -d $(MAIN) -classpath $(MAIN) $(ENV)/FunctionCard.java $(ENV)/RoadCard.java $(ENV)/Action.java
 clean: 
 	rm -rf env/*.class
 	rm -rf GUI/*.class

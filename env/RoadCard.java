@@ -24,6 +24,13 @@ public class RoadCard{
 		}
 		
 	}
+	public RoadCard(RoadCard old){
+		for(int i = 0; i < 4; i ++)
+			bind[i] = old.getBind(i);
+		for(int i = 0; i < 6; i ++)
+			connect[i] = old.getConnect(i);
+		isRotate = old.getRotate();
+	}
 	public RoadCard(String cmd,boolean rotate){
 		RoadCard tmp = new RoadCard(cmd);
 		for(int i = 0; i < 4; i ++)

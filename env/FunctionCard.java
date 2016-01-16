@@ -36,6 +36,17 @@ public class FunctionCard{
 				break;
 		}
 	}
+	public FunctionCard(FunctionCard old){ 
+			kind = old.itemKind();
+			if(old.isBreak())break_card = true;
+			else if(old.isFix())fix_card = true;
+			else if(old.isMap())map_card = true;
+			else if(old.isCollapse())collapse_card = true;
+			else{
+				System.out.println("[ERROR] FunctionCard new error: No such kind");
+			}
+		
+	}
 
 	public FunctionCard(String type, String item){
 		if(type.equals("break")){
@@ -75,7 +86,7 @@ public class FunctionCard{
 	public boolean isBreak(){ return break_card; }
 	public boolean isFix(){ return fix_card; }
 	public boolean isMap(){ return map_card; }
-	public boolean isCollape(){ return collapse_card; }
+	public boolean isCollapse(){ return collapse_card; }
 		/* For break & fix */
 	public int itemKind(){ return kind;}
 
