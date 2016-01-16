@@ -82,7 +82,7 @@ public class Player{
 			role = 1;
 		}
 		card_num = _num;
-		is_AI = false;
+		isAI = false;
 	}
 
 	/* Accessor */

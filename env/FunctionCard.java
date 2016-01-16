@@ -45,7 +45,7 @@ public class FunctionCard{
 			else{
 				System.out.println("[ERROR] FunctionCard new error: No such kind");
 			}
-		}
+		
 	}
 
 	public FunctionCard(String type, String item){
@@ -86,7 +86,7 @@ public class FunctionCard{
 	public boolean isBreak(){ return break_card; }
 	public boolean isFix(){ return fix_card; }
 	public boolean isMap(){ return map_card; }
-	public boolean isCollape(){ return collapse_card; }
+	public boolean isCollapse(){ return collapse_card; }
 		/* For break & fix */
 	public int itemKind(){ return kind;}
 
