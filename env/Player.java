@@ -1,28 +1,28 @@
 import java.lang.*;
 import java.util.*;
 import java.io.*;
-
+/*
 class ActiveStatus{
-	/* Three status */
+	// Three status 
 	private boolean pick; // 十字鎬
 	private boolean oil_lamp; // 油燈
 	private boolean mine_cart; // 礦車
 
-	/* Constructor */
+	// Constructor 
 	public ActiveStatus(){
 		pick = true;
 		oil_lamp = true;
 		mine_cart = true;
 	}
 
-	/* Accessor */
+	// Accessor
 	public boolean pickOK(){ return pick; }
 	public boolean oil_lampOK(){ return oil_lamp; }
 	public boolean mine_cartOK(){ return mine_cart; }
 	public boolean isActive(){
 		return pick && oil_lamp && mine_cart;
 	}
-	/* Mutator */
+	// Mutator
 	public void destroy(String cmd){
 		if(cmd == "pick"){
 			pick = false;
@@ -52,8 +52,9 @@ class ActiveStatus{
 		return new String(toReturn);
 	}
 
-	/* Method */
+	// Method 
 }
+*/
 
 public class Player{
 

@@ -2,9 +2,13 @@ import java.lang.*;
 import java.util.*;
 import java.io.*;
 
+class MyMap{
+}
+
 public class AIPlayer extends Player{
 	//0:Saboteur , 1:Miner
 	int[] otherRole;
+
 	public AIPlayer(String _name,int _role,int _num,int p_num){
 		super(_name,_role,_num);
 		isAI = true;
