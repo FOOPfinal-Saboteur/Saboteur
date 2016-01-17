@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -16,8 +17,8 @@
          <children>
             <HBox fx:id="s1_id" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #EBD5BC;">
                <children>
-                  <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="30.0" />
-                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="170.0" style="-fx-background-color: #EBD5BC;">
+                  <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="50.0" />
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="150.0" style="-fx-background-color: #EBD5BC;">
                      <children>
                         <Label fx:id="p1_id" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="146.0" text="Player1">
                            <font>
@@ -44,8 +45,8 @@
             </HBox>
             <HBox fx:id="s2_id" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #EBD5BC;">
                <children>
-                  <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="30.0" />
-                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="170.0" style="-fx-background-color: #EBD5BC;">
+                  <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="50.0" />
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="150.0" style="-fx-background-color: #EBD5BC;">
                      <children>
                         <Label fx:id="p2_id" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="146.0" text="Player2">
                            <cursor>
@@ -72,8 +73,8 @@
             </HBox>
             <HBox fx:id="s3_id" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #EBD5BC;">
                <children>
-                  <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="30.0" />
-                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="170.0" style="-fx-background-color: #EBD5BC;">
+                  <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="50.0" />
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="150.0" style="-fx-background-color: #EBD5BC;">
                      <children>
                         <Label fx:id="p3_id" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="146.0" text="Player3">
                            <cursor>
@@ -100,8 +101,8 @@
             </HBox>
             <HBox fx:id="s4_id" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #EBD5BC;">
                <children>
-                  <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="30.0" />
-                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="170.0" style="-fx-background-color: #EBD5BC;">
+                  <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="50.0" />
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="150.0" style="-fx-background-color: #EBD5BC;">
                      <children>
                         <Label fx:id="p4_id" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="146.0" text="Player4">
                            <cursor>
@@ -128,8 +129,8 @@
             </HBox>
             <HBox fx:id="s5_id" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #EBD5BC;">
                <children>
-                  <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="30.0" />
-                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="170.0" style="-fx-background-color: #EBD5BC;">
+                  <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="50.0" />
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="150.0" style="-fx-background-color: #EBD5BC;">
                      <children>
                         <Label fx:id="p5_id" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="146.0" text="Player5">
                            <cursor>
@@ -156,8 +157,8 @@
             </HBox>
             <HBox fx:id="s6_id" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #EBD5BC;">
                <children>
-                  <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="30.0" />
-                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="170.0" style="-fx-background-color: #EBD5BC;">
+                  <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="50.0" />
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="150.0" style="-fx-background-color: #EBD5BC;">
                      <children>
                         <Label fx:id="p6_id" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="146.0" text="Player6">
                            <cursor>
@@ -184,8 +185,8 @@
             </HBox>
             <HBox fx:id="s7_id" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #EBD5BC;">
                <children>
-                  <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="30.0" />
-                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="170.0" style="-fx-background-color: #EBD5BC;">
+                  <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="50.0" />
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="150.0" style="-fx-background-color: #EBD5BC;">
                      <children>
                         <Label fx:id="p7_id" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="146.0" text="Player7">
                            <cursor>
@@ -212,8 +213,8 @@
             </HBox>
             <HBox fx:id="s8_id" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #EBD5BC;">
                <children>
-                  <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="30.0" />
-                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="170.0" style="-fx-background-color: #EBD5BC;">
+                  <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="50.0" />
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="150.0" style="-fx-background-color: #EBD5BC;">
                      <children>
                         <Label fx:id="p8_id" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="146.0" text="Player8">
                            <cursor>
@@ -240,8 +241,8 @@
             </HBox>
             <HBox fx:id="s9_id" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #EBD5BC;">
                <children>
-                  <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="30.0" />
-                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="170.0" style="-fx-background-color: #EBD5BC;">
+                  <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="50.0" />
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="150.0" style="-fx-background-color: #EBD5BC;">
                      <children>
                         <Label fx:id="p9_id" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="146.0" text="Player9">
                            <cursor>
@@ -268,8 +269,8 @@
             </HBox>
             <HBox fx:id="s10_id" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #EBD5BC;">
                <children>
-                  <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="30.0" />
-                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="170.0" style="-fx-background-color: #EBD5BC;">
+                  <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="50.0" />
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="150.0" style="-fx-background-color: #EBD5BC;">
                      <children>
                         <Label fx:id="p10_id" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="146.0" text="Player10">
                            <cursor>
@@ -294,11 +295,17 @@
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
             </HBox>
+            <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="200.0" />
+            <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="187.0" style="-fx-background-color: #800000;" text="Chatting Room" textFill="#fcf7f7" textOverrun="CLIP">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
          </children>
       </VBox>
-      <VBox prefHeight="720.0" prefWidth="650.0">
+      <VBox prefHeight="720.0" prefWidth="680.0">
          <children>
-            <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="700.0" style="-fx-background-color: #EBD5BC;">
+            <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="680.0" style="-fx-background-color: #EBD5BC;">
                <children>
                   <Label alignment="CENTER" prefHeight="40.0" prefWidth="14.0" textFill="#ab2828" textOverrun="CENTER_ELLIPSIS">
                      <font>
@@ -356,7 +363,7 @@
                   </ImageView>
                </children>
             </Pane>
-            <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="142.0" prefWidth="682.0" spacing="10.0" style="-fx-background-color: #EBD5BC;">
+            <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="142.0" prefWidth="680.0" spacing="8.0" style="-fx-background-color: #EBD5BC;">
                <children>
                   <ImageView fitHeight="120.0" fitWidth="95.0" layoutX="600.0" pickOnBounds="true" preserveRatio="true">
                      <image>

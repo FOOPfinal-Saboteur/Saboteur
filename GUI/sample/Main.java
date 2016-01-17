@@ -124,15 +124,15 @@ public class Main extends Application{
         /* Scene1 */
 
         GridPane grid = new GridPane();
-        grid.setAlignment(Pos.TOP_CENTER);
+        grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
         grid.setVgap(10);
-        grid.setPadding(new Insets(25));
+        grid.setPadding(new Insets(50));
 
-        Text scenetitle = new Text("Welcome to Saboteur");
+        Text scenetitle = new Text("Press anywhere to start");
         scenetitle.setFont(Font.font("Helvetica", FontWeight.BOLD, 36));
         scenetitle.setFill(Color.BROWN);
-        grid.add(scenetitle,0,0);
+        grid.add(scenetitle,0,10);
 
         /* Button btn1 = new Button("Press here to enter game");
         btn1.setOnAction(new EventHandler<ActionEvent>() {
@@ -151,7 +151,7 @@ public class Main extends Application{
         });
 
         grid.setId("pane1");
-        scene1 = new Scene(grid, 550, 398);
+        scene1 = new Scene(grid, 940, 705);
         scene1.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
 
         /* Scene2 */
@@ -246,9 +246,9 @@ public class Main extends Application{
         btn2.setId("ipad-grey");
         grid2.add(btn2,0,12);
 
-        grid2.setId("pane2");
-        scene2 = new Scene(grid2, 550, 398);
-        scene2.getStylesheets().addAll(this.getClass().getResource("button.css").toExternalForm());
+        grid2.setId("pane1");
+        scene2 = new Scene(grid2, 940, 705);
+        scene2.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
 
         /* Scene3 */
 
@@ -279,6 +279,7 @@ public class Main extends Application{
                     if(playerName.get(i).equals(typename.getCharacters().toString().trim())){
                         AlertBox.display("Attention!", "This name has been used!");
                         nameused = true;
+                        break;
                     }
                 }
                 System.out.println(typename.getCharacters().toString());
@@ -309,13 +310,13 @@ public class Main extends Application{
         });
         grid3.add(btn3,1,2);
 
-        grid3.setId("pane3");
-        scene3 = new Scene(grid3, 550, 398);
+        grid3.setId("pane1");
+        scene3 = new Scene(grid3, 940, 705);
         scene3.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
 
         /* Scene4(Game) */
 
-        BorderPane pane = new BorderPane();
+        /*BorderPane pane = new BorderPane();
         GridPane lefttop = new GridPane();
         lefttop.setAlignment(Pos.TOP_LEFT);
         lefttop.setHgap(10);
@@ -338,7 +339,7 @@ public class Main extends Application{
 
         pane.setRight(rightcol);
         pane.setTop(lefttop);
-        pane.setId("pane4");
+        pane.setId("pane4");*/
 
         // scene4 = new Scene(pane, 1080, 720);
         // scene4.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
