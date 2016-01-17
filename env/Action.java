@@ -2,6 +2,7 @@ import java.lang.*;
 import java.util.*;
 import java.io.*;
 public class Action{
+	private boolean discarding;
 	private boolean isOnMap;
 	private boolean isFunction;
 	private Card myCard;
@@ -12,6 +13,18 @@ public class Action{
 	private int toWhom;
 	//Constructor
 	public Action(){
+		discarding = false;
+		isOnMap = false;
+		isFunction = false;
+		myCard = null;
+		road = null;
+		func = null;
+		toWhere = new ToWhere(-1,-1);
+		toWhom = -1;
+		fromWho = -1;
+	}
+	public Action(boolean Discard){
+		discarding = true;
 		isOnMap = false;
 		isFunction = false;
 		myCard = null;
@@ -23,6 +36,7 @@ public class Action{
 	}
 		// all card need to send these num
 	public Action(Card card, int _x, int _y, int from, int whom){
+		discarding = false;
 		myCard = new Card(card);
 		if(card.IsFunction()){
 			func = card.Function();
