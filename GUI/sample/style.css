@@ -1,5 +1,5 @@
 #pane1{
-    -fx-background-image: url("saboteur2.jpg");
+    -fx-background-image: url("img/background/saboteur2.jpg");
     -fx-background-repeat: stretch;
     -fx-background-size: 550 398;
     -fx-background-position: center center;
@@ -14,6 +14,6 @@
 }
 
 #pane4{
-    -fx-background-color: IVORY;
+    -fx-background-color: LIGHTGRAY;
 }
 

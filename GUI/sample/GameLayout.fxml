@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="880.0" style="-fx-background-color: #EBD5BC;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.MainController">
+   <children>
+      <VBox alignment="TOP_CENTER" layoutX="680.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="200.0" style="-fx-background-color: #EBD5BC;">
+         <children>
+            <HBox fx:id="s1_id" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #EBD5BC;">
+               <children>
+                  <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="30.0" />
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="170.0" style="-fx-background-color: #EBD5BC;">
+                     <children>
+                        <Label fx:id="p1_id" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="146.0" text="Player1">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Label>
+                        <ImageView fitHeight="28.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/status-bar.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                     </children>
+                  </VBox>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </HBox>
+            <HBox fx:id="s2_id" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #EBD5BC;">
+               <children>
+                  <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="30.0" />
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="170.0" style="-fx-background-color: #EBD5BC;">
+                     <children>
+                        <Label fx:id="p2_id" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="146.0" text="Player2">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="28.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@img/status-bar.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </VBox>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </HBox>
+            <HBox fx:id="s3_id" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #EBD5BC;">
+               <children>
+                  <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="30.0" />
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="170.0" style="-fx-background-color: #EBD5BC;">
+                     <children>
+                        <Label fx:id="p3_id" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="146.0" text="Player3">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="28.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@img/status-bar.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </VBox>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </HBox>
+            <HBox fx:id="s4_id" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #EBD5BC;">
+               <children>
+                  <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="30.0" />
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="170.0" style="-fx-background-color: #EBD5BC;">
+                     <children>
+                        <Label fx:id="p4_id" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="146.0" text="Player4">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="28.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@img/status-bar.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </VBox>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </HBox>
+            <HBox fx:id="s5_id" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #EBD5BC;">
+               <children>
+                  <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="30.0" />
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="170.0" style="-fx-background-color: #EBD5BC;">
+                     <children>
+                        <Label fx:id="p5_id" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="146.0" text="Player5">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="28.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@img/status-bar.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </VBox>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </HBox>
+            <HBox fx:id="s6_id" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #EBD5BC;">
+               <children>
+                  <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="30.0" />
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="170.0" style="-fx-background-color: #EBD5BC;">
+                     <children>
+                        <Label fx:id="p6_id" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="146.0" text="Player6">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="28.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@img/status-bar.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </VBox>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </HBox>
+            <HBox fx:id="s7_id" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #EBD5BC;">
+               <children>
+                  <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="30.0" />
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="170.0" style="-fx-background-color: #EBD5BC;">
+                     <children>
+                        <Label fx:id="p7_id" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="146.0" text="Player7">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="28.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@img/status-bar.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </VBox>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </HBox>
+            <HBox fx:id="s8_id" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #EBD5BC;">
+               <children>
+                  <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="30.0" />
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="170.0" style="-fx-background-color: #EBD5BC;">
+                     <children>
+                        <Label fx:id="p8_id" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="146.0" text="Player8">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="28.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@img/status-bar.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </VBox>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </HBox>
+            <HBox fx:id="s9_id" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #EBD5BC;">
+               <children>
+                  <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="30.0" />
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="170.0" style="-fx-background-color: #EBD5BC;">
+                     <children>
+                        <Label fx:id="p9_id" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="146.0" text="Player9">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="28.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@img/status-bar.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </VBox>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </HBox>
+            <HBox fx:id="s10_id" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #EBD5BC;">
+               <children>
+                  <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="30.0" />
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="170.0" style="-fx-background-color: #EBD5BC;">
+                     <children>
+                        <Label fx:id="p10_id" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="146.0" text="Player10">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="28.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@img/status-bar.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </VBox>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox prefHeight="720.0" prefWidth="650.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="700.0" style="-fx-background-color: #EBD5BC;">
+               <children>
+                  <Label alignment="CENTER" prefHeight="40.0" prefWidth="14.0" textFill="#ab2828" textOverrun="CENTER_ELLIPSIS">
+                     <font>
+                        <Font name="System Font Bold" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="40.0" prefWidth="53.0" text="Mode:" textFill="#ab2828" textOverrun="CENTER_ELLIPSIS">
+                     <font>
+                        <Font name="System Font Bold" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="mode" alignment="CENTER" prefHeight="40.0" prefWidth="96.0" textFill="#53ab29" textOverrun="CENTER_ELLIPSIS">
+                     <font>
+                        <Font name="System Font Bold" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="40.0" prefWidth="163.0" text="Player Number:" textFill="#ab2828" textOverrun="CENTER_ELLIPSIS">
+                     <font>
+                        <Font name="System Font Bold" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="player_num" alignment="CENTER" prefHeight="40.0" prefWidth="53.0" textFill="#53ab29" textOverrun="CENTER_ELLIPSIS">
+                     <font>
+                        <Font name="System Font Bold" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="40.0" prefWidth="53.0" text="Role:" textFill="#ab2828" textOverrun="CENTER_ELLIPSIS">
+                     <font>
+                        <Font name="System Font Bold" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="role" alignment="CENTER" prefHeight="40.0" prefWidth="98.0" textFill="#53ab29" textOverrun="CENTER_ELLIPSIS">
+                     <font>
+                        <Font name="System Font Bold" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="40.0" prefWidth="81.0" text="Round:" textFill="#ab2828" textOverrun="CENTER_ELLIPSIS">
+                     <font>
+                        <Font name="System Font Bold" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="round" alignment="CENTER" prefHeight="40.0" prefWidth="60.0" text="1/3" textFill="#53ab29" textOverrun="CENTER_ELLIPSIS">
+                     <font>
+                        <Font name="System Font Bold" size="17.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="538.0" prefWidth="637.0">
+               <children>
+                  <ImageView fitHeight="538.0" fitWidth="637.0" layoutX="13.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/game/Z_Map.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="142.0" prefWidth="682.0" spacing="10.0" style="-fx-background-color: #EBD5BC;">
+               <children>
+                  <ImageView fitHeight="120.0" fitWidth="95.0" layoutX="600.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/game/Road_LongI.gif" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="120.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/game/Road_Intersection.gif" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="120.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/game/Road_LongTBlock.gif" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="120.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/game/Road_ShortT.gif" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="120.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/game/Func_Fix_cart.gif" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="120.0" fitWidth="112.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/game/Func_Break_pick.gif" />
+                     </image>
+                  </ImageView>
+                  <Separator orientation="VERTICAL" prefHeight="200.0" />
+                  <ImageView fitHeight="120.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/game/Road_Back.gif" />
+                     </image>
+                  </ImageView>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding></HBox>
+         </children>
+      </VBox>
+   </children>
+</Pane>
