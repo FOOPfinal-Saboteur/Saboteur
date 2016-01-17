@@ -89,6 +89,30 @@ public class FunctionCard{
 	public boolean isCollapse(){ return collapse_card; }
 		/* For break & fix */
 	public int itemKind(){ return kind;}
+	public String kindStr(){
+		String toReturn = new String();
+		switch kind{
+			case 0:
+				toReturn = new String("pick");
+				break;
+			case 1:
+				toReturn = new String("oil_lamp");
+				break;
+			case 2:
+				toReturn = new String("mine_cart");
+				break;
+			case 3:
+				toReturn = new String("pick & oil_lamp");
+				break;
+			case 4:
+				toReturn = new String("oil_lamp & mine_cart");
+				break;
+			case 5:
+				toReturn = new String("mine_cart & pick");
+				break;
+		}
+		return new String(toReturn);
+	}
 
 	/* Method */ 
 

@@ -18,9 +18,12 @@ public class GamerStatus extends ActiveStatus{
 	}
 	public boolean isPossibleMiner(){return g_miner >= 3;}
 	public boolean isPossibleKnowing(){return g_knowing >= 2;}
+	public boolean knowTop(){return watch_top;}
+	public boolean knowMid(){return watch_mid;}
+	public boolean knowBtm(){return watch_btm}
 	public int knowHowMany(){return g_knowing;}
 	public boolean isDefinitelyMiner(){return g_miner >= 100;}
-	public boolean isDefinitelySab(){return g_miner >= -100;}
+	public boolean isDefinitelySab(){return g_miner <= -100;}
 
 	public void destory_other(Card card,GamerStatus other){}
 	public void fix_other(Card card,GamerStatus other){}

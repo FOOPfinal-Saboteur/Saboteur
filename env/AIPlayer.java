@@ -39,6 +39,13 @@ class WhatHappen{
 	WhatHappen(int t,int m, int b){
 		TopChange = t; MidChange = m; BtmChange = b;
 	}
+	public int HowmanyFarther(){
+		int num = 0;
+		if(TopChange < 0) num ++;
+		if(MidChange < 0) num ++;
+		if(BtmChange < 0) num ++;
+		return num;
+	}
 	public int HowmanyCloser(){
 		int num = 0;
 		if(TopChange > 0) num ++;
@@ -46,6 +53,9 @@ class WhatHappen{
 		if(BtmChange > 0) num ++;
 		return num;
 	}
+	public boolean closerToTop(){ return TopChange > 0;}
+	public boolean closerToMid(){ return MidChange > 0;}
+	public boolean closerToBtm(){ return BtmChange > 0;}
 }
 class InnerMap{
 	static boolean Vertical = true;
@@ -100,13 +110,13 @@ class InnerMap{
 	public boolean canPut(int x,int y,RoadCard card){
 		if(!(Distance[EdgeNum(x,y,Vertical)] == 0 || Distance[EdgeNum(x + 1,y,Vertical)] == 0 || Distance[EdgeNum(x,y,Horizontal)] == 0|| Distance[EdgeNum(x,y,Vertical)] == 0) )
 			return false;
-		if( (card.getConnect(1) && Distance[EdgeNum(x,y,Vertical)] >= 100) || (!card.getConnect(1) && Distance[EdgeNum(x,y,Vertical)] == 0))
+		if( (card.getBind(1) && Distance[EdgeNum(x,y,Vertical)] >= 100) || (!card.getBind(1) && Distance[EdgeNum(x,y,Vertical)] == 0))
 			return false;	
-		if( (card.getConnect(3) && Distance[EdgeNum(x + 1,y,Vertical)] >= 100) || (!card.getConnect(3) && Distance[EdgeNum(x + 1,y,Vertical)]== 0))
+		if( (card.getBind(3) && Distance[EdgeNum(x + 1,y,Vertical)] >= 100) || (!card.getBind(3) && Distance[EdgeNum(x + 1,y,Vertical)]== 0))
 			return false;	
-		if( (card.getConnect(2) && Distance[EdgeNum(x,y,Horziontal)] >= 100) || (!card.getConnect(2) && Distance[EdgeNum(x,y,Horziontal)] == 0))
+		if( (card.getBind(2) && Distance[EdgeNum(x,y,Horziontal)] >= 100) || (!card.getBind(2) && Distance[EdgeNum(x,y,Horziontal)] == 0))
 				return false;		
-		if( (card.getConnect(0) && Distance[EdgeNum(x,y + 1,Horziontal)] >= 100) || (!card.getConnect(0) && Distance[EdgeNum(x,y + 1,Horziontal)] == 0))
+		if( (card.getBind(0) && Distance[EdgeNum(x,y + 1,Horziontal)] >= 100) || (!card.getBind(0) && Distance[EdgeNum(x,y + 1,Horziontal)] == 0))
 				return false;
 		return true;
 	}
@@ -140,13 +150,14 @@ class InnerMap{
 		int originT = minT;
 		int originM = minM;
 		int originB = minB;
+		RoadCard origin;
 		if(card.IsFunction()){
-
 			FunctionCard func = card.Function();
 			if(!func.isCollapse()){
 				System.out.println("Wrong Card");
 				return null;
 			}
+			origin = OriginCard(x,y);
 			breakRoad(x,y);
 		}
 		else if(card.IsRoad()){
@@ -162,19 +173,67 @@ class InnerMap{
 		minM = minDist(9,2);
 		minB = minDist(9,0);
 		WhatHappen toReturn = new WhatHappen(minT - originT, minM - originM, minB - originB);
-		if()
+		if(card.IsFunction()){
+			assignCard(x,y,origin);
+			Dijkstra();
+			minT = minDist(9,4);
+			minM = minDist(9,2);
+			minB = minDist(9,0);
+		}
+		else if(card.IsRoad()){
+			breakRoad(x,y);
+			Dijkstra();
+			minT = minDist(9,4);
+			minM = minDist(9,2);
+			minB = minDist(9,0);
+		}
+		return toReturn;
+	//	if()
+	}
+	public boolean flipOnTop(){return minT == 0;}
+	public boolean flipOnMid(){return minM == 0;}
+	public boolean flipOnBtm(){return minB == 0;}
+	public RoadCard OriginCard(int x,int y){
+		boolean[] bind = new boolean[4];
+		for(int i = 0; i < 4; i++)
+			bind[i] = false;
+		boolean[] connect =  new boolean[6];
+		for(int i = 0; i < 6; i ++)
+			connect[i] = false;
+		if(Distance[EdgeNum(x,y + 1,Horizontal)] < 100)
+			connect[0] = true;
+		if(Distance[EdgeNum(x,y,Vertical)] < 100)
+			connect[1] = true;
+		if(Distance[EdgeNum(x,y,Horizontal)] < 100)
+			connect[2] = true;
+		if(Distance[EdgeNum(x + 1,y,Vertical)] < 100)
+			connect[3] = true;
+		if(EdgeWeight(EdgeNum(x,y+1,Horizontal),EdgeNum(x,y,Vertical)) < 100)
+			bind[0] =true;
+		if(EdgeWeight(EdgeNum(x,y,Horizontal),EdgeNum(x,y,Vertical)) < 100)
+			bind[1] =true;
+		if(EdgeWeight(EdgeNum(x,y,Horizontal),EdgeNum(x+1,y,Vertical)) < 100)
+			bind[2] =true;
+		if(EdgeWeight(EdgeNum(x,y+1,Horizontal),EdgeNum(x+1,y,Vertical)) < 100)
+			bind[3] =true;
+		if(EdgeWeight(EdgeNum(x,y+1,Horizontal),EdgeNum(x,y,Horizantal)) < 100)
+			bind[4] =true;
+		if(EdgeWeight(EdgeNum(x+1,y,Vertical),EdgeNum(x,y,Vertical)) < 100)
+			bind[6] =true;
+		return new RoadCard(bind,connect,false);
+
 	}
 	public void assignCard(int x, int y,RoadCard card){
-		if(!card.getConnect(0)) isolate(EdgeNum(x,y+1,Horizontal));
-		if(!card.getConnect(1)) isolate(EdgeNum(x,y,Vertical));
-		if(!card.getConnect(2)) isolate(EdgeNum(x,y,Horizontal));
-		if(!card.getConnect(3)) isolate(EdgeNum(x + 1,y,Vertical));
-		(card.getBind(0)) ? changeEdge(EdgeNum(x,y+1,Horizontal),EdgeNum(x,y,Vertical),0):changeEdge(EdgeNum(x,y+1,Horizontal),EdgeNum(x,y,Vertical),100);
-		(card.getBind(1)) ? changeEdge(EdgeNum(x,y,Horizontal),EdgeNum(x,y,Vertical),0):changeEdge(EdgeNum(x,y,Horizontal),EdgeNum(x,y,Vertical),100);
-		(card.getBind(2)) ? changeEdge(EdgeNum(x,y,Horizontal),EdgeNum(x + 1,y,Vertical),0):changeEdge(EdgeNum(x,y,Horizontal),EdgeNum(x + 1,y,Vertical),100);
-		(card.getBind(3)) ? changeEdge(EdgeNum(x,y+1,Horizontal),EdgeNum(x+1,y,Vertical),0):changeEdge(EdgeNum(x,y+1,Horizontal),EdgeNum(x+1,y,Vertical),100);
-		(card.getBind(4)) ? changeEdge(EdgeNum(x,y+1,Horizontal),EdgeNum(x,y,Horizontal),0):changeEdge(EdgeNum(x,y+1,Horizontal),EdgeNum(x,y,Horizontal),100);
-		(card.getBind(5)) ? changeEdge(EdgeNum(x+1,y,Vertical),EdgeNum(x,y,Vertical),0):changeEdge(EdgeNum(x+1,y,Vertical),EdgeNum(x,y,Vertical),100);
+		if(!card.getBind(0)) isolate(EdgeNum(x,y+1,Horizontal));
+		if(!card.getBind(1)) isolate(EdgeNum(x,y,Vertical));
+		if(!card.getBind(2)) isolate(EdgeNum(x,y,Horizontal));
+		if(!card.getBind(3)) isolate(EdgeNum(x + 1,y,Vertical));
+		(card.getConnect(0)) ? changeEdge(EdgeNum(x,y+1,Horizontal),EdgeNum(x,y,Vertical),0):changeEdge(EdgeNum(x,y+1,Horizontal),EdgeNum(x,y,Vertical),100);
+		(card.getConnect(1)) ? changeEdge(EdgeNum(x,y,Horizontal),EdgeNum(x,y,Vertical),0):changeEdge(EdgeNum(x,y,Horizontal),EdgeNum(x,y,Vertical),100);
+		(card.getConnect(2)) ? changeEdge(EdgeNum(x,y,Horizontal),EdgeNum(x + 1,y,Vertical),0):changeEdge(EdgeNum(x,y,Horizontal),EdgeNum(x + 1,y,Vertical),100);
+		(card.getConnect(3)) ? changeEdge(EdgeNum(x,y+1,Horizontal),EdgeNum(x+1,y,Vertical),0):changeEdge(EdgeNum(x,y+1,Horizontal),EdgeNum(x+1,y,Vertical),100);
+		(card.getConnect(4)) ? changeEdge(EdgeNum(x,y+1,Horizontal),EdgeNum(x,y,Horizontal),0):changeEdge(EdgeNum(x,y+1,Horizontal),EdgeNum(x,y,Horizontal),100);
+		(card.getConnect(5)) ? changeEdge(EdgeNum(x+1,y,Vertical),EdgeNum(x,y,Vertical),0):changeEdge(EdgeNum(x+1,y,Vertical),EdgeNum(x,y,Vertical),100);
 	}
 
 	public void breakRoad(int x, int y){
@@ -223,7 +282,13 @@ class InnerMap{
 	private boolean validEdge(int _x,int _y,boolean isVertical){
 		return ((isVertical &&( _x < 0 || _x > Row || _y < 0 || _y > Column + 1))|| ((!isVertical) && (_x < 0 || _x > (Row + 1) || _y < 0 || _y > Column)));
 	}
-
+	private int EdgeWeight(int p_st,int p_nd){
+		for(Edge e:AdjList[p_st]){
+			if(e.toWhere == p_nd)
+				return e.weight;
+		}
+		return 1010;
+	}
 	private int EdgeNum(int _x,int _y, boolean isVertical){
 		int toReturn;
 		if(isVertical == Vertical)
@@ -239,6 +304,8 @@ public class AIPlayer extends Player{
 	int[] otherRole;
 	GamerStatus[] gamer;
 	int player_num;//how many player
+	boolean maybe_where;//0  for top, 2 for mid, 3 for btm
+	InnerMap myMap;
 	public AIPlayer(String _name,int _role,int _num,int p_num){
 		super(_name,_role,_num);
 		isAI = true;
@@ -249,6 +316,10 @@ public class AIPlayer extends Player{
 		gamer = new GamerStatus[p_num];
 		for(int i = 0; i < p_num; i ++)
 			gamer[i] = new GamerStatus();
+		myMap = new InnerMap(10,5);
+		maybe_where = new boolean[3];
+		for(int i = 0; i < 3; i ++)
+			maybe_where[i] = true;
 	}
 	public AIPlayer(String _name,String _role,int _num,int p_total){
 		super(_name,_role,_num);
@@ -260,6 +331,10 @@ public class AIPlayer extends Player{
 		gamer = new GamerStatus[p_total];
 		for(int i = 0; i < p_total; i ++)
 			gamer[i] = new GamerStatus();
+		myMap = new InnerMap(10,5);
+		maybe_where = new boolean[3];
+		for(int i = 0; i < 3; i ++)
+			maybe_where[i] = true;
 	}
 	public void updateSituation(Action act){
 		if(act.getIsOnMap())
@@ -271,35 +346,98 @@ public class AIPlayer extends Player{
 		//if already know the identity of the actioner update map
 		int who = act.getFromWho();
 		//else, make the guessing
-		/*
-		 if(!map.closeToAny()){
+		WhatHappen what;
+		what = myMap.receiveCard(act.getToWhere().X(),act.getToWhere.Y(),act.getCard());
+		 if(what.HowmanyCloser() == 0 && what.HowmanyFarther() > 0){
 		 	gamer[who].definitely_sab();
 		 }
-		 else if(map.closeToAll()){
+		 else if(what.HowmanyCloser() == 3){
 		 	gamer[who].maybe_miner();
 		 }
-		 else if(gamer[who].knowing == 0){
-		 	if(map.closeToTwo())
+		 else if(gamer[who].knowHowMant()== 0){
+		 	if(what.HowmanyCloser() >= 2 || (what.HowmanyCloser() >= 1 && what.HowmanyFather == 0))
 				gamer[who].maybe_miner();
 			else
 				gamer[who].maybe_sab();
 		 }
-		 else if(gamer[who].isKnowing()){
-		 	if(gamer[who].isPossibleMiner())
-				maybeWhereIsGold = map.toWhichDestination();
+		 else if(gamer[who].knowHowMany() == 1){
+		 	if(gamer[who].isDefinitelyMiner()){
+				if(!what.closerToTop())
+					maybe_where[0] = false;
+				if(!what.closerToMid())
+					maybe_where[1] = false;
+				if(!what.closerToBtm())
+					maybe_where[2] = false;
+			}
 		 }
-		 if(map.flipOn()  > 0)
-		 	FlushEveryOne's knowing
-		map.update();
-		 */
-
+		 else if(gamer[who].knowHowMany() >= 2){
+		 	if(gamer[who].isDefinitelyMiner()){
+				if(!what.closerToTop())
+					maybe_where[0] = false;
+				if(!what.closerToMid())
+					maybe_where[1] = false;
+				if(!what.closerToBtm())
+					maybe_where[2] = false;
+			}
+			else if(maybe_where[0] && what.closerToTop()){
+				gamer[who].maybe_miner();
+			}
+			else if(maybe_where[1] && what.closerToMid()){
+				gamer[who].maybe_miner();
+			}
+			else if(maybe_where[2] && what.closerToBtm()){
+				gamer[who].maybe_miner();
+			}
+			else
+				gamer[who].definitely_sab();
+		 }
+		 if(map.flipOnTop()){
+			 maybe_where[0] = false;
+			 for(int i = 0; i < player_num;i ++)
+				 gamer[i].watchMap(0);
+		 }
+		 if(map.flipOnMid()){
+			 maybe_where[1] = false;
+			 for(int i = 0; i < player_num;i ++)
+				 gamer[i].watchMap(1);
+		 }
+		 if(map.flipOnBtm()){
+			 maybe_where[2] = false;
+			 for(int i = 0; i < player_num;i ++)
+				 gamer[i].watchMap(2);
+		 }
+		 //if(map.flipOn())
 		//update the map
 		//map.update();
 	}
 	private void OtherAction(Action act){
-
+		FunctionCard func = act.getFunctionCard;
+		int who = act.getFromWho();
 		//if action id watch
+		if(func.isMap()){
+			if(act.getToWhere.Y() == 4)
+				gamer[who].watchMap(0);
+			if(act.getToWhere.Y() == 2)
+				gamer[who].watchMap(1);
+			if(act.getToWhere.Y() == 0)
+				gamer[who].watchMap(2);
+		}
 		//if the act is attack
+		int whom = act.getToWhom();
+		if(func.isBreak()){
+			gamer[whom].destory(func.kindStr());
+			if(gamer[whom].isPossibleMiner())
+				gamer[who].maybe_sab();
+			else
+				gamer[who].maybe_miner();
+		}
+		if(func.isFix()){
+			gamer[whom].fix(func.kindStr());
+			if(gamer[whom].isPossibleMiner())
+				gamer[who].maybe_miner();
+			else
+				gamer[who].maybe_sab();
+		}
 		//if the act is save
 	}
 }

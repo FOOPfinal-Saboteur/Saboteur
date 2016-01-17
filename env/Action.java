@@ -1,17 +1,10 @@
 import java.lang.*;
 import java.util.*;
 import java.io.*;
-class ToWhere{
-	int x;
-	int y;
-	ToWhere(int _x,int _y){
-		x = _x;
-		y = _y;
-	}
-}
 public class Action{
 	private boolean isOnMap;
 	private boolean isFunction;
+	private Card myCard;
 	private RoadCard road;
 	private FunctionCard func;
 	private ToWhere toWhere;
@@ -21,6 +14,7 @@ public class Action{
 	public Action(){
 		isOnMap = false;
 		isFunction = false;
+		myCard = null;
 		road = null;
 		func = null;
 		toWhere = new ToWhere(-1,-1);
@@ -29,6 +23,7 @@ public class Action{
 	}
 		// all card need to send these num
 	public Action(Card card, int _x, int _y, int from, int whom){
+		myCard = new Card(card);
 		if(card.IsFunction()){
 			func = card.Function();
 			road = null;
@@ -50,6 +45,8 @@ public class Action{
 	public boolean getIsFunction(){return isFunction;}
 	public int getFromWho(){return fromWho;}
 	public int getToWhom(){return toWhom;}
+	public ToWhere getToWhere{return toWhere;}
+	public Card getCard(){return new Card(myCard);}
 	public RoadCard getRoadCard(){return new RoadCard(road);}
 	public FunctionCard getFunctionCard(){return new FunctionCard(func);}
 
