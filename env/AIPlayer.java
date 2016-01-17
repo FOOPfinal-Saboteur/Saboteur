@@ -9,20 +9,59 @@ class Edge{
 	boolean vertical;// thiskind:|
 	int weight;
 	int toWhere;
+
 	Edge(int Place, int Weight,int horizon){ //for horizon;
 		 toWhere = Place; weight = Weight; horizon_group = horizon;
 	}
 }
-
-class MyMap{
+class Node{
+	int place;
+	int weight;
+	Node(int p,int w){
+		place = p;
+		weight = w;
+	}
+}
+public class NodeComparator implements Comparator<Node>{
+	@Override
+	public int compare(Node x,Node y){
+		if(x.weight > y.weight)
+			return -1;
+		if(x.weight  < y.weight)
+			return 1;
+		return 0;
+	}
+}
+class WhatHappen{
+	int TopChange;
+	int MidChange;
+	int BtmChange;
+	WhatHappen(int t,int m, int b){
+		TopChange = t; MidChange = m; BtmChange = b;
+	}
+	public int HowmanyCloser(){
+		int num = 0;
+		if(TopChange > 0) num ++;
+		if(MidChange > 0) num ++;
+		if(BtmChange > 0) num ++;
+		return num;
+	}
+}
+class InnerMap{
 	static boolean Vertical = true;
 	static boolean Horizontal = false;
 	ArrayList<Edge>[] AdjList;
 	int Row;
 	int Column;
-	MyMap(int column,int row){//row is y, column is x
+	int[] Distance;
+	int source;
+	int minT,minM,minB;
+	InnerMap(int column,int row){//row is y, column is x
 		Row = row;
 		Column = column;
+		Distance = new int[column *(row + 1) + (column + 1) * row];
+		for(int i = 0; i < Distance.lenth(); i ++)
+			Destance[i] = 100;
 		int horizon_num = column * (row + 1);
 		for(int i = 0; i < (column * (row + 1) + (column + 1) * row); i ++)
 			AdjList[i] = new ArrayList<Edge>();
@@ -50,14 +89,107 @@ class MyMap{
 				if(validEdge(x + 1,y - 1,Vertical))AdjList[i].add(new Edge(EdgeNum(x + 1,y - 1,Vertical),1,horizon_num));
 			}
 		}
+		source = EdgeNum(1,2,Vertical);
+		assignCard(1,2,new RoadCard("intersection"));
+		Distance[source] = 0;
+		Dijkstra();
+		minT = minDist(9,4);
+		minM = minDist(9,2);
+		minB = minDist(9,0);
+	}
+	public boolean canPut(int x,int y,RoadCard card){
+		if(!(Distance[EdgeNum(x,y,Vertical)] == 0 || Distance[EdgeNum(x + 1,y,Vertical)] == 0 || Distance[EdgeNum(x,y,Horizontal)] == 0|| Distance[EdgeNum(x,y,Vertical)] == 0) )
+			return false;
+		if( (card.getConnect(1) && Distance[EdgeNum(x,y,Vertical)] >= 100) || (!card.getConnect(1) && Distance[EdgeNum(x,y,Vertical)] == 0))
+			return false;	
+		if( (card.getConnect(3) && Distance[EdgeNum(x + 1,y,Vertical)] >= 100) || (!card.getConnect(3) && Distance[EdgeNum(x + 1,y,Vertical)]== 0))
+			return false;	
+		if( (card.getConnect(2) && Distance[EdgeNum(x,y,Horziontal)] >= 100) || (!card.getConnect(2) && Distance[EdgeNum(x,y,Horziontal)] == 0))
+				return false;		
+		if( (card.getConnect(0) && Distance[EdgeNum(x,y + 1,Horziontal)] >= 100) || (!card.getConnect(0) && Distance[EdgeNum(x,y + 1,Horziontal)] == 0))
+				return false;
+		return true;
+	}
+	public WhatHappen receiveCard(int x,int y,Card card){
+		int originT = minT;
+		int originM = minM;
+		int originB = minB;
+		if(card.IsFunction()){
+			FunctionCard func = card.Function();
+			if(!func.isCollapse()){
+				System.out.println("Wrong Card");
+				return null;
+			}
+			breakRoad(x,y);
+		}
+		else if(card.IsRoad()){
+			RoadCard road = card.Road();
+			if(!canPut(x,y,road)){
+				System.out.println("Cannot put here");
+				return null;
+			}
+			assignCard(x,y,road);
+		}
+		Dijkstra();
+		minT = minDist(9,4);
+		minM = minDist(9,2);
+		minB = minDist(9,0);
+		return new WhatHappen(minT - originT, minM - originM, minB - originB);
+	}
+	public WhatHappen tryCard(int x,int y,int Card card){
+		int originT = minT;
+		int originM = minM;
+		int originB = minB;
+		if(card.IsFunction()){
+
+			FunctionCard func = card.Function();
+			if(!func.isCollapse()){
+				System.out.println("Wrong Card");
+				return null;
+			}
+			breakRoad(x,y);
+		}
+		else if(card.IsRoad()){
+			RoadCard road = card.Road();
+			if(!canPut(x,y,road)){
+				System.out.println("Cannot put here");
+				return null;
+			}
+			assignCard(x,y,road);
+		}
+		Dijkstra();
+		minT = minDist(9,4);
+		minM = minDist(9,2);
+		minB = minDist(9,0);
+		WhatHappen toReturn = new WhatHappen(minT - originT, minM - originM, minB - originB);
+		if()
 	}
 	public void assignCard(int x, int y,RoadCard card){
+		if(!card.getConnect(0)) isolate(EdgeNum(x,y+1,Horizontal));
+		if(!card.getConnect(1)) isolate(EdgeNum(x,y,Vertical));
+		if(!card.getConnect(2)) isolate(EdgeNum(x,y,Horizontal));
+		if(!card.getConnect(3)) isolate(EdgeNum(x + 1,y,Vertical));
 		(card.getBind(0)) ? changeEdge(EdgeNum(x,y+1,Horizontal),EdgeNum(x,y,Vertical),0):changeEdge(EdgeNum(x,y+1,Horizontal),EdgeNum(x,y,Vertical),100);
 		(card.getBind(1)) ? changeEdge(EdgeNum(x,y,Horizontal),EdgeNum(x,y,Vertical),0):changeEdge(EdgeNum(x,y,Horizontal),EdgeNum(x,y,Vertical),100);
 		(card.getBind(2)) ? changeEdge(EdgeNum(x,y,Horizontal),EdgeNum(x + 1,y,Vertical),0):changeEdge(EdgeNum(x,y,Horizontal),EdgeNum(x + 1,y,Vertical),100);
 		(card.getBind(3)) ? changeEdge(EdgeNum(x,y+1,Horizontal),EdgeNum(x+1,y,Vertical),0):changeEdge(EdgeNum(x,y+1,Horizontal),EdgeNum(x+1,y,Vertical),100);
 		(card.getBind(4)) ? changeEdge(EdgeNum(x,y+1,Horizontal),EdgeNum(x,y,Horizontal),0):changeEdge(EdgeNum(x,y+1,Horizontal),EdgeNum(x,y,Horizontal),100);
 		(card.getBind(5)) ? changeEdge(EdgeNum(x+1,y,Vertical),EdgeNum(x,y,Vertical),0):changeEdge(EdgeNum(x+1,y,Vertical),EdgeNum(x,y,Vertical),100);
+	}
+
+	public void breakRoad(int x, int y){
+		changeEdge(EdgeNum(x,y+1,Horizontal),EdgeNum(x,y,Vertical),1);
+		changeEdge(EdgeNum(x,y,Horizontal),EdgeNum(x,y,Vertical),1);
+		changeEdge(EdgeNum(x,y,Horizontal),EdgeNum(x + 1,y,Vertical),1);
+		changeEdge(EdgeNum(x,y+1,Horizontal),EdgeNum(x + 1,y,Vertical),1);
+		changeEdge(EdgeNum(x,y+1,Horizontal),EdgeNum(x,y,Horziontal),1);
+		changeEdge(EdgeNum(x+1,y,Vertical),EdgeNum(x,y,Vertical),1);
+	}
+	private void isolate(int place){
+		Distance[place] = 500;
+		for(Edge e:AdjList[place]){
+			changeEdge(place,e.toWhere,100);
+		}
 	}
 	public void changeEdge(int p_st,int p_nd,int Weight){
 		for(Edge e:AdjList[p_st])
@@ -67,9 +199,31 @@ class MyMap{
 			if(e.toWhere == p_st)
 				e.weight = Weight;
 	}
+	public void Dijkstra(){
+		PriorityQueue<Node> NodeQ = new PriorityQueue<Node>(10,NodeComparator);
+		NodeQ.add(new Node(source,0));
+		while(NodeQ.size() > 0){
+			Node head = NodeQ.poll();
+			for(Edge e:AdjList[head.place]){
+				if(e.weight + head.distance < Distance[e.toWhere]){
+					Distance[e.toWhere] = e.weight + Distance[head.place]
+					NodeQ.add(new Node(e.toWhere,Distance[e.toWhere]));
+				}
+			}
+		}
+	}
+	private int minDist(int x, int y){
+		int min = 10000;
+		if(min > Distance[EdgeNum(x,y,Vertical)]) min = Distance[EdgeNum(x,y,Vertical)];
+		if(min > Distance[EdgeNum(x,y + 1,Vertical)]) min = Distance[EdgeNum(x,y + 1,Vertical)];
+		if(min > Distance[EdgeNum(x,y,Horizontal)]) min = Distance[EdgeNum(x,y,Horizontal)];
+		if(min > Distance[EdgeNum(x + 1,y,Horizontal)]) min = Distance[EdgeNum(x + 1,y,Horizontal)];
+		return min;	
+	}
 	private boolean validEdge(int _x,int _y,boolean isVertical){
 		return ((isVertical &&( _x < 0 || _x > Row || _y < 0 || _y > Column + 1))|| ((!isVertical) && (_x < 0 || _x > (Row + 1) || _y < 0 || _y > Column)));
 	}
+
 	private int EdgeNum(int _x,int _y, boolean isVertical){
 		int toReturn;
 		if(isVertical == Vertical)
