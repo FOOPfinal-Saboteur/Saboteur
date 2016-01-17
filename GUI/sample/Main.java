@@ -1,6 +1,7 @@
-//package sample;
+package sample;
 
 import javafx.application.Application;
+import javafx.beans.binding.StringBinding;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -24,15 +25,23 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Main extends Application{
 
     Stage window;
     Scene scene1, scene2, scene3, scene4;
     int playerNumber, aiNumber;
-    int nameCharMax = 12, playerNumberMAX = 10;
+    int nameCharMax = 20, playerNumberMAX = 10;
     ArrayList<String> playerName = new ArrayList<String>();
     int nowPlayer = 0;
     ArrayList<Integer> roles = new ArrayList<Integer>();
@@ -48,6 +57,35 @@ public class Main extends Application{
                 }
             }
         });
+    }
+
+    public static void randomAIName(int ainum, ArrayList<String> names){
+        /*ArrayList<String> AInames = new ArrayList<String>(Arrays.asList("Peter", "Andrew", "James", "John",
+                "Philip", "Nathanael", "Matthew", "Thomas", "Simon", "Thaddaeus"));*/
+
+
+        ArrayList<String> AInamelist = new ArrayList<String>();
+
+        try {
+            File file = new File(System.getProperty("user.dir")+"/src/sample/name.txt");
+            Scanner input = new Scanner(file);
+
+            while (input.hasNextLine()) {
+                String line = input.nextLine();
+                AInamelist.add(line);
+            }
+            input.close();
+
+            Random ran = new Random();
+            int index;
+            for (int i = 0; i < ainum; i++) {
+                index = ran.nextInt(AInamelist.size());
+                names.add("[AI]" + AInamelist.get(index));
+                AInamelist.remove(index);
+            }
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
     }
 
     public static void randomSetRoles(int plnum, ArrayList<Integer> roleset){
@@ -68,9 +106,9 @@ public class Main extends Application{
         for(int i = 0; i < saboteur; i++) rolecardlist.add(0);
         for(int i = 0; i < miner; i++) rolecardlist.add(1);
 
+        Random ran = new Random();
+        int index;
         for(int i = 0; i < plnum; i++){
-            Random ran = new Random();
-            int index;
             index = ran.nextInt(rolecardlist.size());
             roleset.add(rolecardlist.get(index));
             rolecardlist.remove(index);
@@ -81,20 +119,22 @@ public class Main extends Application{
     public void start(Stage primaryStage) throws Exception{
         window = primaryStage;
 
+        setUserAgentStylesheet(STYLESHEET_MODENA);
+
         /* Scene1 */
 
         GridPane grid = new GridPane();
-        grid.setAlignment(Pos.TOP_CENTER);
+        grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
         grid.setVgap(10);
-        grid.setPadding(new Insets(25,25,25,25));
+        grid.setPadding(new Insets(50));
 
-        Text scenetitle = new Text("Welcome to Saboteur");
+        Text scenetitle = new Text("Press anywhere to start");
         scenetitle.setFont(Font.font("Helvetica", FontWeight.BOLD, 36));
         scenetitle.setFill(Color.BROWN);
-        grid.add(scenetitle,0,0);
+        grid.add(scenetitle,0,10);
 
-       /* Button btn1 = new Button("Press here to enter game");
+        /* Button btn1 = new Button("Press here to enter game");
         btn1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -111,7 +151,7 @@ public class Main extends Application{
         });
 
         grid.setId("pane1");
-        scene1 = new Scene(grid, 550, 398);
+        scene1 = new Scene(grid, 940, 705);
         scene1.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
 
         /* Scene2 */
@@ -120,7 +160,7 @@ public class Main extends Application{
         grid2.setAlignment(Pos.CENTER);
         grid2.setVgap(10);
         grid2.setHgap(10);
-        grid2.setPadding(new Insets(25,25,25,25));
+        grid2.setPadding(new Insets(25));
 
         Text pnumtext = new Text("Please select number of players");
         pnumtext.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
@@ -173,30 +213,41 @@ public class Main extends Application{
 
         VBox rightcol = new VBox(20);
         rightcol.setMinWidth(180);
+        rightcol.setPadding(new Insets(20));
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GameLayout.fxml"));
+        Parent root = (Parent)fxmlLoader.load();
+
+        MainController ctrl = fxmlLoader.<MainController>getController();
         /* */
 
         Button btn2 = new Button("OK");
         btn2.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                playerNumber = Integer.parseInt(cb.getValue().toString());
-                aiNumber = Integer.parseInt(cb2.getValue().toString());
-                shownum.setText("Player's number: "+playerNumber);
-                randomSetRoles(playerNumber, roles);
-                showrole.setText("Role: "+rolename[roles.get(nowPlayer)]);
-                for(int i = 0; i < playerNumber; i++) {
-                    status[i] = new Label();
-                    status[i].setFont(Font.font("Helvetica", FontWeight.NORMAL, 28));
-                    status[i].setTextFill(Color.BLACK);
+                if(cb.getValue() == null || cb2.getValue() == null){
+                    AlertBox.display("Attetion", "You haven't set the numbers yet!");
+                }else {
+                    playerNumber = Integer.parseInt(cb.getValue().toString());
+                    aiNumber = Integer.parseInt(cb2.getValue().toString());
+                    shownum.setText("Player's number: " + playerNumber);
+                    randomSetRoles(playerNumber, roles);
+                    showrole.setText("Role: " + rolename[roles.get(nowPlayer)]);
+                    for (int i = 0; i < playerNumber; i++) {
+                        status[i] = new Label();
+                        status[i].setFont(Font.font("Helvetica", FontWeight.NORMAL, 28));
+                        status[i].setTextFill(Color.WHITE);
+                    }
+                    window.setScene(scene3);
                 }
-                window.setScene(scene3);
             }
         });
-        btn2.setAlignment(Pos.BASELINE_CENTER);
+        btn2.setAlignment(Pos.CENTER);
+        btn2.setId("ipad-grey");
         grid2.add(btn2,0,12);
 
-        grid2.setId("pane2");
-        scene2 = new Scene(grid2, 550, 398);
+        grid2.setId("pane1");
+        scene2 = new Scene(grid2, 940, 705);
         scene2.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
 
         /* Scene3 */
@@ -205,7 +256,7 @@ public class Main extends Application{
         grid3.setAlignment(Pos.CENTER);
         grid3.setVgap(10);
         grid3.setHgap(10);
-        grid3.setPadding(new Insets(15,15,15,15));
+        grid3.setPadding(new Insets(15));
 
         Text nametext = new Text("Please enter the name of players");
         nametext.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
@@ -228,19 +279,28 @@ public class Main extends Application{
                     if(playerName.get(i).equals(typename.getCharacters().toString().trim())){
                         AlertBox.display("Attention!", "This name has been used!");
                         nameused = true;
+                        break;
                     }
+                }
+                System.out.println(typename.getCharacters().toString());
+                if(typename.getCharacters().toString().trim().equals("")){
+                    AlertBox.display("Attention!", "Name can't be blank!");
+                    nameused = true;
                 }
                 if(!nameused) {
                     playerName.add(typename.getCharacters().toString().trim());
                     System.out.println(playerName.get(playerName.size() - 1));
                     namelist.setText(namelist.getText() + "\n" + typename.getCharacters());
                     if(playerName.size() == playerNumber-aiNumber){
+                        randomAIName(aiNumber, playerName);
                         AlertBox.display("", "OK!, Let's Start the game!");
                         showname.setText("Name: "+playerName.get(nowPlayer));
-                        for(int i = 0; i < playerNumber-aiNumber; i++) {
+                        for(int i = 0; i < playerNumber; i++) {
                             status[i].setText(playerName.get(i));
                             rightcol.getChildren().add(status[i]);
                         }
+                        ctrl.setStatus(playerNumber, playerName);
+                        ctrl.setMenuBar("Normal", playerNumber, rolename[roles.get(nowPlayer)]);
                         window.setScene(scene4);
                         window.centerOnScreen();
                     }
@@ -250,18 +310,18 @@ public class Main extends Application{
         });
         grid3.add(btn3,1,2);
 
-        grid3.setId("pane3");
-        scene3 = new Scene(grid3, 550, 398);
+        grid3.setId("pane1");
+        scene3 = new Scene(grid3, 940, 705);
         scene3.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
 
         /* Scene4(Game) */
 
-        BorderPane pane = new BorderPane();
+        /*BorderPane pane = new BorderPane();
         GridPane lefttop = new GridPane();
         lefttop.setAlignment(Pos.TOP_LEFT);
         lefttop.setHgap(10);
         lefttop.setVgap(10);
-        lefttop.setPadding(new Insets(20,20,20,20));
+        lefttop.setPadding(new Insets(20));
 
         mode.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
         mode.setFill(Color.ORANGE);
@@ -279,10 +339,12 @@ public class Main extends Application{
 
         pane.setRight(rightcol);
         pane.setTop(lefttop);
+        pane.setId("pane4");*/
 
-        pane.setId("pane4");
-        scene4 = new Scene(pane, 1080, 720);
-        scene4.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
+        // scene4 = new Scene(pane, 1080, 720);
+        // scene4.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
+
+        scene4 = new Scene(root, 880, 720);
 
         /* Start */
         window.setScene(scene1);
