@@ -1,4 +1,4 @@
-package sample;
+//package sample;
 
 import javafx.application.Application;
 import javafx.beans.binding.StringBinding;
@@ -12,10 +12,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -41,7 +38,7 @@ public class Main extends Application{
     Stage window;
     Scene scene1, scene2, scene3, scene4;
     int playerNumber, aiNumber;
-    int nameCharMax = 20, playerNumberMAX = 10;
+    int nameCharMax = 12, playerNumberMAX = 10;
     ArrayList<String> playerName = new ArrayList<String>();
     int nowPlayer = 0;
     ArrayList<Integer> roles = new ArrayList<Integer>();
@@ -130,8 +127,9 @@ public class Main extends Application{
         grid.setPadding(new Insets(50));
 
         Text scenetitle = new Text("Press anywhere to start");
-        scenetitle.setFont(Font.font("Helvetica", FontWeight.BOLD, 36));
-        scenetitle.setFill(Color.BROWN);
+        //scenetitle.setId("dark-blue");
+        //scenetitle.setFont(Font.font("Helvetica", FontWeight.BOLD, 36));
+        //scenetitle.setFill(Color.BROWN);
         grid.add(scenetitle,0,10);
 
         /* Button btn1 = new Button("Press here to enter game");
@@ -156,27 +154,25 @@ public class Main extends Application{
 
         /* Scene2 */
 
-        GridPane grid2 = new GridPane();
-        grid2.setAlignment(Pos.CENTER);
-        grid2.setVgap(10);
-        grid2.setHgap(10);
-        grid2.setPadding(new Insets(25));
+        VBox vbox2 = new VBox();
+        vbox2.setAlignment(Pos.CENTER);
+        vbox2.setPadding(new Insets(400,300,300,300));
+        vbox2.setSpacing(50);
 
         Text pnumtext = new Text("Please select number of players");
         pnumtext.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
-        pnumtext.setFill(Color.BROWN);
-        grid2.add(pnumtext,0,0);
+        pnumtext.setFill(Color.BLACK);
 
         Text ainumtext = new Text("Please select number of AI players");
         ainumtext.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
-        ainumtext.setFill(Color.BROWN);
-        grid2.add(ainumtext,0,8);
+        ainumtext.setFill(Color.BLACK);
 
         String[] nnn = {"0","1","2","3","4","5","6","7","8","9"};
         ChoiceBox cb = new ChoiceBox();
         ChoiceBox cb2 = new ChoiceBox();
         cb.setItems(FXCollections.observableArrayList("3","4","5","6","7","8","9","10"));
-
+        cb.setId("round-red");
+        cb2.setId("round-red");
 
         cb.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override public void changed(ObservableValue ov, String t, String t1) {
@@ -201,8 +197,17 @@ public class Main extends Application{
             }
         });
 
-        grid2.add(cb,5,0);
-        grid2.add(cb2,5,8);
+        HBox hbox2_1 = new HBox();
+        hbox2_1.setSpacing(10);
+        HBox hbox2_2 = new HBox();
+        hbox2_2.setSpacing(10);
+
+        hbox2_1.getChildren().add(pnumtext);
+        hbox2_1.getChildren().add(cb);
+        hbox2_2.getChildren().add(ainumtext);
+        hbox2_2.getChildren().add(cb2);
+        vbox2.getChildren().add(hbox2_1);
+        vbox2.getChildren().add(hbox2_2);
 
         /* Things in Scene4 */
         Text mode = new Text("Mode: "+"Normal");
@@ -243,34 +248,46 @@ public class Main extends Application{
             }
         });
         btn2.setAlignment(Pos.CENTER);
-        btn2.setId("ipad-grey");
-        grid2.add(btn2,0,12);
+        btn2.setId("record-sales");
 
-        grid2.setId("pane1");
-        scene2 = new Scene(grid2, 940, 705);
+        vbox2.getChildren().add(btn2);
+
+        vbox2.setId("pane2");
+        scene2 = new Scene(vbox2, 940, 705);
         scene2.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
 
         /* Scene3 */
 
-        GridPane grid3 = new GridPane();
-        grid3.setAlignment(Pos.CENTER);
-        grid3.setVgap(10);
-        grid3.setHgap(10);
-        grid3.setPadding(new Insets(15));
+        VBox vbox3 = new VBox();
+        vbox3.setAlignment(Pos.CENTER);
+        vbox3.setSpacing(10);
+        vbox3.setPadding(new Insets(400,300,300,300));
+
+        HBox hbox3_1 = new HBox();
+        hbox3_1.setAlignment(Pos.CENTER);
+        hbox3_1.setSpacing(10);
 
         Text nametext = new Text("Please enter the name of players");
         nametext.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
-        nametext.setFill(Color.BROWN);
-        grid3.add(nametext,0,0);
+        nametext.setFill(Color.BLACK);
+        vbox3.getChildren().add(nametext);
 
         TextField typename = new TextField();
+        typename.setPrefWidth(200);
         addTextLimiter(typename, nameCharMax);
-        grid3.add(typename,0,2);
+        typename.setStyle("-fx-control-inner-background: BROWN");
+        typename.setFont(Font.font("Serif", FontWeight.NORMAL, 18));
+        hbox3_1.getChildren().add(typename);
 
-        Text namelist = new Text();
-        grid3.add(namelist,0,4);
+        TextArea namearea = new TextArea();
+        namearea.setStyle("-fx-control-inner-background: BROWN");
+        namearea.setFont(Font.font("Serif", FontWeight.NORMAL, 18));
+        namearea.setEditable(false);
+        namearea.setMinHeight(200);
+        namearea.setMaxWidth(250);
 
         Button btn3 = new Button("Submit");
+        btn3.setId("record-sales");
         btn3.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -290,7 +307,11 @@ public class Main extends Application{
                 if(!nameused) {
                     playerName.add(typename.getCharacters().toString().trim());
                     System.out.println(playerName.get(playerName.size() - 1));
-                    namelist.setText(namelist.getText() + "\n" + typename.getCharacters());
+                    if(namearea.getText().equals("")) {
+                        namearea.setText(typename.getCharacters().toString());
+                    }else{
+                        namearea.setText(namearea.getText() + "\n" + typename.getCharacters());
+                    }
                     if(playerName.size() == playerNumber-aiNumber){
                         randomAIName(aiNumber, playerName);
                         AlertBox.display("", "OK!, Let's Start the game!");
@@ -308,10 +329,13 @@ public class Main extends Application{
                 typename.clear();
             }
         });
-        grid3.add(btn3,1,2);
+        hbox3_1.getChildren().add(btn3);
+        vbox3.getChildren().add(hbox3_1);
 
-        grid3.setId("pane1");
-        scene3 = new Scene(grid3, 940, 705);
+        vbox3.getChildren().add(namearea);
+
+        vbox3.setId("pane3");
+        scene3 = new Scene(vbox3, 940, 705);
         scene3.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
 
         /* Scene4(Game) */
@@ -344,7 +368,7 @@ public class Main extends Application{
         // scene4 = new Scene(pane, 1080, 720);
         // scene4.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
 
-        scene4 = new Scene(root, 880, 720);
+        scene4 = new Scene(root, 940, 720);
 
         /* Start */
         window.setScene(scene1);

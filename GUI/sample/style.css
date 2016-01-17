@@ -3,6 +3,25 @@
     -fx-background-repeat: stretch;
     -fx-background-size: 940 705;
     -fx-background-position: center center;
+    -fx-font-family: "Arial";
+    -fx-font-weight: bold;
+    -fx-font-size: 36px;
+    -fx-text-fill: #d6c0ae;
+    -fx-padding: 10 20 10 20;
+}
+
+#pane2{
+    -fx-background-image: url("img/background/gamestart.png");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 940 705;
+    -fx-background-position: center center;
+}
+
+#pane3{
+    -fx-background-image: url("img/background/gamestart.png");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 940 705;
+    -fx-background-position: center center;
 }
 
 /* The follow is for button */

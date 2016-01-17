@@ -1,12 +1,15 @@
-package sample;
+//package sample;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
 
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.net.URL;
@@ -42,6 +45,8 @@ public class MainController implements Initializable {
     @FXML private Label role;
     @FXML private Label round;
 
+    @FXML private Label chat;
+
     @Override
     public void initialize(URL arg0, ResourceBundle arg1){
     }
@@ -65,6 +70,11 @@ public class MainController implements Initializable {
         this.mode.setText(mode);
         this.player_num.setText(pnum+"");
         this.role.setText(role);
+    }
+
+    @FXML
+    protected void chatSpan(ActionEvent event){
+        
     }
 
 
