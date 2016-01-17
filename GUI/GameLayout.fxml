@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="880.0" style="-fx-background-color: #EBD5BC;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox alignment="TOP_CENTER" layoutX="680.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="200.0" style="-fx-background-color: #EBD5BC;">
+         <children>
+            <HBox prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #EBD5BC;">
+               <children>
+                  <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="30.0" />
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="170.0" style="-fx-background-color: #EBD5BC;">
+                     <children>
+                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="146.0" text="Player1">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Label>
+                        <ImageView fitHeight="28.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/status-bar.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                     </children>
+                  </VBox>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox prefHeight="720.0" prefWidth="650.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="650.0" style="-fx-background-color: #EBD5BC;">
+               <children>
+                  <Label alignment="CENTER" prefHeight="40.0" prefWidth="27.0" textFill="#ab2828" textOverrun="CENTER_ELLIPSIS">
+                     <font>
+                        <Font name="System Font Bold" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="40.0" prefWidth="53.0" text="Mode:" textFill="#ab2828" textOverrun="CENTER_ELLIPSIS">
+                     <font>
+                        <Font name="System Font Bold" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="40.0" prefWidth="96.0" textFill="#ab2828" textOverrun="CENTER_ELLIPSIS">
+                     <font>
+                        <Font name="System Font Bold" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="40.0" prefWidth="163.0" text="Player Number:" textFill="#ab2828" textOverrun="CENTER_ELLIPSIS">
+                     <font>
+                        <Font name="System Font Bold" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="40.0" prefWidth="53.0" textFill="#ab2828" textOverrun="CENTER_ELLIPSIS">
+                     <font>
+                        <Font name="System Font Bold" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="40.0" prefWidth="53.0" text="Role:" textFill="#ab2828" textOverrun="CENTER_ELLIPSIS">
+                     <font>
+                        <Font name="System Font Bold" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="40.0" prefWidth="168.0" textFill="#ab2828" textOverrun="CENTER_ELLIPSIS">
+                     <font>
+                        <Font name="System Font Bold" size="17.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="538.0" prefWidth="637.0">
+               <children>
+                  <ImageView fitHeight="538.0" fitWidth="637.0" layoutX="13.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/game/Z_Map.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="142.0" prefWidth="650.0" style="-fx-background-color: #EBD5BC;" />
+         </children>
+      </VBox>
+   </children>
+</Pane>
