@@ -2,8 +2,82 @@ import java.lang.*;
 import java.util.*;
 import java.io.*;
 
-class MyMap{
+class Edge{
+	static boolean Vertical = true;
+	static boolean Horizonal = false;
+	static int horizon_group;
+	boolean vertical;// thiskind:|
+	int weight;
+	int toWhere;
+	Edge(int Place, int Weight,int horizon){ //for horizon;
+		 toWhere = Place; weight = Weight; horizon_group = horizon;
+	}
+}
 
+class MyMap{
+	static boolean Vertical = true;
+	static boolean Horizontal = false;
+	ArrayList<Edge>[] AdjList;
+	int Row;
+	int Column;
+	MyMap(int column,int row){//row is y, column is x
+		Row = row;
+		Column = column;
+		int horizon_num = column * (row + 1);
+		for(int i = 0; i < (column * (row + 1) + (column + 1) * row); i ++)
+			AdjList[i] = new ArrayList<Edge>();
+		for(int i = 0; i < (column * (row + 1) + (column + 1) * row) i ++){
+			int x, y;
+			if(i >= horizon_num){// is a vertical edge
+				int tmp_num = i - horizon_num;
+				x = i % (column + 1);
+				y = i / (column + 1);
+				if(validEdge(x - 1,y,Vertical))	AdjList[i].add(new Edge(EdgeNum(x - 1,y,Vertical),1,horizon_num));
+				if(validEdge(x + 1,y,Vertical)) AdjList[i].add(new Edge(EdgeNum(x + 1,y,Vertical),1,horizon_num));
+				if(validEdge(x,y,Horizontal)) AdjList[i].add(new Edge(EdgeNum(x ,y,Horizontal),1,horizon_num));
+				if(validEdge(x,y + 1,Horizontal)) AdjList[i].add(new Edge(EdgeNum(x ,y + 1,Horizontal),1,horizon_num));
+				if(validEdge(x - 1,y,Horizontal)) AdjList[i].add(new Edge(EdgeNum(x - 1,y,Horizontal),1,horizon_num));
+				if(validEdge(x - 1,y + 1,Horizontal)) AdjList[i].add(new Edge(EdgeNum(x - 1,y + 1,Horizontal),1,horizon_num));
+			}
+			if(i < horizon_num){
+				x = i % column;
+				y = i / column;
+				if(validEdge(x,y +1,Horziontal)) AdjList[i].add(new Edge(EdgeNum(x ,y + 1,Horizontal),1,horizon_num));
+				if(validEdge(x,y -1,Horziontal))AdjList[i].add(new Edge(EdgeNum(x ,y - 1,Horizontal),1,horizon_num));
+				if(validEdge(x,y,Vertical))AdjList[i].add(new Edge(EdgeNum(x ,y,Vertical),1,horizon_num));
+				if(validEdge(x + 1,y,Vertical))AdjList[i].add(new Edge(EdgeNum(x + 1,y,Vertical),1,horizon_num));
+				if(validEdge(x,y - 1,Vertical))AdjList[i].add(new Edge(EdgeNum(x ,y - 1,Vertical),1,horizon_num));
+				if(validEdge(x + 1,y - 1,Vertical))AdjList[i].add(new Edge(EdgeNum(x + 1,y - 1,Vertical),1,horizon_num));
+			}
+		}
+	}
+	public void assignCard(int x, int y,RoadCard card){
+		(card.getBind(0)) ? changeEdge(EdgeNum(x,y+1,Horizontal),EdgeNum(x,y,Vertical),0):changeEdge(EdgeNum(x,y+1,Horizontal),EdgeNum(x,y,Vertical),100);
+		(card.getBind(1)) ? changeEdge(EdgeNum(x,y,Horizontal),EdgeNum(x,y,Vertical),0):changeEdge(EdgeNum(x,y,Horizontal),EdgeNum(x,y,Vertical),100);
+		(card.getBind(2)) ? changeEdge(EdgeNum(x,y,Horizontal),EdgeNum(x + 1,y,Vertical),0):changeEdge(EdgeNum(x,y,Horizontal),EdgeNum(x + 1,y,Vertical),100);
+		(card.getBind(3)) ? changeEdge(EdgeNum(x,y+1,Horizontal),EdgeNum(x+1,y,Vertical),0):changeEdge(EdgeNum(x,y+1,Horizontal),EdgeNum(x+1,y,Vertical),100);
+		(card.getBind(4)) ? changeEdge(EdgeNum(x,y+1,Horizontal),EdgeNum(x,y,Horizontal),0):changeEdge(EdgeNum(x,y+1,Horizontal),EdgeNum(x,y,Horizontal),100);
+		(card.getBind(5)) ? changeEdge(EdgeNum(x+1,y,Vertical),EdgeNum(x,y,Vertical),0):changeEdge(EdgeNum(x+1,y,Vertical),EdgeNum(x,y,Vertical),100);
+	}
+	public void changeEdge(int p_st,int p_nd,int Weight){
+		for(Edge e:AdjList[p_st])
+			if(e.toWhere == p_nd)
+				e.weight = Weight;
+		for(Edge e:AdjList[p_nd])
+			if(e.toWhere == p_st)
+				e.weight = Weight;
+	}
+	private boolean validEdge(int _x,int _y,boolean isVertical){
+		return ((isVertical &&( _x < 0 || _x > Row || _y < 0 || _y > Column + 1))|| ((!isVertical) && (_x < 0 || _x > (Row + 1) || _y < 0 || _y > Column)));
+	}
+	private int EdgeNum(int _x,int _y, boolean isVertical){
+		int toReturn;
+		if(isVertical == Vertical)
+			toReturn = (_x + (_y * Column + 1) + Column * (Row + 1);
+		if(isVertical == Horizontal)
+			toReturn = (_x + (_y * Column ));
+		return toReturn;
+	}
 }
 
 public class AIPlayer extends Player{
