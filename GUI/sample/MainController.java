@@ -10,6 +10,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -97,24 +99,50 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void chatOpen(MouseEvent event){
+    public boolean chatIsOpen(){
+        return chatroom.isVisible();
+    }
+
+    @FXML
+    public void chatOpen(){
         this.chatroom.setDisable(false);
         this.chatroomtop.setDisable(false);
         this.chatroom.setVisible(true);
     }
 
     @FXML
-    public void chatClose(MouseEvent event){
+    public void chatClose(){
         this.chatroom.setDisable(true);
         this.chatroomtop.setDisable(true);
         this.chatroom.setVisible(false);
     }
 
     @FXML
+    public void chatOpenClk(MouseEvent event){ chatOpen(); }
+    @FXML
+    public void chatCloseClk(MouseEvent event){ chatClose(); }
+    @FXML
+    public void chatClosePrs(KeyEvent event){ if(event.getCode() == KeyCode.TAB) chatClose(); }
+
+
+
+    @FXML
     public void chatMsgSend(ActionEvent event){
         if(!this.chatinput.getCharacters().toString().trim().equals("")) {
             this.chatoutput.setText(this.chatoutput.getText()+this.chatinput.getCharacters()+"\n");
             this.chatinput.clear();
+        }
+    }
+
+    @FXML
+    public void chatMsgSend2(KeyEvent event){
+        if(event.getCode() == KeyCode.ENTER) {
+            if (!this.chatinput.getCharacters().toString().trim().equals("")) {
+                this.chatoutput.setText(this.chatoutput.getText() + this.chatinput.getCharacters() + "\n");
+                this.chatinput.clear();
+            }
+        }else if(event.getCode() == KeyCode.TAB) {
+            chatClose();
         }
     }
 

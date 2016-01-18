@@ -296,7 +296,7 @@
                </cursor>
             </HBox>
             <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="200.0" />
-            <Label fx:id="chat" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#chatOpen" prefHeight="40.0" prefWidth="187.0" style="-fx-background-color: #800000;" text="Chatting Room" textFill="#fcf7f7" textOverrun="CLIP">
+            <Label fx:id="chat" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#chatOpenClk" prefHeight="40.0" prefWidth="187.0" style="-fx-background-color: #800000;" text="Chatting Room" textFill="#fcf7f7" textOverrun="CLIP">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -412,7 +412,7 @@
       </VBox>
       <VBox fx:id="chatroom" alignment="TOP_CENTER" disable="true" layoutX="680.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="280.0" style="-fx-background-color: #b83f3f;" visible="false">
          <children>
-            <Label fx:id="chatroomtop" alignment="CENTER" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#chatClose" prefHeight="40.0" prefWidth="280.0" style="-fx-background-color: #800000; -fx-border-color: #b83f3f; -fx-border-width: 3;" text="Chatting Room" textFill="WHITE">
+            <Label fx:id="chatroomtop" alignment="CENTER" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#chatCloseClk" prefHeight="40.0" prefWidth="280.0" style="-fx-background-color: #800000; -fx-border-color: #b83f3f; -fx-border-width: 3;" text="Chatting Room" textFill="WHITE">
                <font>
                   <Font size="20.0" />
                </font>
@@ -420,12 +420,12 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Label>
-            <TextArea fx:id="chatoutput" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="260.0" />
+            <TextArea fx:id="chatoutput" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#chatClosePrs" prefHeight="630.0" prefWidth="260.0" />
             <HBox prefHeight="50.0" prefWidth="200.0" style="-fx-alignment: center;">
                <children>
-                  <TextField fx:id="chatinput" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="176.0" />
+                  <TextField fx:id="chatinput" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#chatMsgSend2" prefHeight="36.0" prefWidth="176.0" />
                   <Label prefHeight="40.0" prefWidth="10.0" />
-                  <Button fx:id="chatsend" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#chatMsgSend" prefHeight="36.0" prefWidth="60.0" text="Send">
+                  <Button fx:id="chatsend" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#chatMsgSend" onKeyPressed="#chatClosePrs" prefHeight="36.0" prefWidth="60.0" text="Send">
                      <font>
                         <Font size="16.0" />
                      </font></Button>
