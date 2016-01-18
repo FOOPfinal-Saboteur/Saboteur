@@ -368,7 +368,7 @@ public class Main extends Application{
         // scene4 = new Scene(pane, 1080, 720);
         // scene4.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
 
-        scene4 = new Scene(root, 940, 720);
+        scene4 = new Scene(root, 960, 720);
 
         /* Start */
         window.setScene(scene1);
