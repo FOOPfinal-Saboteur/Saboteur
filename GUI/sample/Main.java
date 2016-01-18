@@ -388,11 +388,11 @@ public class Main extends Application{
         hboxz2_2.setSpacing(10);
 
         Text pnumtextz2 = new Text("  Please select number of players");
-        pnumtext.setFont(Font.font("Helvetica", FontWeight.NORMAL, 20));
-        pnumtext.setFill(Color.BLACK);
+        pnumtextz2.setFont(Font.font("Helvetica", FontWeight.NORMAL, 20));
+        pnumtextz2.setFill(Color.BLACK);
 
         Text ainumtextz2 = new Text("  Please select number of AI players");
-        ainumtext.setFont(Font.font("Helvetica", FontWeight.NORMAL, 20));
+        ainumtextz2.setFont(Font.font("Helvetica", FontWeight.NORMAL, 20));
 
         hboxz2_1.getChildren().addAll(pnumtextz2, zcb);
         hboxz2_2.getChildren().addAll(ainumtextz2, zcb2);
@@ -666,7 +666,7 @@ public class Main extends Application{
         });
 
         /* Start */
-        window.setScene(scene1);
+        window.setScene(scene4);
         window.setTitle("GUI Test");
         window.centerOnScreen();
         window.show();

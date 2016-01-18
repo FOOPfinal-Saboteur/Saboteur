@@ -1,68 +1,83 @@
 package sample;
 
+import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
+import javafx.util.Duration;
 
+import java.awt.geom.Point2D;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class MainController implements Initializable {
+public class MainController impleeventnts Initializable {
 
-    /* TopMenu */
-    @FXML private Label mode;
-    @FXML private Label player_num;
-    @FXML private Label role;
-    @FXML private Label round;
+    /* Topeventnu */
+    @FXML public Label mode;
+    @FXML public Label player_num;
+    @FXML public Label role;
+    @FXML public Label round;
 
     /* right col */
-    @FXML private VBox rightcol;
+    @FXML public VBox rightcol;
 
-    @FXML private Label p1_id; @FXML private Label p2_id; @FXML private Label p3_id; @FXML private Label p4_id;
-    @FXML private Label p5_id; @FXML private Label p6_id; @FXML private Label p7_id; @FXML private Label p8_id;
-    @FXML private Label p9_id; @FXML private Label p10_id;
+    @FXML public Label p1_id; @FXML public Label p2_id; @FXML public Label p3_id; @FXML public Label p4_id;
+    @FXML public Label p5_id; @FXML public Label p6_id; @FXML public Label p7_id; @FXML public Label p8_id;
+    @FXML public Label p9_id; @FXML public Label p10_id;
 
-    @FXML private HBox s1_id; @FXML private HBox s2_id; @FXML private HBox s3_id; @FXML private HBox s4_id;
-    @FXML private HBox s5_id; @FXML private HBox s6_id; @FXML private HBox s7_id; @FXML private HBox s8_id;
-    @FXML private HBox s9_id; @FXML private HBox s10_id;
+    @FXML public HBox s1_id; @FXML public HBox s2_id; @FXML public HBox s3_id; @FXML public HBox s4_id;
+    @FXML public HBox s5_id; @FXML public HBox s6_id; @FXML public HBox s7_id; @FXML public HBox s8_id;
+    @FXML public HBox s9_id; @FXML public HBox s10_id;
 
-    @FXML private ImageView item1_1; @FXML private ImageView item1_2; @FXML private ImageView item1_3;
-    @FXML private ImageView item2_1; @FXML private ImageView item2_2; @FXML private ImageView item2_3;
-    @FXML private ImageView item3_1; @FXML private ImageView item3_2; @FXML private ImageView item3_3;
-    @FXML private ImageView item4_1; @FXML private ImageView item4_2; @FXML private ImageView item4_3;
-    @FXML private ImageView item5_1; @FXML private ImageView item5_2; @FXML private ImageView item5_3;
-    @FXML private ImageView item6_1; @FXML private ImageView item6_2; @FXML private ImageView item6_3;
-    @FXML private ImageView item7_1; @FXML private ImageView item7_2; @FXML private ImageView item7_3;
-    @FXML private ImageView item8_1; @FXML private ImageView item8_2; @FXML private ImageView item8_3;
-    @FXML private ImageView item9_1; @FXML private ImageView item9_2; @FXML private ImageView item9_3;
-    @FXML private ImageView item10_1; @FXML private ImageView item10_2; @FXML private ImageView item10_3;
+    @FXML public ImageView item1_1; @FXML public ImageView item1_2; @FXML public ImageView item1_3;
+    @FXML public ImageView item2_1; @FXML public ImageView item2_2; @FXML public ImageView item2_3;
+    @FXML public ImageView item3_1; @FXML public ImageView item3_2; @FXML public ImageView item3_3;
+    @FXML public ImageView item4_1; @FXML public ImageView item4_2; @FXML public ImageView item4_3;
+    @FXML public ImageView item5_1; @FXML public ImageView item5_2; @FXML public ImageView item5_3;
+    @FXML public ImageView item6_1; @FXML public ImageView item6_2; @FXML public ImageView item6_3;
+    @FXML public ImageView item7_1; @FXML public ImageView item7_2; @FXML public ImageView item7_3;
+    @FXML public ImageView item8_1; @FXML public ImageView item8_2; @FXML public ImageView item8_3;
+    @FXML public ImageView item9_1; @FXML public ImageView item9_2; @FXML public ImageView item9_3;
+    @FXML public ImageView item10_1; @FXML public ImageView item10_2; @FXML public ImageView item10_3;
 
-    @FXML private Label chat;
+    @FXML public Rectangle rct1; @FXML public Rectangle rct2; @FXML public Rectangle rct3;
+    @FXML public Rectangle rct4; @FXML public Rectangle rct5; @FXML public Rectangle rct6;
+    @FXML public Rectangle rct7; @FXML public Rectangle rct8; @FXML public Rectangle rct9;
+    @FXML public Rectangle rct10;
 
     /* rightcol2 - chatroom */
 
-    @FXML private VBox chatroom;
-    @FXML private Label chatroomtop;
-    @FXML private TextArea chatoutput;
-    @FXML private TextField chatinput;
-    @FXML private Button chatsend;
+    @FXML public VBox chatroom;
+    @FXML public Label chatroomtop;
+    @FXML public TextArea chatoutput;
+    @FXML public TextField chatinput;
+    @FXML public Button chatsend;
+
+    /* MainArea */
+
+    @FXML public Text card_num;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1){
@@ -70,13 +85,13 @@ public class MainController implements Initializable {
     public MainController() {
     }
 
-    /* init game */
+    /* init gaevent */
 
     @FXML
-    protected void setStatus(int pnum, ArrayList<String> names){
+    public void setStatus(int pnum, ArrayList<String> naevents){
         Label[] p_id = new Label[]{p1_id, p2_id, p3_id, p4_id, p5_id, p6_id, p7_id, p8_id, p9_id, p10_id};
         for(int i = 0; i < pnum; i++) {
-            p_id[i].setText(names.get(i));
+            p_id[i].setText(naevents.get(i));
         }
         HBox[] s_id = new HBox[]{s1_id, s2_id, s3_id, s4_id, s5_id, s6_id, s7_id, s8_id, s9_id, s10_id};
         for(int i = pnum; i < 10; i++) {
@@ -85,14 +100,14 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    protected void setMenuBar(String mode, int pnum, String role){
+    public void seteventnuBar(String mode, int pnum, String role){
         this.mode.setText(mode);
         this.player_num.setText(pnum+"");
         this.role.setText(role);
     }
 
     @FXML
-    protected void setRound(int rnd){
+    public void setRound(int rnd){
         /* Init */
         this.round.setText(rnd+"/3");
     }
@@ -178,6 +193,39 @@ public class MainController implements Initializable {
         ImageView[][] st_id = new ImageView[][]{st_id1, st_id2, st_id3, st_id4, st_id5, st_id6, st_id7, st_id8, st_id9, st_id10};
 
         st_id[playerid-1][item-1].setVisible(false);
+    }
+
+    /* In the gaevent */
+    @FXML
+    public void setCardNum(int n){
+        this.card_num.setText(n+"");
+    }
+
+    CardGUI
+
+    @FXML
+    public void cardPressed(MouseEvent event){
+        ImageView tmp = (ImageView) event.getTarget();
+
+
+    }
+
+    @FXML
+    public void cardDrag(MouseEvent event){
+        ImageView tmp = (ImageView) event.getTarget();
+
+    }
+
+    @FXML
+    public void statusMark(MouseEvent event){
+        Rectangle tmp = (Rectangle) event.getTarget();
+        tmp.setStroke(Color.BLACK);
+    }
+
+    @FXML
+    public void statusUnmark(MouseEvent event){
+        Rectangle tmp = (Rectangle) event.getTarget();
+        tmp.setStroke(Color.TRANSPARENT);
     }
 
 }
