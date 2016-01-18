@@ -59,7 +59,7 @@ public class Action{
 	public boolean getIsFunction(){return isFunction;}
 	public int getFromWho(){return fromWho;}
 	public int getToWhom(){return toWhom;}
-	public ToWhere getToWhere{return toWhere;}
+	public ToWhere getToWhere(){return toWhere;}
 	public Card getCard(){return new Card(myCard);}
 	public RoadCard getRoadCard(){return new RoadCard(road);}
 	public FunctionCard getFunctionCard(){return new FunctionCard(func);}

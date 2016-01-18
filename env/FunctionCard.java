@@ -91,7 +91,7 @@ public class FunctionCard{
 	public int itemKind(){ return kind;}
 	public String kindStr(){
 		String toReturn = new String();
-		switch kind{
+		switch (kind){
 			case 0:
 				toReturn = new String("pick");
 				break;
