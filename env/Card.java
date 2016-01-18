@@ -58,6 +58,33 @@ public class Card{
 			System.out.println("[ERROR] WTF do you want?? You bastard");
 	
 	}
+	public Card(String cmd, boolean rotate){
+		if(cmd.equals("intersection")||
+		   cmd.equals("longT")||
+		   cmd.equals("shortT")||
+		   cmd.equals("longI")||
+		   cmd.equals("shortI")||
+		   cmd.equals("LeftTop")||
+		   cmd.equals("RightTop")||
+		   cmd.equals("fullblock")||
+		   cmd.equals("longTblock")||
+		   cmd.equals("shortTblock")||
+		   cmd.equals("LeftTopblock")||
+		   cmd.equals("RightTopblock")||
+		   cmd.equals("longIblock")||
+		   cmd.equals("shortIblock")||
+		   cmd.equals("longDeadEnd")||
+		   cmd.equals("shortDeadEnd")
+		   ){
+			is_road = true;
+			is_function = false;
+			is_rotate = rotate;
+			my_type = new String(cmd);
+		}
+		else
+			System.out.println("[ERROR] WTF do you want?? You bastard");
+	
+	}
 	public Card(Card card){
 		if(card.IsFunction()){
 			is_road = false;
