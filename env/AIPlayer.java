@@ -47,11 +47,12 @@ public class AIPlayer extends Player{
 		else if(act.getIsFunction())
 			OtherAction(act);
 	}
-	public void watchMap(DestinyStatus destiny){
+	public boolean watchMap(DestinyStatus destiny){
 		if(destiny.isGold)
 			definitely_where[destiny.where] = true;
 		else
 			maybe_where[destiny.where] = false;
+		return destiny.isGold;
 	}
 	private void MapAction(Action act){
 		//if already know the identity of the actioner update map
@@ -308,43 +309,43 @@ public class AIPlayer extends Player{
 			}
 			else if(c.Function().isFix()){
 				int kind = c.Function().itemKind();
-				if((kind == 0 || kind == 3) && !status.pickOK()){
-					Card toRet = new Card(c);
+				if((kind == 0 || kind == 3 || kind == 5) && !status.pickOK()){
+					Card toRet = new Card("fix","pick");
 					hand.remove(k);
 					return new Action(new Card(toRet),-1,-1,my_num,my_num);
 				}
-				if((kind == 1 || kind == 4) && !status.oil_lampOK()){
-					Card toRet = new Card(c);
+				if((kind == 1 || kind == 4 || kind == 3) && !status.oil_lampOK()){
+					Card toRet = new Card("fix","oil_lamp");
 					hand.remove(k);
 					return new Action(new Card(toRet),-1,-1,my_num,my_num);
 				}
-				if((kind == 2 || kind == 5) && !status.mine_cartOK()){
-					Card toRet = new Card(c);
+				if((kind == 2 || kind == 5 || kind == 4) && !status.mine_cartOK()){
+					Card toRet = new Card("fix","mine_cart");
 					hand.remove(k);
 					return new Action(new Card(toRet),-1,-1,my_num,my_num);
 				}
-				if((kind == 0 || kind == 3)){
+				if((kind == 0 || kind == 3 || kind == 5)){
 					for(int i = 0; i < player_num; i ++){
 						if(gamer[i].isPossibleMiner() && !gamer[i].pickOK()){
-							Card toRet = new Card(c);
+							Card toRet = new Card("fix","pick");
 							hand.remove(k);
 							return new Action(new Card(toRet),-1,-1,my_num,i);
 						}
 					}
 				}
-				if((kind == 1 || kind == 4)){
+				if((kind == 1 || kind == 3 || kind == 4)){
 					for(int i = 0; i < player_num; i ++){
 						if(gamer[i].isPossibleMiner() && !gamer[i].oil_lampOK()){
-							Card toRet = new Card(c);
+							Card toRet = new Card("fix","oil_lamp");
 							hand.remove(k);
 							return new Action(new Card(toRet),-1,-1,my_num,i);
 						}
 					}
 				}
-				if((kind == 2 || kind == 5)){
+				if((kind == 2 || kind == 5 || kind == 4)){
 					for(int i = 0; i < player_num; i ++){
 						if(gamer[i].isPossibleMiner() && !gamer[i].mine_cartOK()){
-							Card toRet = new Card(c);
+							Card toRet = new Card("fix","mine_cart");
 							hand.remove(k);
 							return new Action(new Card(toRet),-1,-1,my_num,i);
 						}
@@ -573,43 +574,43 @@ public class AIPlayer extends Player{
 			}
 			else if(c.Function().isFix()){
 				int kind = c.Function().itemKind();
-				if((kind == 0 || kind == 3) && !status.pickOK()){
-					Card toRet = new Card(c);
+				if((kind == 0 || kind == 3 || kind == 5) && !status.pickOK()){
+					Card toRet = new Card("fix","pick");
 					hand.remove(k);
 					return new Action(new Card(toRet),-1,-1,my_num,my_num);
 				}
-				if((kind == 1 || kind == 4) && !status.oil_lampOK()){
-					Card toRet = new Card(c);
+				if((kind == 1 || kind == 4 || kind == 3) && !status.oil_lampOK()){
+					Card toRet = new Card("fix","oil_lamp");
 					hand.remove(k);
 					return new Action(new Card(toRet),-1,-1,my_num,my_num);
 				}
-				if((kind == 2 || kind == 5) && !status.mine_cartOK()){
-					Card toRet = new Card(c);
+				if((kind == 2 || kind == 5 || kind == 4) && !status.mine_cartOK()){
+					Card toRet = new Card("fix","mine_cart");
 					hand.remove(k);
 					return new Action(new Card(toRet),-1,-1,my_num,my_num);
 				}
-				if((kind == 0 || kind == 3)){
+				if((kind == 0 || kind == 3 || kind == 5)){
 					for(int i = 0; i < player_num; i ++){
 						if(!gamer[i].isPossibleMiner() && !gamer[i].pickOK()){
-							Card toRet = new Card(c);
+							Card toRet = new Card("fix","pick");
 							hand.remove(k);
 							return new Action(new Card(toRet),-1,-1,my_num,i);
 						}
 					}
 				}
-				if((kind == 1 || kind == 4)){
+				if((kind == 1 || kind == 4 || kind == 3)){
 					for(int i = 0; i < player_num; i ++){
 						if(!gamer[i].isPossibleMiner() && !gamer[i].oil_lampOK()){
-							Card toRet = new Card(c);
+							Card toRet = new Card("fix","oil_lamp");
 							hand.remove(k);
 							return new Action(new Card(toRet),-1,-1,my_num,i);
 						}
 					}
 				}
-				if((kind == 2 || kind == 5)){
+				if((kind == 2 || kind == 5 || kind == 4)){
 					for(int i = 0; i < player_num; i ++){
 						if(!gamer[i].isPossibleMiner() && !gamer[i].mine_cartOK()){
-							Card toRet = new Card(c);
+							Card toRet = new Card("fix","mine_cart");
 							hand.remove(k);
 							return new Action(new Card(toRet),-1,-1,my_num,i);
 						}

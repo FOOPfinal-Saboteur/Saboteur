@@ -126,6 +126,9 @@ public class Player{
 			return false; // exception
 		}
 	}
+	public boolean watchMap(DestinyStatus destiny){
+		return (destiny.isGold);
+	}
 
 	public boolean removeCard(int index){
 		if(index < 0 || index >= card_num){
