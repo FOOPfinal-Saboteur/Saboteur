@@ -1,4 +1,4 @@
-//package sample;
+package sample;
 
 import javafx.application.Application;
 import javafx.beans.binding.StringBinding;
@@ -307,11 +307,7 @@ public class Main extends Application{
                 if(!nameused) {
                     playerName.add(typename.getCharacters().toString().trim());
                     System.out.println(playerName.get(playerName.size() - 1));
-                    if(namearea.getText().equals("")) {
-                        namearea.setText(typename.getCharacters().toString());
-                    }else{
-                        namearea.setText(namearea.getText() + "\n" + typename.getCharacters());
-                    }
+                    namearea.setText(namearea.getText() + typename.getCharacters() + "\n" );
                     if(playerName.size() == playerNumber-aiNumber){
                         randomAIName(aiNumber, playerName);
                         AlertBox.display("", "OK!, Let's Start the game!");

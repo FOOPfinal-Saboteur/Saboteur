@@ -11,11 +11,11 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="960.0" style="-fx-background-color: #EBD5BC;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="960.0" style="-fx-background-color: #EBD5BC;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.MainController">
    <children>
       <VBox fx:id="rightcol" alignment="TOP_CENTER" layoutX="680.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="280.0" style="-fx-background-color: #EBD5BC;">
          <children>
-            <HBox fx:id="s1_id" prefHeight="60.0" prefWidth="280.0" style="-fx-background-color: #EBD5BC; -fx-border-color: #00000; -fx-border-width: 5;">
+            <HBox fx:id="s1_id" prefHeight="60.0" prefWidth="280.0" style="-fx-background-color: #EBD5BC;">
                <children>
                   <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="50.0" />
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="230.0" style="-fx-background-color: #EBD5BC;">
@@ -43,7 +43,7 @@
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
             </HBox>
-            <HBox fx:id="s2_id" prefHeight="60.0" prefWidth="280.0" style="-fx-background-color: #EBD5BC; -fx-border-color: #00000; -fx-border-width: 5;">
+            <HBox fx:id="s2_id" prefHeight="60.0" prefWidth="280.0" style="-fx-background-color: #EBD5BC;">
                <children>
                   <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="50.0" />
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="230.0" style="-fx-background-color: #EBD5BC;">
@@ -71,7 +71,7 @@
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
             </HBox>
-            <HBox fx:id="s3_id" prefHeight="60.0" prefWidth="280.0" style="-fx-background-color: #EBD5BC; -fx-border-color: #00000; -fx-border-width: 5;">
+            <HBox fx:id="s3_id" prefHeight="60.0" prefWidth="280.0" style="-fx-background-color: #EBD5BC;">
                <children>
                   <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="50.0" />
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="230.0" style="-fx-background-color: #EBD5BC;">
@@ -99,7 +99,7 @@
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
             </HBox>
-            <HBox fx:id="s4_id" prefHeight="60.0" prefWidth="280.0" style="-fx-background-color: #EBD5BC; -fx-border-color: #00000; -fx-border-width: 5;">
+            <HBox fx:id="s4_id" prefHeight="60.0" prefWidth="280.0" style="-fx-background-color: #EBD5BC;">
                <children>
                   <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="50.0" />
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="230.0" style="-fx-background-color: #EBD5BC;">
@@ -127,7 +127,7 @@
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
             </HBox>
-            <HBox fx:id="s5_id" prefHeight="60.0" prefWidth="280.0" style="-fx-background-color: #EBD5BC; -fx-border-color: #00000; -fx-border-width: 5;">
+            <HBox fx:id="s5_id" prefHeight="60.0" prefWidth="280.0" style="-fx-background-color: #EBD5BC;">
                <children>
                   <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="50.0" />
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="230.0" style="-fx-background-color: #EBD5BC;">
@@ -155,7 +155,7 @@
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
             </HBox>
-            <HBox fx:id="s6_id" prefHeight="60.0" prefWidth="280.0" style="-fx-background-color: #EBD5BC; -fx-border-color: #00000; -fx-border-width: 5;">
+            <HBox fx:id="s6_id" prefHeight="60.0" prefWidth="280.0" style="-fx-background-color: #EBD5BC;">
                <children>
                   <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="50.0" />
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="230.0" style="-fx-background-color: #EBD5BC;">
@@ -183,7 +183,7 @@
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
             </HBox>
-            <HBox fx:id="s7_id" prefHeight="60.0" prefWidth="280.0" style="-fx-background-color: #EBD5BC; -fx-border-color: #00000; -fx-border-width: 5;">
+            <HBox fx:id="s7_id" prefHeight="60.0" prefWidth="280.0" style="-fx-background-color: #EBD5BC;">
                <children>
                   <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="50.0" />
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="230.0" style="-fx-background-color: #EBD5BC;">
@@ -211,7 +211,7 @@
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
             </HBox>
-            <HBox fx:id="s8_id" prefHeight="60.0" prefWidth="280.0" style="-fx-background-color: #EBD5BC; -fx-border-color: #00000; -fx-border-width: 5;">
+            <HBox fx:id="s8_id" prefHeight="60.0" prefWidth="280.0" style="-fx-background-color: #EBD5BC;">
                <children>
                   <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="50.0" />
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="230.0" style="-fx-background-color: #EBD5BC;">
@@ -239,7 +239,7 @@
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
             </HBox>
-            <HBox fx:id="s9_id" prefHeight="60.0" prefWidth="280.0" style="-fx-background-color: #EBD5BC; -fx-border-color: #00000; -fx-border-width: 5;">
+            <HBox fx:id="s9_id" prefHeight="60.0" prefWidth="280.0" style="-fx-background-color: #EBD5BC;">
                <children>
                   <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="50.0" />
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="230.0" style="-fx-background-color: #EBD5BC;">
@@ -267,7 +267,7 @@
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
             </HBox>
-            <HBox fx:id="s10_id" prefHeight="60.0" prefWidth="280.0" style="-fx-background-color: #EBD5BC; -fx-border-color: #00000; -fx-border-width: 5;">
+            <HBox fx:id="s10_id" prefHeight="60.0" prefWidth="280.0" style="-fx-background-color: #EBD5BC;">
                <children>
                   <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="50.0" />
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="230.0" style="-fx-background-color: #EBD5BC;">
@@ -370,38 +370,38 @@
                <children>
                   <ImageView fitHeight="120.0" fitWidth="95.0" layoutX="600.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@img/game/Road_LongI.gif" />
+                        <Image url="@img/game/Road_LongI.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="120.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@img/game/Road_Intersection.gif" />
+                        <Image url="@img/game/Road_Intersection.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="120.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@img/game/Road_LongTBlock.gif" />
+                        <Image url="@img/game/Road_LongTBlock.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="120.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@img/game/Road_ShortT.gif" />
+                        <Image url="@img/game/Road_ShortT.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="120.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@img/game/Func_Fix_cart.gif" />
+                        <Image url="@img/game/Func_Fix_cart.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="120.0" fitWidth="112.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@img/game/Func_Break_pick.gif" />
+                        <Image url="@img/game/Func_Break_pick.png" />
                      </image>
                   </ImageView>
                   <Separator orientation="VERTICAL" prefHeight="200.0" />
                   <ImageView fitHeight="120.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@img/game/Road_Back.gif" />
+                        <Image url="@img/game/Road_Back.png" />
                      </image>
                   </ImageView>
                </children>
@@ -425,7 +425,7 @@
                <children>
                   <TextField fx:id="chatinput" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="176.0" />
                   <Label prefHeight="40.0" prefWidth="10.0" />
-                  <Button fx:id="chatsend" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="36.0" prefWidth="60.0" text="Send">
+                  <Button fx:id="chatsend" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#chatMsgSend" prefHeight="36.0" prefWidth="60.0" text="Send">
                      <font>
                         <Font size="16.0" />
                      </font></Button>

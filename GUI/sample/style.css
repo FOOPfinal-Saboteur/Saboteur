@@ -1,5 +1,5 @@
 #pane1{
-    -fx-background-image: url("img/background/gamestart.png");
+    -fx-background-image: url("Image/background/gamestart.png");
     -fx-background-repeat: stretch;
     -fx-background-size: 940 705;
     -fx-background-position: center center;
@@ -11,14 +11,14 @@
 }
 
 #pane2{
-    -fx-background-image: url("img/background/gamestart.png");
+    -fx-background-image: url("Image/background/gamestart.png");
     -fx-background-repeat: stretch;
     -fx-background-size: 940 705;
     -fx-background-position: center center;
 }
 
 #pane3{
-    -fx-background-image: url("img/background/gamestart.png");
+    -fx-background-image: url("Image/background/gamestart.png");
     -fx-background-repeat: stretch;
     -fx-background-size: 940 705;
     -fx-background-position: center center;

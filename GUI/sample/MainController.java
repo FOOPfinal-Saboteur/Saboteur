@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -90,6 +91,12 @@ public class MainController implements Initializable {
     }
 
     @FXML
+    protected void setRound(int rnd){
+        /* Init */
+        this.round.setText(rnd+"/3");
+    }
+
+    @FXML
     public void chatOpen(MouseEvent event){
         this.chatroom.setDisable(false);
         this.chatroomtop.setDisable(false);
@@ -103,5 +110,12 @@ public class MainController implements Initializable {
         this.chatroom.setVisible(false);
     }
 
+    @FXML
+    public void chatMsgSend(ActionEvent event){
+        if(!this.chatinput.getCharacters().toString().trim().equals("")) {
+            this.chatoutput.setText(this.chatoutput.getText()+this.chatinput.getCharacters()+"\n");
+            this.chatinput.clear();
+        }
+    }
 
 }
