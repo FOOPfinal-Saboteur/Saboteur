@@ -179,7 +179,16 @@ public class AIPlayer extends Player{
 						hand.remove(k);
 						return new Action(new Card("map","la"),9,4,my_num,0);
 					}
+					if(maybe_where[2]){
+						hand.remove(k);
+						return new Action(new Card("map","la"),9,0,my_num,0);
+					}
+					if(maybe_where[1]){
+						hand.remove(k);
+						return new Action(new Card("map","la"),9,2,my_num,0);
+					}
 				}
+				removable[k] = true;
 			}
 			if(status.pickOK() && status.oil_lampOK() && status.mine_cartOK()){
 				boolean look = true;
@@ -408,7 +417,16 @@ public class AIPlayer extends Player{
 						hand.remove(k);
 						return new Action(new Card("map","la"),9,4,my_num,0);
 					}
+					if(maybe_where[2]){
+						hand.remove(k);
+						return new Action(new Card("map","la"),9,0,my_num,0);
+					}
+					if(maybe_where[1]){
+						hand.remove(k);
+						return new Action(new Card("map","la"),9,2,my_num,0);
+					}
 				}
+				removable[k] = true;
 			}
 			if(status.pickOK() && status.oil_lampOK() && status.mine_cartOK()){
 				boolean look = true;
