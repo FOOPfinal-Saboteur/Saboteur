@@ -23,6 +23,7 @@ public class AIPlayer extends Player{
 		maybe_where = new boolean[3];
 		for(int i = 0; i < 3; i ++)
 			maybe_where[i] = true;
+		definitely_where = new boolean[3];
 		for(int i = 0; i < 3; i ++)
 			definitely_where[i] = false;
 	}
@@ -38,6 +39,7 @@ public class AIPlayer extends Player{
 		maybe_where = new boolean[3];
 		for(int i = 0; i < 3; i ++)
 			maybe_where[i] = true;
+		definitely_where = new boolean[3];
 		for(int i = 0; i < 3; i ++)
 			definitely_where[i] = false;
 	}
