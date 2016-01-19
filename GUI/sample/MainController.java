@@ -1,12 +1,14 @@
 package sample;
 
 import javafx.animation.*;
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -24,6 +26,7 @@ import javafx.scene.text.Font;
 
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.awt.geom.Point2D;
@@ -36,7 +39,12 @@ import java.util.ResourceBundle;
 public class MainController implements Initializable {
 
     /* Big Layout */
-    @FXML public Pane root;
+    @FXML public ArrayList<CardGUI> gui;
+    @FXML public MapGUI mapView;
+    @FXML public Shuffler shuffler;
+    @FXML public Pane pane;
+
+    public int hand_num;
 
     /* Topeventnu */
     @FXML public Label mode;
@@ -83,9 +91,48 @@ public class MainController implements Initializable {
 
     @FXML public Text card_num;
 
+    /* Function */
+
+
+    public static void initCard(ImageView iv) {
+        iv.setFitHeight(105);
+        iv.setPreserveRatio(true);
+        iv.setSmooth(true);
+        iv.setCache(true);
+    }
+
+    @FXML
+    public void backEndSetUp(){
+
+        mapView = new MapGUI(538);
+        shuffler = new Shuffler();
+        shuffler.shuffle();
+
+        gui = new ArrayList<CardGUI>();
+        for (int i = 0; i < hand_num; i++) {
+            gui.add(shuffler.takeCard());
+            initCard(gui.get(i));
+        }
+
+        Pane mapPane = mapView.initPane();
+        pane.getChildren().add(mapPane);
+        for (int i = 0; i < hand_num; i++) {
+            pane.getChildren().add(gui.get(i));
+            gui.get(i).setTranslateX(20 + 80 * i);
+            gui.get(i).setTranslateY(590);
+        }
+        for (int i = 0; i < hand_num; i++)
+            gui.get(i).setHandler(mapView, gui, shuffler, pane);
+
+        mapView.setLayoutX(13);
+        mapView.setLayoutY(40);
+        mapPane.toBack();
+    }
+
     @Override
     public void initialize(URL arg0, ResourceBundle arg1){
     }
+
     public MainController() {
     }
 
@@ -100,6 +147,10 @@ public class MainController implements Initializable {
         HBox[] s_id = new HBox[]{s1_id, s2_id, s3_id, s4_id, s5_id, s6_id, s7_id, s8_id, s9_id, s10_id};
         for(int i = pnum; i < 10; i++) {
             s_id[i].setVisible(false);
+        }
+        Rectangle[] rct = new Rectangle[]{rct1,rct2,rct3,rct4,rct5,rct6,rct7,rct8,rct9,rct10};
+        for(int i = pnum; i < 10; i++){
+            rct[i].setVisible(false);
         }
     }
 
@@ -211,27 +262,6 @@ public class MainController implements Initializable {
     @FXML
     public void setCardNum(int n){
         this.card_num.setText(n+"");
-    }
-
-    public void initCard(ImageView iv) {
-        iv.setFitHeight(105);
-        iv.setPreserveRatio(true);
-        iv.setSmooth(true);
-        iv.setCache(true);
-    }
-
-
-    public MapGUI map = new MapGUI(538);
-    public Shuffler sfl = new Shuffler(map);
-
-    @FXML
-    public void placeCard(int index){
-        sfl.shuffle();
-        CardGUI card = sfl.takeCard();
-        initCard(card);
-        root.getChildren().add(card);
-        card.setTranslateX(20 + (index-1) * 80);
-        card.setTranslateY(600);
     }
 
     @FXML

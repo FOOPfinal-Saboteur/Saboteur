@@ -44,7 +44,7 @@ public class Main extends Application{
     boolean create = false;
     boolean join = false;
     /* */
-    int playerNumber, aiNumber;
+    int playerNumber, aiNumber, handNumber;
     int nameCharMax = 12, playerNumberMAX = 10;
     ArrayList<String> playerName = new ArrayList<String>();
     int nowPlayer = 0;
@@ -277,6 +277,14 @@ public class Main extends Application{
                     AlertBox.display("Attetion", "You haven't set the numbers yet!");
                 }else {
                     playerNumber = Integer.parseInt(cb.getValue().toString());
+                    if(playerNumber < 6) {
+                        handNumber = 6;
+                    }else if(playerNumber < 8){
+                        handNumber = 5;
+                    }else {
+                        handNumber = 4;
+                    }
+                    ctrl.hand_num = handNumber;
                     aiNumber = Integer.parseInt(cb2.getValue().toString());
                     shownum.setText("Player's number: " + playerNumber);
                     randomSetRoles(playerNumber, roles);
@@ -307,6 +315,14 @@ public class Main extends Application{
                         AlertBox.display("Attetion", "You haven't set the numbers yet!");
                     } else {
                         playerNumber = Integer.parseInt(cb.getValue().toString());
+                        if(playerNumber < 6) {
+                            handNumber = 6;
+                        }else if(playerNumber < 8){
+                            handNumber = 5;
+                        }else {
+                            handNumber = 4;
+                        }
+                        ctrl.hand_num = handNumber;
                         aiNumber = Integer.parseInt(cb2.getValue().toString());
                         shownum.setText("Player's number: " + playerNumber);
                         randomSetRoles(playerNumber, roles);
@@ -552,6 +568,7 @@ public class Main extends Application{
                             }
                             ctrl.setStatus(playerNumber, playerName);
                             ctrl.setMenuBar("Normal", playerNumber, rolename[roles.get(nowPlayer)]);
+                            ctrl.backEndSetUp();
                             window.setScene(scene4);
                             window.centerOnScreen();
                         }
@@ -593,6 +610,7 @@ public class Main extends Application{
                         }
                         ctrl.setStatus(playerNumber, playerName);
                         ctrl.setMenuBar("Normal", playerNumber, rolename[roles.get(nowPlayer)]);
+                        ctrl.backEndSetUp();
                         window.setScene(scene4);
                         window.centerOnScreen();
                     }
@@ -666,11 +684,8 @@ public class Main extends Application{
             }
         });
 
-        for(int i = 1; i < 7; i++) {
-            ctrl.placeCard(i);
-        }
         /* Start */
-        window.setScene(scene4);
+        window.setScene(scene1);
         window.setTitle("GUI Test");
         window.centerOnScreen();
         window.show();
