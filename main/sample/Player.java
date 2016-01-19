@@ -63,19 +63,21 @@ public class Player{
 	protected ArrayList<Card> hand;
 	protected int card_num;
 	protected String name;
+	protected int my_num;
 	protected int role; // 0:Saboteur, 1:Miner  
 	protected ActiveStatus status = new ActiveStatus();
 	protected boolean isAI;
 
 	/* Constructor */
-	public Player(String _name, int _role, int _num){
+	public Player(String _name, int _role, int _num, int m_num){
 		hand = new ArrayList<Card>();
 		name = new String(_name);
 		role = _role;
 		card_num = _num;
 		isAI = false;
+		my_num = m_num;
 	}
-	public Player(String _name, String _role, int _num){
+	public Player(String _name, String _role, int _num, int m_num){
 		hand = new ArrayList<Card>();
 		name = new String(_name);
 		if(_role == "Saboteur"){
@@ -85,6 +87,7 @@ public class Player{
 		}
 		card_num = _num;
 		isAI = false;
+		my_num = m_num;
 	}
 
 	/* Accessor */

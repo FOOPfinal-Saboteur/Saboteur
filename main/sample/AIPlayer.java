@@ -8,19 +8,19 @@ public class AIPlayer extends Player{
 	int[] otherRole;
 	GamerStatus[] gamer;
 	int player_num;//how many player
-	int my_num;;//my number
+	//int my_num;;//my number
 	boolean[] maybe_where;//0  for top, 2 for mid, 3 for btm
 	boolean[] definitely_where;//0 top...
 	static InnerMap myMap;
 	public AIPlayer(String _name,int _role,int _num,int p_num,int me){
-		super(_name,_role,_num);
-		my_num = me;
+		super(_name,_role,_num,me);
+		//my_num = me;
 		isAI = true;
 		player_num = p_num;
 		gamer = new GamerStatus[p_num];
 		for(int i = 0; i < p_num; i ++)
 			gamer[i] = new GamerStatus();
-		myMap = new InnerMap(10,5);
+		myMap = new InnerMap(9,5);
 		maybe_where = new boolean[3];
 		for(int i = 0; i < 3; i ++)
 			maybe_where[i] = true;
@@ -29,14 +29,14 @@ public class AIPlayer extends Player{
 			definitely_where[i] = false;
 	}
 	public AIPlayer(String _name,String _role,int _num,int p_total,int me){
-		super(_name,_role,_num);
-		my_num = me;
+		super(_name,_role,_num,me);
+		//my_num = me;
 		isAI = true;
 		player_num = p_total;
 		gamer = new GamerStatus[p_total];
 		for(int i = 0; i < p_total; i ++)
 			gamer[i] = new GamerStatus();
-		myMap = new InnerMap(10,5);
+		myMap = new InnerMap(9,5);
 		maybe_where = new boolean[3];
 		for(int i = 0; i < 3; i ++)
 			maybe_where[i] = true;
@@ -181,15 +181,15 @@ public class AIPlayer extends Player{
 				if(howManyIknow < 2){
 					if(maybe_where[0]){
 						hand.remove(k);
-						return new Action(new Card("map","la"),9,4,my_num,0);
+						return new Action(new Card("map","la"),8,4,my_num,0);
 					}
 					if(maybe_where[2]){
 						hand.remove(k);
-						return new Action(new Card("map","la"),9,0,my_num,0);
+						return new Action(new Card("map","la"),8,0,my_num,0);
 					}
 					if(maybe_where[1]){
 						hand.remove(k);
-						return new Action(new Card("map","la"),9,2,my_num,0);
+						return new Action(new Card("map","la"),8,2,my_num,0);
 					}
 				}
 				removable[k] = true;
@@ -199,7 +199,7 @@ public class AIPlayer extends Player{
 				if(!c.IsRoad())
 					look = false;
 				if(look && knowGold()){
-					for(int x = 0; x < 10; x ++){
+					for(int x = 0; x < 9; x ++){
 						for(int y = 0;y < 5; y ++){
 							if(!myMap.canPut(x,y,c.Road()))
 								c.rotateCard();
@@ -226,7 +226,7 @@ public class AIPlayer extends Player{
 					}
 				}
 				else if (look){
-					for(int x = 0; x < 10; x ++){
+					for(int x = 0; x < 9; x ++){
 						for(int y = 0;y < 5; y ++){
 							if(!myMap.canPut(x,y,c.Road()))
 								c.rotateCard();
@@ -260,7 +260,7 @@ public class AIPlayer extends Player{
 				removable[k] = true;
 			else if(c.IsFunction() && c.Function().isCollapse()){
 				if(knowGold()){
-					for(int x = 0; x < 10; x ++){
+					for(int x = 0; x < 9; x ++){
 						for(int y = 0;y < 5; y ++){
 							if(myMap.shouldPut(x,y)){
 								WhatHappen wtf = myMap.tryCard(x,y,c);
@@ -285,7 +285,7 @@ public class AIPlayer extends Player{
 					}
 				}
 				else{
-					for(int x = 0; x < 10; x ++){
+					for(int x = 0; x < 9; x ++){
 						for(int y = 0;y < 5; y ++){
 							if(myMap.shouldPut(x,y)){
 								int ret_rate = 3;
@@ -438,7 +438,7 @@ public class AIPlayer extends Player{
 				if(!c.IsRoad())
 					look = false;
 				if(look && knowGold()){
-					for(int x = 0; x < 10; x ++){
+					for(int x = 0; x < 9; x ++){
 						for(int y = 0;y < 5; y ++){
 							if(!myMap.canPut(x,y,c.Road()))
 								c.rotateCard();
@@ -465,7 +465,7 @@ public class AIPlayer extends Player{
 					}
 				}
 				else if (look){
-					for(int x = 0; x < 10; x ++){
+					for(int x = 0; x < 9; x ++){
 						for(int y = 0;y < 5; y ++){
 							if(!myMap.canPut(x,y,c.Road()))
 								c.rotateCard();
@@ -498,7 +498,7 @@ public class AIPlayer extends Player{
 				removable[k] = true;
 			else if(c.IsFunction() && c.Function().isCollapse()){
 				if(knowGold()){
-					for(int x = 0; x < 10; x ++){
+					for(int x = 0; x < 9; x ++){
 						for(int y = 0;y < 5; y ++){
 							if(myMap.shouldPut(x,y)){
 								WhatHappen wtf = myMap.tryCard(x,y,c);
@@ -523,7 +523,7 @@ public class AIPlayer extends Player{
 					}
 				}
 				else{
-					for(int x = 0; x < 10; x ++){
+					for(int x = 0; x < 9; x ++){
 						for(int y = 0;y < 5; y ++){
 							if(myMap.shouldPut(x,y)){
 								int ret_rate = 3;
