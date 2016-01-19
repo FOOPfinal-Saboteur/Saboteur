@@ -8,13 +8,13 @@ public class AIPlayer extends Player{
 	int[] otherRole;
 	GamerStatus[] gamer;
 	int player_num;//how many player
-	int my_num;;//my number
+	//int my_num;;//my number
 	boolean[] maybe_where;//0  for top, 2 for mid, 3 for btm
 	boolean[] definitely_where;//0 top...
 	static InnerMap myMap;
 	public AIPlayer(String _name,int _role,int _num,int p_num,int me){
-		super(_name,_role,_num);
-		my_num = me;
+		super(_name,_role,_num,me);
+		//my_num = me;
 		isAI = true;
 		player_num = p_num;
 		gamer = new GamerStatus[p_num];
@@ -29,8 +29,8 @@ public class AIPlayer extends Player{
 			definitely_where[i] = false;
 	}
 	public AIPlayer(String _name,String _role,int _num,int p_total,int me){
-		super(_name,_role,_num);
-		my_num = me;
+		super(_name,_role,_num,me);
+		//my_num = me;
 		isAI = true;
 		player_num = p_total;
 		gamer = new GamerStatus[p_total];
