@@ -105,9 +105,14 @@ public class Map{
 		pos[9][0].setHaveCard(true); // Bottom
 		pos[9][2].setHaveCard(true); // Middle
 		pos[9][4].setHaveCard(true); // Top
+		Random rand = new Random();
+		pos[9][rand.nextInt(3) * 2].setDestination(true,false);
 	}
 
-	/* Method */ 
+	/* Method */
+	public boolean haveGold(int y){
+		return pos[9][y].getIsGold();
+	}
 	public boolean receiveCard(Card card,int x,int y){
 		if(card.IsFunction()){
 			if(card.Function().isCollapse())
