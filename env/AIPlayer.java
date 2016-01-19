@@ -359,7 +359,7 @@ public class AIPlayer extends Player{
 							if(myMap.shouldPut(x,y)){
 								int ret_rate = 3;
 								WhatHappen wtf = myMap.tryCard(x,y,c);
-								System.out.println(x +";"+ y+":" + wtf.HowmanyCloser());
+								//System.out.println(x +";"+ y+":" + wtf.HowmanyCloser());
 								if(wtf.HowmanyCloser() == 3){
 									Card toRet = new Card(c);
 									hand.remove(k);
@@ -526,7 +526,7 @@ public class AIPlayer extends Player{
 								c.rotateCard();
 							if(myMap.canPut(x,y,c.Road())){
 								WhatHappen wtf = myMap.tryCard(x,y,c);
-								System.out.println(x +"+"+ y+":" + wtf.HowmanyFarther());
+							//	System.out.println(x +"+"+ y+":" + wtf.HowmanyFarther());
 								if(definitely_where[0] && wtf.fartherToTop()){
 									Card toRet = new Card(c);
 									hand.remove(k);
