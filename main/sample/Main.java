@@ -11,7 +11,7 @@ import java.util.Scanner;
  */
 
 public class Main {
-    static int playerNumber, aiNumber;
+    static int playerNumber, aiNumber, cardNumber;
     static ArrayList<String> playerName = new ArrayList<String>();
     static ArrayList<Integer> roles = new ArrayList<Integer>();
     static String[] rolename = {"Saboteur", "Miner"};
@@ -116,24 +116,33 @@ public class Main {
 
     public static void main(String[] args){
         Scanner scanner = new Scanner(System.in);
-        playerNumber = 3;
-        aiNumber = 3;
+        playerNumber = scanner.nextInt();
+        aiNumber = scanner.nextInt();
+        if(playerNumber < 6){
+            cardNumber = 6;
+        }else if(playerNumber < 8){
+            cardNumber = 5;
+        }else{
+            cardNumber = 4;
+        }
         for(int i = 0; i < playerNumber-aiNumber; i++){
             playerName.add(scanner.next());
         }
         randomAIName(aiNumber, playerName);
-        randomSetRoles(playerNumber, roles);
-        /* init Player */
-        Player[] player = new Player[playerNumber];
-        for(int i = 0; i < playerNumber-aiNumber; i++){
-            player[i] = new Player(playerName.get(i), roles.get(i), 6);
-        }
-        /* init AI player */
-        for(int i = playerNumber-aiNumber; i < playerNumber; i++){
-            player[i] = new AIPlayer(playerName.get(i), roles.get(i), 6, playerNumber, i);
-        }
 
         for(int rnd = 1; rnd <= 3; rnd++){
+
+            randomSetRoles(playerNumber, roles);
+            /* init Player */
+            Player[] player = new Player[playerNumber];
+            for(int i = 0; i < playerNumber-aiNumber; i++){
+                player[i] = new Player(playerName.get(i), roles.get(i), 5);
+            }
+            /* init AI player */
+            for(int i = playerNumber-aiNumber; i < playerNumber; i++){
+                player[i] = new AIPlayer(playerName.get(i), roles.get(i), 5, playerNumber, i);
+            }
+
             System.out.println("***********Round "+rnd+" *****************");
 
             Deck deck = new Deck();
@@ -145,7 +154,7 @@ public class Main {
             /* int player hand */
             for(int i = 0; i < playerNumber; i++){
                 ArrayList<Card> tmp = new ArrayList<Card>();
-                for(int j = 0; j < 6; j++){
+                for(int j = 0; j < 5; j++){
                     tmp.add(deck.giveACard());
                 }
                 player[i].setHand(tmp);
