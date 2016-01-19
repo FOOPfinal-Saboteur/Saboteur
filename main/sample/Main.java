@@ -136,11 +136,11 @@ public class Main {
             /* init Player */
             Player[] player = new Player[playerNumber];
             for(int i = 0; i < playerNumber-aiNumber; i++){
-                player[i] = new Player(playerName.get(i), roles.get(i), 5);
+                player[i] = new Player(playerName.get(i), roles.get(i), cardNumber);
             }
             /* init AI player */
             for(int i = playerNumber-aiNumber; i < playerNumber; i++){
-                player[i] = new AIPlayer(playerName.get(i), roles.get(i), 5, playerNumber, i);
+                player[i] = new AIPlayer(playerName.get(i), roles.get(i), cardNumber, playerNumber, i);
             }
 
             System.out.println("***********Round "+rnd+" *****************");
@@ -154,7 +154,7 @@ public class Main {
             /* int player hand */
             for(int i = 0; i < playerNumber; i++){
                 ArrayList<Card> tmp = new ArrayList<Card>();
-                for(int j = 0; j < 5; j++){
+                for(int j = 0; j < cardNumber; j++){
                     tmp.add(deck.giveACard());
                 }
                 player[i].setHand(tmp);
