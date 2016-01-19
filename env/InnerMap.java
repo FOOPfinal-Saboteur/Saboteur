@@ -46,7 +46,7 @@ class InnerMap{
 		for(int i = 0; i < column *(row + 1) + (column + 1) * row; i ++)
 			Distance[i] = 500;
 		horizon_num = column * (row + 1);
-		AdjList = new ArrayList<List<Edge>>(10);
+		AdjList = new ArrayList<List<Edge>>(9);
 		for(int i = 0; i < (column * (row + 1) + (column + 1) * row); i ++)
 			AdjList.add(i, new ArrayList<Edge>(2));
 		for(int i = 0; i < (column * (row + 1) + (column + 1) * row); i ++){
@@ -78,13 +78,13 @@ class InnerMap{
 		//	}
 		//	System.out.println();
 		}
-		source = EdgeNum(1,2,Vertical);
-		assignCard(1,2,new RoadCard("intersection"));
+		source = EdgeNum(0,2,Vertical);
+		assignCard(0,2,new RoadCard("intersection"));
 		Distance[source] = 0;
 		Dijkstra();
-		minT = minDist(9,4);
-		minM = minDist(9,2);
-		minB = minDist(9,0);
+		minT = minDist(8,4);
+		minM = minDist(8,2);
+		minB = minDist(8,0);
 	}
 	public boolean canPut(int x,int y,RoadCard card){
 //		System.out.println(x +" "+y);
@@ -103,18 +103,18 @@ class InnerMap{
 		return true;
 	}
 	public boolean shouldPut(int x,int y){
-		if(x == 1 && y == 2)
+		if(x == 0 && y == 2)
 			return false;
 		if(noRoad(x,y))
 			return false;
-			if(Distance[EdgeNum(x,y,Vertical)] == 0)
-				return true;
-			if(Distance[EdgeNum(x + 1,y,Vertical)] == 0)
-				return true;
-			if(Distance[EdgeNum(x,y,Horizontal)] == 0)
-				return true;
-			if(Distance[EdgeNum(x,y + 1,Horizontal)] == 0)
-				return true;
+		if(Distance[EdgeNum(x,y,Vertical)] == 0)
+			return true;
+		if(Distance[EdgeNum(x + 1,y,Vertical)] == 0)
+			return true;
+		if(Distance[EdgeNum(x,y,Horizontal)] == 0)
+			return true;
+		if(Distance[EdgeNum(x,y + 1,Horizontal)] == 0)
+			return true;
 		return true;
 	}
 	private boolean noRoad(int x, int y){
@@ -153,9 +153,9 @@ class InnerMap{
 			assignCard(x,y,road);
 		}
 		Dijkstra();
-		minT = minDist(9,4);
-		minM = minDist(9,2);
-		minB = minDist(9,0);
+		minT = minDist(8,4);
+		minM = minDist(8,2);
+		minB = minDist(8,0);
 		return new WhatHappen(originT - minT, originM - minM,originB -minB);
 	}
 	public WhatHappen tryCard(int x,int y,Card card){
@@ -181,24 +181,24 @@ class InnerMap{
 			assignCard(x,y,road);
 		}
 		Dijkstra();
-		minT = minDist(9,4);
-		minM = minDist(9,2);
-		minB = minDist(9,0);
+		minT = minDist(8,4);
+		minM = minDist(8,2);
+		minB = minDist(8,0);
 		WhatHappen toReturn = new WhatHappen(originT -minT,originM -minM, originB -minB);
 //		printMap();
 		if(card.IsFunction()){
 			assignCard(x,y,origin);
 			Dijkstra();
-			minT = minDist(9,4);
-			minM = minDist(9,2);
-			minB = minDist(9,0);
+			minT = minDist(8,4);
+			minM = minDist(8,2);
+			minB = minDist(8,0);
 		}
 		else if(card.IsRoad()){
 			breakRoad(x,y);
 			Dijkstra();
-			minT = minDist(9,4);
-			minM = minDist(9,2);
-			minB = minDist(9,0);
+			minT = minDist(8,4);
+			minM = minDist(8,2);
+			minB = minDist(8,0);
 		}
 		return toReturn;
 	//	if()
