@@ -130,7 +130,7 @@ public class Main {
             for(int i = playerNumber-aiNumber; i < playerNumber; i++){
                 ArrayList<Card> tmp = new ArrayList<Card>();
                 for(int j = 0; j < 6; j++){
-                    tmp.add(new Card("intersection"));
+                    tmp.add(new Card("shortT"));
                 }
                 player[i].setHand(tmp);
             }
@@ -162,6 +162,7 @@ public class Main {
                     /* server action */
                     valid = isValid(nowAction, map, player);
 		    System.out.println(map);
+		    System.out.println(player[nowPlayer]);
                 }
             }
 
