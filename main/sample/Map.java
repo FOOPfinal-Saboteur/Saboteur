@@ -180,18 +180,22 @@ public class Map{
 		spread(x, y);
 
 		if(x == 8 && y == 4){
+			System.out.println("Very Close!");
 			if(c.getBind(3) && vSideCTS[9][4]) {
 				pos[9][4].setFlipped(true);
 			}
 		}else if(x == 8 && y == 2){
+			System.out.println("Very Close!");
 			if(c.getBind(3) && vSideCTS[9][2]) {
 				pos[9][2].setFlipped(true);
 			}
 		}else if(x == 8 && y == 0){
+			System.out.println("Very Close!");
 			if(c.getBind(3) && vSideCTS[9][0]) {
 				pos[9][0].setFlipped(true);
 			}
 		}else if(x == 9 && y == 3){
+			System.out.println("Very Close!");
 			if(c.getBind(0) && hSideCTS[9][4]) {
 				pos[9][4].setFlipped(true);
 			}
@@ -199,6 +203,7 @@ public class Map{
 				pos[9][2].setFlipped(true);
 			}
 		}else if(x == 9 && y == 1){
+			System.out.println("Very Close!");
 			if(c.getBind(0) && vSideCTS[9][2]) {
 				pos[9][2].setFlipped(true);
 			}

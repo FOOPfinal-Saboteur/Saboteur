@@ -25,21 +25,21 @@ class ActiveStatus{
 	}
 	// Mutator
 	public void destroy(String cmd){
-		if(cmd == "pick"){
+		if(cmd.equals("pick"){
 			pick = false;
-		}else if(cmd == "oil_lamp"){
+		}else if(cmd.equals("oil_lamp"){
 			oil_lamp = false;
-		}else if(cmd == "mine_cart"){
+		}else if(cmd.equals("mine_cart"){
 			mine_cart = false;
 		}
 	}
 
 	public void fix(String cmd){
-		if(cmd == "pick"){
+		if(cmd.equals("pick"){
 			pick = true;
-		}else if(cmd == "oil_lamp"){
+		}else if(cmd.equals("oil_lamp"){
 			oil_lamp = true;
-		}else if(cmd == "mine_cart"){
+		}else if(cmd.equals("mine_cart"){
 			mine_cart = true;
 		}
 	}
@@ -168,19 +168,19 @@ public class Player{
 	}
 		/* Active Status */
 	public boolean destroy(String cmd){
-		if(cmd == "pick"){
+		if(cmd.equals("pick")){
 			if(status.pickOK()){
 				status.destroy(cmd);
 				return true;
 			}
 			return false;
-		}else if(cmd == "oil_lamp"){
+		}else if(cmd.equals("oil_lamp")){
 			if(status.oil_lampOK()){
 				status.destroy(cmd);
 				return true;
 			}
 			return false;
-		}else if(cmd == "mine_cart"){
+		}else if(cmd.equals("mine_cart")){
 			if(status.mine_cartOK()){
 				status.destroy(cmd);
 				return true;
@@ -192,19 +192,19 @@ public class Player{
 	}
 
 	public boolean fix(String cmd){
-		if(cmd == "pick"){
+		if(cmd.equals("pick")){
 			if(!status.pickOK()){
 				status.fix(cmd);
 				return true;
 			}
 			return false;
-		}else if(cmd == "oil_lamp"){
+		}else if(cmd.equals("oil_lamp")){
 			if(!status.oil_lampOK()){
 				status.fix(cmd);
 				return true;
 			}
 			return false;
-		}else if(cmd == "mine_cart"){
+		}else if(cmd.equals("mine_cart")){
 			if(!status.mine_cartOK()){
 				status.fix(cmd);
 				return true;
