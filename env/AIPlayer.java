@@ -225,14 +225,25 @@ public class AIPlayer extends Player{
 					}
 				}
 				else if (look){
+					boolean rota = false;
+					boolean shouldR = false;
+					int max = 0;
+					int mX = 0,mY = 0;
 					for(int x = 0; x < 10; x ++){
 						for(int y = 0;y < 5; y ++){
-							if(!myMap.canPut(x,y,c.Road()))
+							if(!myMap.canPut(x,y,c.Road())){
+								rota = !rota;
 								c.rotateCard();
+							}
 							if(myMap.canPut(x,y,c.Road())){
 								int ret_rate = 3;
 								WhatHappen wtf = myMap.tryCard(x,y,c);
 								System.out.println(x +"+"+ y+":" + wtf.HowmanyCloser());
+								if(wtf.HowmanyCloser() == 3){
+									Card toRet = new Card(c);
+									hand.remove(k);
+									return new Action(new Card(toRet),x,y,my_num,0);
+								}
 								if(maybe_where[0] && !wtf.closerToTop()){
 									ret_rate --;
 								}
@@ -242,15 +253,21 @@ public class AIPlayer extends Player{
 								if(maybe_where[1] && !wtf.closerToMid()){
 									ret_rate --;
 								}
-								if(ret_rate > 1){
-									Card toRet = new Card(c);
-									hand.remove(k);
-									return new Action(new Card(toRet),x,y,my_num,0);
+								if(ret_rate > max){
+									mX = x;
+									mY = y;
+									max = ret_rate;
+									shouldR = rota;
 								}
-								removable[k] = true;
 							}
 						}
 					}
+					if(max > 1){
+						Card toRet = new Card(c.getType(),shouldR);
+						hand.remove(k);
+						return new Action(new Card(toRet),mX,mY,my_num,0);
+					}
+					removable[k] = true;
 
 				}
 			}
@@ -284,11 +301,25 @@ public class AIPlayer extends Player{
 					}
 				}
 				else{
+					boolean rota = false;
+					boolean shouldR = false;
+					int max = 0;
+					int mX = 0,mY = 0;
 					for(int x = 0; x < 10; x ++){
 						for(int y = 0;y < 5; y ++){
-							if(myMap.shouldPut(x,y)){
+							if(!myMap.canPut(x,y,c.Road())){
+								rota = !rota;
+								c.rotateCard();
+							}
+							if(myMap.canPut(x,y,c.Road())){
 								int ret_rate = 3;
 								WhatHappen wtf = myMap.tryCard(x,y,c);
+								System.out.println(x +"+"+ y+":" + wtf.HowmanyCloser());
+								if(wtf.HowmanyCloser() == 3){
+									Card toRet = new Card(c);
+									hand.remove(k);
+									return new Action(new Card(toRet),x,y,my_num,0);
+								}
 								if(maybe_where[0] && !wtf.closerToTop()){
 									ret_rate --;
 								}
@@ -298,15 +329,22 @@ public class AIPlayer extends Player{
 								if(maybe_where[1] && !wtf.closerToMid()){
 									ret_rate --;
 								}
-								if(ret_rate > 1){
-									Card toRet = new Card(c);
-									hand.remove(k);
-									return new Action(new Card(toRet),x,y,my_num,0);
+								if(ret_rate > max){
+									mX = x;
+									mY = y;
+									max = ret_rate;
+									shouldR = rota;
 								}
-								removable[k] = true;
 							}
 						}
 					}
+					if(max > 1){
+						Card toRet = new Card(c.getType(),shouldR);
+						hand.remove(k);
+						return new Action(new Card(toRet),mX,mY,my_num,0);
+					}
+					removable[k] = true;
+
 				}
 
 			}
@@ -443,17 +481,18 @@ public class AIPlayer extends Player{
 								c.rotateCard();
 							if(myMap.canPut(x,y,c.Road())){
 								WhatHappen wtf = myMap.tryCard(x,y,c);
-								if(definitely_where[0] && !wtf.closerToTop()){
+								System.out.println(x +"+"+ y+":" + wtf.HowmanyFarther());
+								if(definitely_where[0] && wtf.fartherToTop()){
 									Card toRet = new Card(c);
 									hand.remove(k);
 									return new Action(new Card(toRet),x,y,my_num,0);
 								}
-								if(definitely_where[2] && !wtf.closerToBtm()){
+								if(definitely_where[2] && !wtf.fartherToBtm()){
 									Card toRet = new Card(c);
 									hand.remove(k);
 									return new Action(new Card(toRet),x,y,my_num,0);
 								}
-								if(definitely_where[1] && !wtf.closerToMid()){
+								if(definitely_where[1] && !wtf.fartherToMid()){
 									Card toRet = new Card(c);
 									hand.remove(k);
 									return new Action(new Card(toRet),x,y,my_num,0);
@@ -471,16 +510,16 @@ public class AIPlayer extends Player{
 							if(myMap.canPut(x,y,c.Road())){
 								int ret_rate = 3;
 								WhatHappen wtf = myMap.tryCard(x,y,c);
-								if(maybe_where[0] && wtf.closerToTop()){
+								if(maybe_where[0] && !wtf.fartherToTop()){
 									ret_rate --;
 								}
-								if(maybe_where[2] && wtf.closerToBtm()){
+								if(maybe_where[2] && !wtf.fartherToBtm()){
 									ret_rate --;
 								}
-								if(maybe_where[1] && wtf.closerToMid()){
+								if(maybe_where[1] && !wtf.fartherToMid()){
 									ret_rate --;
 								}
-								if(ret_rate < 2){
+								if(ret_rate >= 2){
 									Card toRet = new Card(c);
 									hand.remove(k);
 									return new Action(new Card(toRet),x,y,my_num,0);
