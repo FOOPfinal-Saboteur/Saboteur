@@ -273,7 +273,7 @@ public class AIPlayer extends Player{
 								if(maybe_where[1] && !wtf.closerToMid()){
 									ret_rate --;
 								}
-								if(ret_rate > max){
+								if(ret_rate >= max){
 									mX = x;
 									mY = y;
 									max = ret_rate;
@@ -301,7 +301,7 @@ public class AIPlayer extends Player{
 									if(maybe_where[1] && !wtf.closerToMid()){
 										ret_rate --;
 									}
-									if(ret_rate > max){
+									if(ret_rate >= max){
 										mX = x;
 										mY = y;
 										max = ret_rate;
@@ -374,7 +374,7 @@ public class AIPlayer extends Player{
 								if(maybe_where[1] && !wtf.closerToMid()){
 									ret_rate --;
 								}
-								if(ret_rate > max){
+								if(ret_rate >= max){
 									mX = x;
 									mY = y;
 									max = ret_rate;
@@ -636,21 +636,21 @@ public class AIPlayer extends Player{
 				int kind = c.Function().itemKind();
 				for(int i = 0; i < player_num; i ++){
 					if(kind == 0){
-						if(gamer[i].isPossibleMiner() && !gamer[i].pickOK()){
+						if(gamer[i].isPossibleMiner() && gamer[i].pickOK()){
 							Card toRet = new Card(c);
 							hand.remove(k);
 							return new Action(new Card(toRet),-1,-1,my_num,i);
 						}
 					}
 					if(kind == 1){
-						if(gamer[i].isPossibleMiner() && !gamer[i].oil_lampOK()){
+						if(gamer[i].isPossibleMiner() && gamer[i].oil_lampOK()){
 							Card toRet = new Card(c);
 							hand.remove(k);
 							return new Action(new Card(toRet),-1,-1,my_num,i);
 						}
 					}
 					if(kind == 2){
-						if(gamer[i].isPossibleMiner() && !gamer[i].mine_cartOK()){
+						if(gamer[i].isPossibleMiner() && gamer[i].mine_cartOK()){
 							Card toRet = new Card(c);
 							hand.remove(k);
 							return new Action(new Card(toRet),-1,-1,my_num,i);
