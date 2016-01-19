@@ -1,3 +1,5 @@
+package sample;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -30,9 +32,6 @@ import javafx.scene.effect.DropShadow;
 
 //cursor
 import javafx.scene.Cursor;
-
-
-
 
 public class CardGUI extends javafx.scene.image.ImageView {
 
@@ -98,6 +97,7 @@ public class CardGUI extends javafx.scene.image.ImageView {
 		upSideDown = false;
 		setHandler(map);
 	}
+
 	public CardGUI(String url, MapGUI map, boolean func) {
 		super();
 		image = new Image(url);
@@ -192,7 +192,7 @@ public class CardGUI extends javafx.scene.image.ImageView {
                 	if (isFunc) break;
                 	for (int j = 0; j < 5 && flag != true; j++) {
                 
-                targetX = (-12+MapGUI.coordStartX + i * MapGUI.coordDistanceX) * map.getRatio();
+                targetX = 13+(-12+MapGUI.coordStartX + i * MapGUI.coordDistanceX) * map.getRatio();
                 targetY = (52+MapGUI.coordStartY + j * MapGUI.coordDistanceY) * map.getRatio();
 
                 if (!map.isOccupied(i, j) && me.getSceneX() >= targetX && me.getSceneX() <= targetX + (MapGUI.coordEndX-MapGUI.coordStartX) * map.getRatio() && 

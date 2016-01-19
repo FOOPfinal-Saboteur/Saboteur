@@ -16,6 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -32,7 +33,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class MainController impleeventnts Initializable {
+public class MainController implements Initializable {
+
+    /* Big Layout */
+    @FXML public Pane root;
 
     /* Topeventnu */
     @FXML public Label mode;
@@ -100,7 +104,7 @@ public class MainController impleeventnts Initializable {
     }
 
     @FXML
-    public void seteventnuBar(String mode, int pnum, String role){
+    public void setMenuBar(String mode, int pnum, String role){
         this.mode.setText(mode);
         this.player_num.setText(pnum+"");
         this.role.setText(role);
@@ -124,6 +128,10 @@ public class MainController impleeventnts Initializable {
         this.chatroom.setDisable(false);
         this.chatroomtop.setDisable(false);
         this.chatroom.setVisible(true);
+        Rectangle[] rct = new Rectangle[]{rct1, rct2, rct3, rct4, rct5, rct6, rct7, rct8, rct9, rct10};
+        for(int i = 0; i < 10; i++) {
+            rct[i].setVisible(false);
+        }
     }
 
     @FXML
@@ -131,6 +139,10 @@ public class MainController impleeventnts Initializable {
         this.chatroom.setDisable(true);
         this.chatroomtop.setDisable(true);
         this.chatroom.setVisible(false);
+        Rectangle[] rct = new Rectangle[]{rct1, rct2, rct3, rct4, rct5, rct6, rct7, rct8, rct9, rct10};
+        for(int i = 0; i < 10; i++) {
+            rct[i].setVisible(true);
+        }
     }
 
     @FXML
@@ -201,7 +213,26 @@ public class MainController impleeventnts Initializable {
         this.card_num.setText(n+"");
     }
 
-    CardGUI
+    public void initCard(ImageView iv) {
+        iv.setFitHeight(105);
+        iv.setPreserveRatio(true);
+        iv.setSmooth(true);
+        iv.setCache(true);
+    }
+
+
+    public MapGUI map = new MapGUI(538);
+    public Shuffler sfl = new Shuffler(map);
+
+    @FXML
+    public void placeCard(int index){
+        sfl.shuffle();
+        CardGUI card = sfl.takeCard();
+        initCard(card);
+        root.getChildren().add(card);
+        card.setTranslateX(20 + (index-1) * 80);
+        card.setTranslateY(600);
+    }
 
     @FXML
     public void cardPressed(MouseEvent event){

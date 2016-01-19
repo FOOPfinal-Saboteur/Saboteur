@@ -649,6 +649,7 @@ public class Main extends Application{
         zcene3 = new Scene(vboxz3, 940, 705);
         zcene3.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
 
+
         /* Scene4(Game) */
 
         scene4 = new Scene(root, 960, 720);
@@ -665,6 +666,9 @@ public class Main extends Application{
             }
         });
 
+        for(int i = 1; i < 7; i++) {
+            ctrl.placeCard(i);
+        }
         /* Start */
         window.setScene(scene4);
         window.setTitle("GUI Test");

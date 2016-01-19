@@ -11,7 +11,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="960.0" style="-fx-background-color: #EBD5BC;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.MainController">
+<Pane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="960.0" style="-fx-background-color: #EBD5BC;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.MainController">
    <children>
       <VBox fx:id="rightcol" alignment="TOP_CENTER" layoutX="680.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="280.0" spacing="3.0" style="-fx-background-color: #EBD5BC;">
          <children>
@@ -396,36 +396,6 @@
          <opaqueInsets>
             <Insets top="1.0" />
          </opaqueInsets></VBox>
-      <ImageView fitHeight="105.0" fitWidth="72.0" layoutX="30.0" layoutY="600.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@img/game/Road_Intersection.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="105.0" fitWidth="72.0" layoutX="120.0" layoutY="600.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@img/game/Road_Intersection.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="105.0" fitWidth="72.0" layoutX="210.0" layoutY="600.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@img/game/Road_Intersection.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="105.0" fitWidth="72.0" layoutX="300.0" layoutY="600.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@img/game/Road_Intersection.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="105.0" fitWidth="72.0" layoutX="390.0" layoutY="600.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@img/game/Road_Intersection.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="105.0" fitWidth="72.0" layoutX="480.0" layoutY="600.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@img/game/Road_Intersection.png" />
-         </image>
-      </ImageView>
       <ImageView fitHeight="105.0" fitWidth="72.0" layoutX="600.0" layoutY="600.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@img/game/Road_Back.png" />
