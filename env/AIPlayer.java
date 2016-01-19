@@ -10,7 +10,7 @@ public class AIPlayer extends Player{
 	int my_num;;//my number
 	boolean[] maybe_where;//0  for top, 2 for mid, 3 for btm
 	boolean[] definitely_where;//0 top...
-	InnerMap myMap;
+	static InnerMap myMap;
 	public AIPlayer(String _name,int _role,int _num,int p_num,int me){
 		super(_name,_role,_num);
 		my_num = me;
@@ -232,6 +232,7 @@ public class AIPlayer extends Player{
 							if(myMap.canPut(x,y,c.Road())){
 								int ret_rate = 3;
 								WhatHappen wtf = myMap.tryCard(x,y,c);
+								System.out.println(x +"+"+ y+":" + wtf.HowmanyCloser());
 								if(maybe_where[0] && !wtf.closerToTop()){
 									ret_rate --;
 								}
@@ -387,11 +388,11 @@ public class AIPlayer extends Player{
 		for(int i = 0; i < hand.size(); i ++){
 			if(removable[i]){
 				hand.remove(i);
-				return new Action(true);
+				return new Action(my_num,true);
 			}
 		}
 		hand.remove(0);
-			return new Action(true);
+			return new Action(my_num,true);
 	}
 	private boolean knowGold(){
 		for(int i = 0; i < 3; i ++)
@@ -479,7 +480,7 @@ public class AIPlayer extends Player{
 								if(maybe_where[1] && wtf.closerToMid()){
 									ret_rate --;
 								}
-								if(ret_rate > 1){
+								if(ret_rate < 2){
 									Card toRet = new Card(c);
 									hand.remove(k);
 									return new Action(new Card(toRet),x,y,my_num,0);
@@ -526,13 +527,13 @@ public class AIPlayer extends Player{
 							if(myMap.shouldPut(x,y)){
 								int ret_rate = 3;
 								WhatHappen wtf = myMap.tryCard(x,y,c);
-								if(maybe_where[0] && wtf.closerToTop()){
+								if(maybe_where[0] && !wtf.closerToTop()){
 									ret_rate --;
 								}
-								if(maybe_where[2] && wtf.closerToBtm()){
+								if(maybe_where[2] && !wtf.closerToBtm()){
 									ret_rate --;
 								}
-								if(maybe_where[1] && wtf.closerToMid()){
+								if(maybe_where[1] && !wtf.closerToMid()){
 									ret_rate --;
 								}
 								if(ret_rate > 1){
@@ -625,9 +626,9 @@ public class AIPlayer extends Player{
 		for(int i = 0; i < hand.size(); i ++)
 			if(removable[i]){
 				hand.remove(i);
-				return new Action(true);
+				return new Action(my_num,true);
 			}
 		hand.remove(0);
-		return new Action(true);
+		return new Action(my_num,true);
 	}
 }

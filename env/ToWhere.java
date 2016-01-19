@@ -10,4 +10,7 @@ public class ToWhere{
 	}
 	public int X(){return x;}
 	public int Y(){return y;}
+	public String toString(){
+		return new String("(" +x+ ","+y+")");
+	}
 }

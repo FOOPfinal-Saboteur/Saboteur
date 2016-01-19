@@ -93,7 +93,7 @@ public class Player{
 			return null; // exception
 		}else{
 			Card toReturn = new Card(hand.get(index));
-			System.out.println("what i get\n" + toReturn);
+	//		System.out.println("what i get\n" + toReturn);
 			return toReturn;
 		}
 	}

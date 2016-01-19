@@ -87,7 +87,10 @@ class InnerMap{
 		minB = minDist(9,0);
 	}
 	public boolean canPut(int x,int y,RoadCard card){
-		if(!(Distance[EdgeNum(x,y,Vertical)] == 0 || Distance[EdgeNum(x + 1,y,Vertical)] == 0 || Distance[EdgeNum(x,y,Horizontal)] == 0|| Distance[EdgeNum(x,y + 1,Vertical)] == 0) )
+//		System.out.println(x +" "+y);
+		if(!noRoad(x,y))
+			return false;
+		if(!(Distance[EdgeNum(x,y,Vertical)] == 0 || Distance[EdgeNum(x + 1,y,Vertical)] == 0 || Distance[EdgeNum(x,y,Horizontal)] == 0|| Distance[EdgeNum(x,y + 1,Horizontal)] == 0) )
 			return false;
 		if( (card.getBind(1) && Distance[EdgeNum(x,y,Vertical)] >= 100) || (!card.getBind(1) && Distance[EdgeNum(x,y,Vertical)] == 0))
 			return false;	
@@ -100,6 +103,10 @@ class InnerMap{
 		return true;
 	}
 	public boolean shouldPut(int x,int y){
+		if(x == 1 && y == 2)
+			return false;
+		if(noRoad(x,y))
+			return false;
 			if(Distance[EdgeNum(x,y,Vertical)] == 0)
 				return true;
 			if(Distance[EdgeNum(x + 1,y,Vertical)] == 0)
@@ -108,6 +115,21 @@ class InnerMap{
 				return true;
 			if(Distance[EdgeNum(x,y + 1,Horizontal)] == 0)
 				return true;
+		return true;
+	}
+	private boolean noRoad(int x, int y){
+		if(EdgeWeight(EdgeNum(x,y+1,Horizontal),EdgeNum(x,y,Vertical)) == 1)
+			return true;
+		if(EdgeWeight(EdgeNum(x,y,Horizontal),EdgeNum(x,y,Vertical)) == 1)
+			return true;
+		if(EdgeWeight(EdgeNum(x,y,Horizontal),EdgeNum(x+1,y,Vertical)) == 1)
+			return true;
+		if(EdgeWeight(EdgeNum(x,y+1,Horizontal),EdgeNum(x+1,y,Vertical)) == 1)
+			return true;
+		if(EdgeWeight(EdgeNum(x,y+1,Horizontal),EdgeNum(x,y,Horizontal)) == 1)
+			return true;
+		if(EdgeWeight(EdgeNum(x+1,y,Vertical),EdgeNum(x,y,Vertical)) == 1)
+			return true;
 		return false;
 	}
 	public WhatHappen receiveCard(int x,int y,Card card){
@@ -116,7 +138,7 @@ class InnerMap{
 		int originB = minB;
 		if(card.IsFunction()){
 			FunctionCard func = card.Function();
-			if(!func.isCollapse()){
+			if(!func.isCollapse() || !shouldPut(x,y)){
 				System.out.println("Wrong Card");
 				return null;
 			}
@@ -134,7 +156,7 @@ class InnerMap{
 		minT = minDist(9,4);
 		minM = minDist(9,2);
 		minB = minDist(9,0);
-		return new WhatHappen(minT - originT, minM - originM, minB - originB);
+		return new WhatHappen(originT - minT, originM - minM,originB -minB);
 	}
 	public WhatHappen tryCard(int x,int y,Card card){
 		int originT = minT;
@@ -162,8 +184,8 @@ class InnerMap{
 		minT = minDist(9,4);
 		minM = minDist(9,2);
 		minB = minDist(9,0);
-		WhatHappen toReturn = new WhatHappen(minT - originT, minM - originM, minB - originB);
-		printMap();
+		WhatHappen toReturn = new WhatHappen(originT -minT,originM -minM, originB -minB);
+//		printMap();
 		if(card.IsFunction()){
 			assignCard(x,y,origin);
 			Dijkstra();

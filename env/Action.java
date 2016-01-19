@@ -23,7 +23,7 @@ public class Action{
 		toWhom = -1;
 		fromWho = -1;
 	}
-	public Action(boolean Discard){
+	public Action(int from,boolean Discard){
 		discarding = true;
 		isOnMap = false;
 		isFunction = false;
@@ -32,7 +32,7 @@ public class Action{
 		func = null;
 		toWhere = new ToWhere(-1,-1);
 		toWhom = -1;
-		fromWho = -1;
+		fromWho = from;
 	}
 		// all card need to send these num
 	public Action(Card card, int _x, int _y, int from, int whom){
@@ -63,5 +63,8 @@ public class Action{
 	public Card getCard(){return new Card(myCard);}
 	public RoadCard getRoadCard(){return new RoadCard(road);}
 	public FunctionCard getFunctionCard(){return new FunctionCard(func);}
+	public String toString(){
+		return new String("who:"+ fromWho + "\nat:"+ toWhere +"\nwhat:\n" + myCard +"\nto:" +toWhom);
+	}
 
 }
