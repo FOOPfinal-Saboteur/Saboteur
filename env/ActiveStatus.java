@@ -24,21 +24,21 @@ public class ActiveStatus{
 	}
 	/* Mutator */
 	public void destroy(String cmd){
-		if(cmd == "pick"){
+		if(cmd.equals("pick")){
 			pick = false;
-		}else if(cmd == "oil_lamp"){
+		}else if(cmd.equals("oil_lamp")){
 			oil_lamp = false;
-		}else if(cmd == "mine_cart"){
+		}else if(cmd.equals("mine_cart")){
 			mine_cart = false;
 		}
 	}
 
 	public void fix(String cmd){
-		if(cmd == "pick"){
+		if(cmd.equals("pick")){
 			pick = true;
-		}else if(cmd == "oil_lamp"){
+		}else if(cmd.equals("oil_lamp")){
 			oil_lamp = true;
-		}else if(cmd == "mine_cart"){
+		}else if(cmd.equals("mine_cart")){
 			mine_cart = true;
 		}
 	}

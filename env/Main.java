@@ -99,8 +99,9 @@ public class Main {
                     || now.getCard().Function().itemKind() == 2 && sts[now.getToWhom()].mine_cartOK()) {
                     System.out.println("Destroy!!!");
                     sts[now.getToWhom()].destroy(now.getCard().Function().kindStr());
+                    players[now.getToWhom()].destroy(now.getCard().Function().kindStr()); 
                     System.out.println(sts[now.getToWhom()]);
-                    return players[now.getToWhom()].destroy(now.getCard().Function().kindStr()); // index
+                    return true;//players[now.getToWhom()].destroy(now.getCard().Function().kindStr()); // index
                 }
             }else if(now.getCard().Function().isFix()){
                 if(now.getCard().Function().itemKind() == 0 && !sts[now.getToWhom()].pickOK()
@@ -108,7 +109,8 @@ public class Main {
                         || now.getCard().Function().itemKind() == 2 && !sts[now.getToWhom()].mine_cartOK()) {
                     System.out.println("Fix!!!");
                     sts[now.getToWhom()].fix(now.getCard().Function().kindStr());
-                    return players[now.getToWhom()].fix(now.getCard().Function().kindStr()); // index
+                    players[now.getToWhom()].fix(now.getCard().Function().kindStr());
+                    return true;//players[now.getToWhom()].fix(now.getCard().Function().kindStr()); // index
                 }
             }
         }else {
@@ -182,8 +184,9 @@ public class Main {
                 nowPlayer = (nowPlayer + 1) % playerNumber;
                 System.out.println("*********Switch Player**********");
                 System.out.println("It's "+playerName.get(nowPlayer)+"'s time!");
-                Action nowAction = new Action();
-                //System.out.println(player[nowPlayer].showHand());
+                
+		Action nowAction = new Action();
+                //System.out.println(player[nowPlayer].showHand())
 
                 while(!valid){
                     // if now player have to action
@@ -194,8 +197,12 @@ public class Main {
                     int cardid = -1;
                     if(player[nowPlayer].isAI()){
                         AIPlayer tmp = (AIPlayer) player[nowPlayer];
+		//	tmp.myMap.printMap();
                         nowAction = tmp.makeDecision();
-//			System.out.println(nowAction);
+			System.out.println("decide....");
+			tmp.myMap.printMap();
+//			System.out.println(tmp.myMap);
+			System.out.println(nowAction);
                     }else{
                         printStatus(nowPlayer, player[nowPlayer].showHand());
                         System.out.print("Which card: ");
@@ -227,7 +234,7 @@ public class Main {
                                     player[nowPlayer].removeCard(cardid);
                                     nowAction = new Action(nowPlayer, true);
                                 }else{
-                                    String[] tmp = new String[]{"Top", "Mid", "Bot"};
+                                    String[] tmp = new String[]{"Top", "Mid", "Btm"};
                                     System.out.println(tmp[pos]+" is "+(map.haveGold(4 - pos*2)?"Gold":"Stone"));
                                     player[nowPlayer].removeCard(cardid);
                                 }
@@ -265,7 +272,7 @@ public class Main {
                                 }
                             }
                         }
-             //           System.out.println(nowAction);
+//                        System.out.println(nowAction);
                     }
 
                     /* server handle */
@@ -309,6 +316,7 @@ public class Main {
                             if(player[i].isAI()){
                                 AIPlayer aitmp = (AIPlayer) player[i];
                                 aitmp.updateSituation(nowAction);
+				aitmp.myMap.printMap();
                                 break;
                             }
                         }
