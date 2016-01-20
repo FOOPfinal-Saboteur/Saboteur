@@ -1,5 +1,9 @@
 package sample;
 //image
+import javafx.animation.FadeTransition;
+import javafx.animation.RotateTransition;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -13,6 +17,9 @@ import javafx.scene.paint.Color;
 //for effect
 import javafx.scene.effect.Effect;
 import javafx.scene.effect.DropShadow;
+import javafx.util.Duration;
+//random
+import java.util.*;
 
 
 public class MapGUI extends javafx.scene.image.ImageView {
@@ -23,8 +30,11 @@ public class MapGUI extends javafx.scene.image.ImageView {
 	public static final double coordDistanceX = 107;
 	public static final double coordDistanceY = 159;
 
-	public static final String binURL[] = {"file:"+System.getProperty("user.dir")+"/src/sample"+"/img/Recycle_Bin_Empty.png",
-			"file:"+System.getProperty("user.dir")+"/src/sample"+"/img/Recycle_Bin_Full.png"};
+	public static final String binURL[] = {"file:"+System.getProperty("user.dir")+"/src/sample/img/Recycle_Bin_Empty.png", "file:"+System.getProperty("user.dir")+"/src/sample/img/Recycle_Bin_Full.png"};
+
+	public static final String destURL[] = {"file:"+System.getProperty("user.dir")+"/src/sample/img/game/Destination_Gold.png",
+											"file:"+System.getProperty("user.dir")+"/src/sample/img/game/Destination_stoneJ.png",
+											"file:"+System.getProperty("user.dir")+"/src/sample/img/game/Destination_stoneL.png"};
 
 	private Image binImage;
 	private ImageView binImageView;
@@ -34,15 +44,23 @@ public class MapGUI extends javafx.scene.image.ImageView {
 	public double fitHeight;
 	public double fitWidth;
 
+	private int result[];
+
 	private double ratio;
 
 	private CoordProperty[][] property;
+
+	private boolean[][] traced;
+
+	private FadeTransition fadeTransition;
+	private RotateTransition rotateTransition;
 
 	class CoordProperty {
 		public boolean isOccupied;
 		public Rectangle rectangle;
 		public CardGUI card;
 		public CardGUI cardAddTemp;
+		public boolean[] openRoute;
 
 		public CoordProperty() {
 			isOccupied = false;
@@ -51,23 +69,25 @@ public class MapGUI extends javafx.scene.image.ImageView {
 
 	public MapGUI() {
 		super();
-		mapImage = new Image("./img/game/Z_Map.jpg");
+		mapImage = new Image("file:"+System.getProperty("user.dir")+"/src/sample/img/game/Z_Map.jpg");
 		this.setImage(mapImage);
 		fitHeight = mapImage.getHeight();
 		fitWidth = mapImage.getWidth();
 		ratio = 1;
 		initMapView();
 		initProperty();
+		initResult();
 	}
 	public MapGUI(double value) {
 		super();
-		mapImage = new Image("file:"+System.getProperty("user.dir")+"/src/sample"+"/img/game/Z_Map.jpg");
+		mapImage = new Image("file:"+System.getProperty("user.dir")+"/src/sample/img/game/Z_Map.jpg");
 		this.setImage(mapImage);
 		fitHeight = mapImage.getHeight();
 		fitWidth = mapImage.getWidth();
 		ratio = 1;
 		initMapView();
 		initProperty();
+		initResult();
 
 		resizeHeight(value);
 	}
@@ -76,10 +96,24 @@ public class MapGUI extends javafx.scene.image.ImageView {
 		for (int i = 0; i < 9; i++)
 			for (int j = 0; j < 5; j++) {
 				property[i][j] = new CoordProperty();
-				if (i == 0 && j == 2)
+				if (i == 0 && j == 2)  {
 					property[i][j].isOccupied = true;
-				else if (i == 8 && (j == 0 || j == 2 || j == 4))
+					property[i][j].openRoute = new boolean[5];
+					property[i][j].openRoute[0] = true;
+					property[i][j].openRoute[1] = true;
+					property[i][j].openRoute[2] = true;
+					property[i][j].openRoute[3] = true;
+					property[i][j].openRoute[4] = true;
+				}
+				else if (i == 8 && (j == 0 || j == 2 || j == 4)) {
 					property[i][j].isOccupied = true;
+					property[i][j].openRoute = new boolean[5];
+					property[i][j].openRoute[0] = true;
+					property[i][j].openRoute[1] = true;
+					property[i][j].openRoute[2] = true;
+					property[i][j].openRoute[3] = true;
+					property[i][j].openRoute[4] = true;
+				}
 			}
 	}
 	private void initMapView() {
@@ -87,11 +121,48 @@ public class MapGUI extends javafx.scene.image.ImageView {
 		this.setSmooth(true);
 		this.setCache(true);
 	}
+	public void initResult() {
+		result = new int[3];
+		for (int i = 0; i < 3; i++)
+			result[i] = i;
+		Random randomGenerator = new Random();
+		for (int i = 3; i > 1; i--) {
+			int r = randomGenerator.nextInt(i);
+			int temp = result[i - 1];
+			result[i - 1] = result[r];
+			result[r] = temp;
+		}
+		for(int i = 0; i < 3; i++)
+			if(result[i] == 0)
+				Main.whereIsGold = i;
+	}
+	public CardGUI getDest(int i) {
+		return property[8][i].card;
+	}
+	public CardGUI getObjectCard(int i, int j) {
+		return property[i][j].card;
+	}
+	public void deleteCard(int i, int j) {
+		property[i][j].card = null;
+		property[i][j].cardAddTemp = null;
+		property[i][j].isOccupied = false;
+	}
 	public Pane initPane() {
 		Pane pane = new Pane();
 		pane.getChildren().add(this);
 		for (int i = 0; i < 9; i++)
 			for (int j = 0; j < 5; j++) {
+				if (i == 8 && (j == 0 || j == 2 || j == 4)) {
+						property[i][j].card = new CardGUI(destURL[result[j / 2]], 100 + result[j / 2]);
+						property[i][j].card.setFitWidth((coordEndX - coordStartX) * (ratio+0.03));
+						property[i][j].card.setPreserveRatio(true);
+						property[i][j].card.setSmooth(true);
+						property[i][j].card.setCache(true);
+						pane.getChildren().add(property[i][j].card);
+						property[i][j].card.setTranslateX(-16*ratio+coordStartX + i * coordDistanceX * ratio);
+						property[i][j].card.setTranslateY(28*ratio+coordStartY + j * coordDistanceY * ratio);
+						property[i][j].card.setOpacity(0.0);
+				}
 				property[i][j].rectangle = new Rectangle();
 				property[i][j].rectangle.setWidth((coordEndX - coordStartX) * ratio);
 				property[i][j].rectangle.setHeight((coordEndY - coordStartY) * ratio);
@@ -103,6 +174,8 @@ public class MapGUI extends javafx.scene.image.ImageView {
 				pane.getChildren().add(property[i][j].rectangle);
 				property[i][j].rectangle.setTranslateX(-16*ratio+coordStartX + i * coordDistanceX * ratio);
 				property[i][j].rectangle.setTranslateY(28*ratio+coordStartY + j * coordDistanceY * ratio);
+				System.out.printf("rectangle (%d, %d) = (%.1f, %.1f)\n", i, j, -16*ratio+coordStartX + i * coordDistanceX * ratio,
+					28*ratio+coordStartY + j * coordDistanceY * ratio);
 			}
 
 		binImage = new Image(binURL[0]);
@@ -112,18 +185,75 @@ public class MapGUI extends javafx.scene.image.ImageView {
 		binImageView.setSmooth(true);
 		binImageView.setCache(true);
 		pane.getChildren().add(binImageView);
-		binImageView.setTranslateX(510);
-		binImageView.setTranslateY(610);
+		binImageView.setTranslateX(485+20);
+		binImageView.setTranslateY(585+20);
 		binRec = new Rectangle();
 		binRec.setWidth(70);
 		binRec.setHeight(85);
 		binRec.setFill(Color.GREEN);
 		binRec.setOpacity(0.0);
 		pane.getChildren().add(binRec);
-		binRec.setTranslateX(515);
-		binRec.setTranslateY(610);
+		binRec.setTranslateX(490+20);
+		binRec.setTranslateY(585+20);
 		
 		return pane;
+	}
+	private boolean canLegallyPlaceInner(CardGUI card, int x, int y, int a, int b) {
+		if (a < 0 || b < 0 || a >= 9 || b >= 5)
+			return false;
+		else if (traced[a][b])
+			return false;
+		else if (x == a && y == b)
+			return false;
+		else if (property[a][b].openRoute[4] == false)
+			return false;
+		traced[a][b] = true;
+		boolean up, down, left, right;
+		int id = card.getCardID();
+		if (id == 100)
+			id = 15;
+		else if (id == 101)
+			id = 11;
+		else if (id == 102)
+			id = 12;
+		boolean usd = card.isUpSideDown();
+		if (card.getCardID() == 102)
+			usd = !card.isUpSideDown();
+
+		if (b - 1 < 0 || (property[a][b-1].card == null && (a != x || b-1 != y) ) || (property[a][b-1].card != null && property[a][b-1].openRoute[1] == false) || property[a][b].openRoute[0] == false )
+			up = false;
+		else if (a == x && b-1 == y && ((usd && CardGUI.routeProperty[id][CardGUI.UP])||(!usd && CardGUI.routeProperty[id][CardGUI.DOWN])))
+			return true;
+		else
+			up = canLegallyPlaceInner(card, x, y, a, b - 1);
+		if (b + 1 >= 5 || (property[a][b+1].card == null && (a != x || b+1 != y) ) || (property[a][b+1].card != null && property[a][b+1].openRoute[0] == false) || property[a][b].openRoute[1] == false)
+			down = false;
+		else if (a == x && b+1 == y && ((usd && CardGUI.routeProperty[id][CardGUI.DOWN])||(!usd && CardGUI.routeProperty[id][CardGUI.UP])))
+			return true;
+		else
+			down = canLegallyPlaceInner(card, x, y, a, b + 1);
+		if (a - 1 < 0 || (property[a-1][b].card == null && (a-1 != x || b != y) ) || (property[a-1][b].card != null && property[a-1][b].openRoute[3] == false) || property[a][b].openRoute[2] == false)
+			left = false;
+		else if (a-1 == x && b == y && ((usd && CardGUI.routeProperty[id][CardGUI.LEFT])||(!usd && CardGUI.routeProperty[id][CardGUI.RIGHT])))
+			return true;
+		else
+			left = canLegallyPlaceInner(card, x, y, a - 1, b);
+		if (a + 1 >= 9 || (property[a+1][b].card == null && (a+1 != x || b != y) ) || (property[a+1][b].card != null && property[a+1][b].openRoute[2] == false) || property[a][b].openRoute[3] == false)
+			right = false;
+		else if (a+1 == x && b == y && ((usd && CardGUI.routeProperty[id][CardGUI.RIGHT])||(!usd && CardGUI.routeProperty[id][CardGUI.LEFT])) )
+			return true;
+		else
+			right = canLegallyPlaceInner(card, x, y, a+1, b);
+		return up || down || left || right;
+	}
+	public boolean canLegallyPlace(CardGUI card, int x, int y) {
+		if (card.isFunc() && card.getCardID() < 30) return false;
+		traced = new boolean[9][5];
+		for (int i = 0; i < 9; i++)
+			for (int j = 0; j < 5; j++)
+				traced[i][j] = false;
+		return canLegallyPlaceInner(card, x, y, 0, 2);
+
 	}
 	public boolean isBinGreen() {
 		return binRec.getOpacity() > 0;
@@ -147,11 +277,18 @@ public class MapGUI extends javafx.scene.image.ImageView {
 			this.toBack();	
 		}
 	}
+	public void collapseGreen(int x, int y, boolean on){
+		if(on) {
+			property[x][y].rectangle.setFill(Color.GREEN);
+		}
+		else
+			property[x][y].rectangle.setFill(Color.RED);
+	}
 	public void setLightRed(int x, int y, boolean on) {
 		if (on) {
-			if (property[x][y].card != null && property[x][y].cardAddTemp == null) {
+			if (property[x][y].card != null && property[x][y].cardAddTemp == null && !(x == 8 && (y == 0 || y == 2 || y == 4))) {
 				//construct a temp card and add into the same hierarchy as the Map/rectangle in order to realize quasi-transparent rectangles
-				property[x][y].cardAddTemp = new CardGUI(property[x][y].card.getImage(), property[x][y].card.isFunc());
+				property[x][y].cardAddTemp = new CardGUI(property[x][y].card.getImage(), property[x][y].card.getCardID());
 				Parent pane = this.getParent();
 				((Pane) pane).getChildren().add(property[x][y].cardAddTemp);
 				property[x][y].cardAddTemp.setFitWidth((coordEndX - coordStartX) * ratio);
@@ -194,6 +331,21 @@ public class MapGUI extends javafx.scene.image.ImageView {
 	}
 	public void setOccupyCard(int x, int y, CardGUI card) {
 		property[x][y].card = card;
+		property[x][y].openRoute = new boolean[5];
+		if (card.isUpSideDown()) {
+			property[x][y].openRoute[0] = CardGUI.routeProperty[card.getCardID()][1];
+			property[x][y].openRoute[1] = CardGUI.routeProperty[card.getCardID()][0];
+			property[x][y].openRoute[2] = CardGUI.routeProperty[card.getCardID()][3];
+			property[x][y].openRoute[3] = CardGUI.routeProperty[card.getCardID()][2];
+			property[x][y].openRoute[4] = CardGUI.routeProperty[card.getCardID()][4];
+		}
+		else {
+			property[x][y].openRoute[0] = CardGUI.routeProperty[card.getCardID()][0];
+			property[x][y].openRoute[1] = CardGUI.routeProperty[card.getCardID()][1];
+			property[x][y].openRoute[2] = CardGUI.routeProperty[card.getCardID()][2];
+			property[x][y].openRoute[3] = CardGUI.routeProperty[card.getCardID()][3];
+			property[x][y].openRoute[4] = CardGUI.routeProperty[card.getCardID()][4];
+		}
 	}
 	public void cardToBack(int x, int y) {
 		if (property[x][y].card != null)
@@ -225,6 +377,62 @@ public class MapGUI extends javafx.scene.image.ImageView {
 	}
 	public void setOccupied(int i, int j, boolean value) {
 		property[i][j].isOccupied = value;
+	}
+	public boolean isRevealed(int k) {
+		return (property[8][k * 2].card.getOpacity() > 0);
+	}
+	public void revealDest(int k) {
+		if (property[8][k * 2].card.getOpacity() > 0)
+			return;
+		fadeTransition = new FadeTransition(Duration.seconds(4), property[8][k * 2].card);
+		fadeTransition.setFromValue(0);
+		fadeTransition.setToValue(1);
+		fadeTransition.setCycleCount(1);
+		fadeTransition.setAutoReverse(false);
+		fadeTransition.play();
+		fadeTransition.onFinishedProperty().set(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent actionEvent) {
+				//AlertBox.display("Round Over", "Minors win!!!");
+				Main.window3.close();
+			}
+		});
+
+		if (result[k] == 1 || result[k] == 2) {
+			if (result[k] == 1) {
+				property[8][k * 2].openRoute[0] = false;
+				property[8][k * 2].openRoute[2] = false;
+				property[8][k * 2].card.setUpSideDown(false);
+			}
+			else {
+				property[8][k * 2].openRoute[0] = false;
+				property[8][k * 2].openRoute[3] = false;
+				property[8][k * 2].card.setUpSideDown(false);
+			}
+			//System.out.println("8, "+ k*2 +" "+property[8][k * 2].openRoute[0]+" "+property[8][k * 2].openRoute[1]
+			//	+" "+property[8][k * 2].openRoute[2]+" "+property[8][k * 2].openRoute[3]);
+			if (!canLegallyPlace(property[8][k * 2].card, 8, k * 2)) {
+				rotateTransition = new RotateTransition(Duration.seconds(0.5), property[8][k * 2].card);
+				rotateTransition.setFromAngle(property[8][k * 2].card.getRotate());
+				rotateTransition.setToAngle(property[8][k * 2].card.getRotate() + 180);
+				rotateTransition.setCycleCount(1);
+				rotateTransition.setAutoReverse(false);
+				rotateTransition.play();
+				property[8][k * 2].card.setUpSideDown(true);
+				if (result[k] == 1) {
+					property[8][k * 2].openRoute[0] = true;
+					property[8][k * 2].openRoute[1] = false;
+					property[8][k * 2].openRoute[2] = true;
+					property[8][k * 2].openRoute[3] = false;
+				}
+				else {
+					property[8][k * 2].openRoute[0] = true;
+					property[8][k * 2].openRoute[1] = false;
+					property[8][k * 2].openRoute[2] = false;
+					property[8][k * 2].openRoute[3] = true;
+				}
+			}
+		}
 	}
 
 }

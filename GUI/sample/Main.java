@@ -5,6 +5,8 @@ import javafx.beans.binding.StringBinding;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +25,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -37,19 +40,60 @@ import java.util.Scanner;
 
 public class Main extends Application{
 
-    Stage window;
-    Scene scene1, scene2, scene3, scene4;
+    static Stage window, window2, window3;
+    static Scene scene1, scene2, scene3, scene4;
     /* For online */
-    Scene zcene1, zcene2, zcene3;
+    static Scene zcene1, zcene2, zcene3;
     boolean create = false;
     boolean join = false;
+
+    /**/static FXMLLoader fxmlLoader;
+    /**/static MainController ctrl;
+
     /* */
-    int playerNumber, aiNumber, handNumber;
-    int nameCharMax = 12, playerNumberMAX = 10;
-    ArrayList<String> playerName = new ArrayList<String>();
-    int nowPlayer = 0;
-    ArrayList<Integer> roles = new ArrayList<Integer>();
-    String[] rolename = {"Saboteur", "Miner"};
+    static int playerNumber, aiNumber, cardNumber;
+    static int nameCharMax = 12, playerNumberMAX = 10;
+    static ArrayList<String> playerName = new ArrayList<String>();
+    static int nowPlayer = 0;
+    static ArrayList<Integer> roles = new ArrayList<Integer>();
+    static String[] rolename = {"Saboteur", "Miner"};
+    static int whereIsGold = -1;
+
+    /* Server use to handle */
+    public static void waiting(){
+        window2 = new Stage();
+        window2.initStyle(StageStyle.TRANSPARENT);
+        window2.initOwner(window);
+        window2.showAndWait();
+    }
+    public static int cardid, whomid;
+    public static boolean is_rotate = false, last_rotate = false;
+    public static boolean discard;
+    public static boolean can_place, can_see;
+//    public static double msx, msy;
+    public static int gx, gy;
+    public static int targetitem, dest;
+
+   /* public static int transformToGridX(double x){
+        double[] xtable = {46.4, 110.4, 174.4, 238.3, 302.3, 366.2, 430.2, 494.2, 558.1};
+        for(int i = 0; i < 9; i++){
+            if(x > xtable[i] && x < xtable[i]+63){
+                return i;
+            }
+        }
+        return -1;
+    }
+    public static int transformToGridY(double y){
+        double[] ytable = {75.7, 170.8, 265.8, 360.9, 455.9 };
+        for(int i = 0; i < 5; i++){
+            if(y > ytable[i] && y < ytable[i]+87){
+                return 4-i;
+            }
+        }
+        return -1;
+    }*/
+
+    /* */
 
     public static void addTextLimiter(final TextField tf, final int maxLength) {
         tf.textProperty().addListener(new ChangeListener<String>() {
@@ -118,7 +162,56 @@ public class Main extends Application{
             rolecardlist.remove(index);
         }
     }
+        /*==================================================*/
+    public static void printStatus(int id, String handstr){
+        System.out.println("Player " + id + ": " + playerName.get(id));
+        System.out.println("Role: "+rolename[roles.get(id)]);
+        System.out.println(handstr);
+    }
 
+    public static boolean isValid(Action now, Map map, Player[] players, ActiveStatus[] sts){
+        if(now.getIsOnMap()){
+            if(now.getCard().IsFunction()
+                    && now.getCard().Function().isCollapse()){
+                if(map.breakRoad(now.getToWhere().X(), now.getToWhere().Y())) {
+                    return true;
+                }
+            }else if(sts[now.getFromWho()].isActive()
+                    && map.placeRoad(now.getCard().Road(), now.getToWhere().X(), now.getToWhere().Y())){
+                return true;
+            }
+        }else if(now.getIsFunction()){
+            if(now.getCard().Function().isMap()){
+                boolean b = map.haveGold(now.getToWhere().Y());
+                DestinyStatus ds = new DestinyStatus(2 - now.getToWhere().Y()/2, b);
+                players[now.getFromWho()].watchMap(ds);
+                return true;
+            }else if(now.getCard().Function().isBreak()){
+                if(now.getCard().Function().itemKind() == 0 && sts[now.getToWhom()].pickOK()
+                        || now.getCard().Function().itemKind() == 1 && sts[now.getToWhom()].oil_lampOK()
+                        || now.getCard().Function().itemKind() == 2 && sts[now.getToWhom()].mine_cartOK()) {
+                    //System.out.println("Destroy!!!");
+                    sts[now.getToWhom()].destroy(now.getCard().Function().kindStr());
+                    //System.out.println(sts[now.getToWhom()]);
+                    ctrl.attack(now.getToWhom()+1, now.getCard().Function().itemKind());
+                    return players[now.getToWhom()].destroy(now.getCard().Function().kindStr()); // index
+                }
+            }else if(now.getCard().Function().isFix()){
+                if(now.getCard().Function().itemKind() == 0 && !sts[now.getToWhom()].pickOK()
+                        || now.getCard().Function().itemKind() == 1 && !sts[now.getToWhom()].oil_lampOK()
+                        || now.getCard().Function().itemKind() == 2 && !sts[now.getToWhom()].mine_cartOK()) {
+                   // System.out.println("Fix!!!");
+                    sts[now.getToWhom()].fix(now.getCard().Function().kindStr());
+                    ctrl.rescue(now.getToWhom()+1, now.getCard().Function().itemKind());
+                    return players[now.getToWhom()].fix(now.getCard().Function().kindStr()); // index
+                }
+            }
+        }else {
+            return true;
+        }
+        return false;
+    }
+        /*==================================================*/
     @Override
     public void start(Stage primaryStage) throws Exception{
         window = primaryStage;
@@ -150,12 +243,12 @@ public class Main extends Application{
         scene1 = new Scene(grid, 940, 705);
         scene1.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
         /* Go to zcene1 */
-        scene1.setOnKeyPressed(new EventHandler<KeyEvent>() {
+        /*scene1.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
                 window.setScene(zcene1);
             }
-        });
+        });*/
 
         /* zcene1 */
 
@@ -262,10 +355,10 @@ public class Main extends Application{
         rightcol.setMinWidth(180);
         rightcol.setPadding(new Insets(20));
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GameLayout.fxml"));
+        fxmlLoader = new FXMLLoader(getClass().getResource("GameLayout.fxml"));
         Parent root = (Parent)fxmlLoader.load();
 
-        MainController ctrl = fxmlLoader.<MainController>getController();
+        ctrl = fxmlLoader.<MainController>getController();
         /* */
 
         Button btn2 = new Button("OK");
@@ -278,13 +371,13 @@ public class Main extends Application{
                 }else {
                     playerNumber = Integer.parseInt(cb.getValue().toString());
                     if(playerNumber < 6) {
-                        handNumber = 6;
+                        cardNumber = 6;
                     }else if(playerNumber < 8){
-                        handNumber = 5;
+                        cardNumber = 5;
                     }else {
-                        handNumber = 4;
+                        cardNumber = 4;
                     }
-                    ctrl.hand_num = handNumber;
+                    ctrl.hand_num = cardNumber;
                     aiNumber = Integer.parseInt(cb2.getValue().toString());
                     shownum.setText("Player's number: " + playerNumber);
                     randomSetRoles(playerNumber, roles);
@@ -316,13 +409,13 @@ public class Main extends Application{
                     } else {
                         playerNumber = Integer.parseInt(cb.getValue().toString());
                         if(playerNumber < 6) {
-                            handNumber = 6;
+                            cardNumber = 6;
                         }else if(playerNumber < 8){
-                            handNumber = 5;
+                            cardNumber = 5;
                         }else {
-                            handNumber = 4;
+                            cardNumber = 4;
                         }
-                        ctrl.hand_num = handNumber;
+                        ctrl.hand_num = cardNumber;
                         aiNumber = Integer.parseInt(cb2.getValue().toString());
                         shownum.setText("Player's number: " + playerNumber);
                         randomSetRoles(playerNumber, roles);
@@ -571,6 +664,8 @@ public class Main extends Application{
                             ctrl.backEndSetUp();
                             window.setScene(scene4);
                             window.centerOnScreen();
+                            game();
+                            return;
                         }
                     }
                     typename.clear();
@@ -613,6 +708,8 @@ public class Main extends Application{
                         ctrl.backEndSetUp();
                         window.setScene(scene4);
                         window.centerOnScreen();
+                        game();
+                        return;
                     }
                 }
                 typename.clear();
@@ -642,13 +739,6 @@ public class Main extends Application{
         nametextz3.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
         nametextz3.setFill(Color.BLACK);
         vboxz3.getChildren().add(nametextz3);
-
-        /*TextArea nameareaz3 = new TextArea();
-        nameareaz3.setStyle("-fx-control-inner-background: BROWN");
-        nameareaz3.setFont(Font.font("Serif", FontWeight.NORMAL, 18));
-        nameareaz3.setEditable(false);
-        nameareaz3.setMinHeight(200);
-        nameareaz3.setMaxWidth(250);*/
 
         Button btnz3 = new Button(" Go ");
         btnz3.setId("record-sales");
@@ -690,6 +780,258 @@ public class Main extends Application{
         window.centerOnScreen();
         window.show();
 
+    }
+
+    public static void game(){
+        /*==================================================*/
+        //Scanner scanner = new Scanner(System.in);
+        //System.out.print("Player #: ");
+        //playerNumber = scanner.nextInt();
+        //System.out.print("AI #: ");
+        //aiNumber = scanner.nextInt();
+        if(playerNumber < 6){
+            cardNumber = 6;
+        }else if(playerNumber < 8){
+            cardNumber = 5;
+        }else{
+            cardNumber = 4;
+        }
+
+        /*for(int i = 0; i < playerNumber-aiNumber; i++){
+            System.out.print("Please enter name: ");
+            playerName.add(scanner.next());
+        }
+        randomAIName(aiNumber, playerName);*/
+
+        for(int rnd = 1; rnd <= 3; rnd++){
+             /* WARNING! */ if(rnd > 1) randomSetRoles(playerNumber, roles);
+            /* [GUI]^^^^ */
+
+            /* init Player */
+            Player[] player = new Player[playerNumber];
+            for(int i = 0; i < playerNumber-aiNumber; i++){
+                player[i] = new Player(playerName.get(i), roles.get(i), cardNumber, i);
+            }
+            /* init AI player */
+            for(int i = playerNumber-aiNumber; i < playerNumber; i++){
+                player[i] = new AIPlayer(playerName.get(i), roles.get(i), cardNumber, playerNumber, i);
+            }
+
+            //System.out.println("***********Round "+rnd+" *****************");
+            ctrl.setRound(rnd);
+
+            Deck deck = new Deck();
+            Map map = new Map();
+            map.setDest(whereIsGold);
+            ActiveStatus[] sts = new ActiveStatus[playerNumber];
+            for(int i = 0; i < playerNumber; i++) {
+                sts[i] = new ActiveStatus();
+            }
+            /* init player hand */
+            for(int i = 0; i < playerNumber; i++){
+                ArrayList<Card> tmp = new ArrayList<Card>();
+                for(int j = 0; j < cardNumber; j++){
+                    tmp.add(deck.giveACard());
+                }
+                player[i].setHand(tmp);
+                /* print out init status */
+                //printStatus(i, player[i].showHand());
+            }
+
+            System.out.println("***********Start*****************");
+            /* take action */
+            int baredHand = 0;
+            nowPlayer = -1;
+            int winner = 0;
+            boolean end = false;
+
+            while((deck.theDeck.size() != 0 || baredHand < playerNumber) && !end){
+                boolean valid = false;
+                nowPlayer = (nowPlayer + 1) % playerNumber;
+                //System.out.println("*********Switch Player**********");
+                //System.out.println("It's "+playerName.get(nowPlayer)+"'s time!");
+                Action nowAction = new Action();
+                System.out.println(player[nowPlayer].showHand());
+                /* Switch Player */
+                ctrl.setNowPlayer(nowPlayer);
+                ctrl.showHand(player[nowPlayer].getHand());
+
+                while(!valid){
+                    // if now player have to action
+                    if(!player[nowPlayer].stillHaveCard()){
+                        break;
+                    }
+                    // player acting
+                    if(last_rotate)
+                        is_rotate = false;
+                    discard = false;
+                    cardid = -1;
+
+                    if(player[nowPlayer].isAI()){
+                        AIPlayer tmp = (AIPlayer) player[nowPlayer];
+                        nowAction = tmp.makeDecision();
+                        valid = isValid(nowAction, map, player, sts);
+                    }else{
+                        System.out.println("*Waiting for action...");
+                        window2 = new Stage();
+                        window2.initStyle(StageStyle.TRANSPARENT);
+                        window2.initOwner(window);
+                        window2.showAndWait();
+                        System.out.println("*action happened !");
+
+
+                        System.out.println("*Here's the hand id: "+cardid);
+                        Card ctmp = player[nowPlayer].getCard(cardid);
+
+                        int x = gx;
+                        int y = 4 - gy;
+                        System.out.printf("*after transformed: (%d, %d)\n", x, y);
+
+                            last_rotate = false;
+                        if(is_rotate){
+                            last_rotate = true;
+                            System.out.println("*Rotate card");
+                            player[nowPlayer].rotateCard(cardid);
+                        }else if(discard) {
+                            System.out.println("*Discard card");
+                            player[nowPlayer].removeCard(cardid);
+                            nowAction = new Action(nowPlayer, true);
+                            valid = true;
+                        }else if(ctmp.IsRoad()) {
+                            if((valid = map.placeRoad(ctmp.Road(), x, y))) {
+                                System.out.println("*Place Road");
+                                nowAction = new Action(ctmp, x, y, nowPlayer, -1);
+                                player[nowPlayer].removeCard(cardid);
+                            }
+                        }else if(ctmp.IsFunction()){
+                            if(ctmp.Function().isMap()){
+                                //if(x == 8 && ( y == 0 || y == 2 || y == 4)) {
+                                    can_see = true;
+                                    System.out.println("*checking map...");
+                                    window3 = new Stage();
+                                    window3.initStyle(StageStyle.TRANSPARENT);
+                                    window3.initOwner(window);
+                                    window3.showAndWait();
+                                    System.out.println("*finished checking");
+                                    nowAction = new Action(ctmp, x, y, nowPlayer, -1);
+                                    player[nowPlayer].removeCard(cardid);
+                                    valid = true;
+                                //}
+                            }else if(ctmp.Function().isCollapse()){
+                                if((valid = map.breakRoad(x, y))) {
+
+                                    nowAction = new Action(ctmp, x, y, nowPlayer, -1);
+                                    player[nowPlayer].removeCard(cardid);
+                                }
+                            }else {
+                                Card chg;
+                                if(ctmp.Function().isFix() && ctmp.Function().itemKind() > 2){
+                                    if(ctmp.Function().itemKind() == 3 && !sts[whomid].pickOK() && !sts[whomid].oil_lampOK()
+                                    || ctmp.Function().itemKind() == 4 && !sts[whomid].oil_lampOK() && !sts[whomid].mine_cartOK()
+                                    || ctmp.Function().itemKind() == 5 && !sts[whomid].mine_cartOK() && !sts[whomid].pickOK()) {
+                                        ctrl.askWhich(ctmp.Function().itemKind());
+                                        window3 = new Stage();
+                                        window3.initStyle(StageStyle.TRANSPARENT);
+                                        window3.initOwner(window);
+                                        window3.showAndWait();
+                                        //waiting(); // wait for choose what to fix
+                                    }else if(ctmp.Function().itemKind() == 3){
+                                        if(!sts[whomid].pickOK()){
+                                            targetitem = 0; valid = true;
+                                        }else if(!sts[whomid].oil_lampOK()){
+                                            targetitem = 1; valid = true;
+                                        }
+                                    }else if(ctmp.Function().itemKind() == 4){
+                                        if(!sts[whomid].oil_lampOK()){
+                                            targetitem = 1; valid = true;
+                                        }else if(!sts[whomid].mine_cartOK()){
+                                            targetitem = 2; valid = true;
+                                        }
+                                    }else if(ctmp.Function().itemKind() == 5){
+                                        if(!sts[whomid].mine_cartOK()){
+                                            targetitem = 2; valid = true;
+                                        }else if(!sts[whomid].pickOK()){
+                                            targetitem = 0; valid = true;
+                                        }
+                                    }
+                                    String[] tmp = new String[]{"pick", "oil_lamp", "mine_cart"};
+                                    chg = new Card("fix", tmp[targetitem]);
+                                    nowAction = new Action(chg, -1, -1, nowPlayer, whomid);
+                                    player[nowPlayer].removeCard(cardid);
+                                    valid = true;
+                                }else {
+                                    if(valid = isValid(new Action(ctmp, -1, -1, nowPlayer, whomid),map,player,sts)) {
+                                        nowAction = new Action(ctmp, -1, -1, nowPlayer, whomid);
+                                        player[nowPlayer].removeCard(cardid);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    /* server handle */
+                    dest = -1;
+                    if(valid){
+                        if(nowAction.getIsOnMap() && nowAction.getCard().IsRoad()){
+                            if(map.isFlipped(4) && map.haveGold(4)) {
+                                dest = 0;
+                                end = true;
+                                winner = 1;
+                            }else if( map.isFlipped(2) && map.haveGold(2)){
+                                dest = 1;
+                                end = true;
+                                winner = 1;
+                            }else if( map.isFlipped(0) && map.haveGold(0)){
+                                dest = 2;
+                                end = true;
+                                winner = 1;
+                            }
+                        }
+                        if(!end) {
+                            if (deck.theDeck.size() > 0) { // assign
+                                player[nowPlayer].assignCard(deck.giveACard());
+                            } else {  // count barehand
+                                baredHand = 0;
+                                for (int i = 0; i < playerNumber; i++) {
+                                    if (!player[i].stillHaveCard()) {
+                                        baredHand++;
+                                    }
+                                }
+                            }
+                        /* Broadcast */
+                            for (int i = 0; i < playerNumber; i++) {
+                                if (player[i].isAI()) {
+                                    AIPlayer aitmp = (AIPlayer) player[i];
+                                    aitmp.updateSituation(nowAction);
+                                    break;
+                                }
+                            }
+                        }
+                        /* Show Map */
+                        System.out.println(map);
+                    }
+                }
+            }
+             /* Count reward */
+            if(winner == 0){
+//                System.out.println("*Saboteurs win!!!");
+                ctrl.clearTable();
+                ctrl.backEndSetUp();
+                AlertBox.display("Round Over", "Saboteurs win!!!");
+            } else if(winner == 1){
+                ctrl.mapView.revealDest(dest);
+                window3 = new Stage();
+                window3.initStyle(StageStyle.TRANSPARENT);
+                window3.initOwner(window);
+                window3.showAndWait();
+                AlertBox.display("Round Over", "Miners win!!!");
+//                System.out.println("*Miners win!!!");
+                ctrl.clearTable();
+                ctrl.backEndSetUp();
+            }
+        }
+
+        /*==================================================*/
     }
 
     public static void main(String[] args) {

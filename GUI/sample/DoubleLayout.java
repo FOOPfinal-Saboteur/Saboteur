@@ -31,6 +31,8 @@ public class DoubleLayout extends Application {
 	public static final double WIDTH = 960;
 	public static final double HEIGHT = 720;
 
+	public static int hand_num = 4;
+
 	public MapGUI mapView;
 
 	public ArrayList<CardGUI> gui;
@@ -84,6 +86,11 @@ public class DoubleLayout extends Application {
 	@Override public void start(Stage stage) {
 
 		mapView = new MapGUI(538);
+
+
+
+		
+
 		shuffler = new Shuffler();
 		shuffler.shuffle();
 
@@ -93,7 +100,7 @@ public class DoubleLayout extends Application {
 			initCard(gui[i]);
 		}*/
 		gui = new ArrayList<CardGUI>();
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < hand_num; i++) {
 			gui.add(shuffler.takeCard());
 			initCard(gui.get(i));
 		}
@@ -104,12 +111,12 @@ public class DoubleLayout extends Application {
 		HBox hBox = new HBox();
 		pane.getChildren().add(mapPane);
 		pane.getChildren().add(hBox);
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < hand_num; i++) {
 			pane.getChildren().add(gui.get(i));
 			gui.get(i).setTranslateX(10 + 80 * i);
 			gui.get(i).setTranslateY(583);
 		}
-		for (int i = 0; i < 6; i++)
+		for (int i = 0; i < hand_num; i++)
 			gui.get(i).setHandler(mapView, gui, shuffler, pane);
 		scene = new Scene(pane);
 		//mapPane.getChildren().add(mapView);

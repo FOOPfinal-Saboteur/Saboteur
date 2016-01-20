@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -34,19 +35,22 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
 
     /* Big Layout */
+    @FXML public ArrayList<CardGUI> onMap = new ArrayList<CardGUI>();
     @FXML public ArrayList<CardGUI> gui;
     @FXML public MapGUI mapView;
     @FXML public Shuffler shuffler;
     @FXML public Pane pane;
+    @FXML public Pane mapPane;
 
     public int hand_num;
 
-    /* Topeventnu */
+    /* Topmenu */
     @FXML public Label mode;
     @FXML public Label player_num;
     @FXML public Label role;
@@ -62,6 +66,10 @@ public class MainController implements Initializable {
     @FXML public HBox s1_id; @FXML public HBox s2_id; @FXML public HBox s3_id; @FXML public HBox s4_id;
     @FXML public HBox s5_id; @FXML public HBox s6_id; @FXML public HBox s7_id; @FXML public HBox s8_id;
     @FXML public HBox s9_id; @FXML public HBox s10_id;
+
+    @FXML public Label llb1; @FXML public Label llb2; @FXML public Label llb3; @FXML public Label llb4;
+    @FXML public Label llb5; @FXML public Label llb6; @FXML public Label llb7; @FXML public Label llb8;
+    @FXML public Label llb9; @FXML public Label llb10;
 
     @FXML public ImageView item1_1; @FXML public ImageView item1_2; @FXML public ImageView item1_3;
     @FXML public ImageView item2_1; @FXML public ImageView item2_2; @FXML public ImageView item2_3;
@@ -89,7 +97,7 @@ public class MainController implements Initializable {
 
     /* MainArea */
 
-    @FXML public Text card_num;
+    @FXML public Text card_cnt;
 
     /* Function */
 
@@ -105,25 +113,24 @@ public class MainController implements Initializable {
     public void backEndSetUp(){
 
         mapView = new MapGUI(538);
-        shuffler = new Shuffler();
-        shuffler.shuffle();
+        /*shuffler = new Shuffler();
+        shuffler.shuffle();*/
 
         gui = new ArrayList<CardGUI>();
-        for (int i = 0; i < hand_num; i++) {
-            gui.add(shuffler.takeCard());
+        /*for (int i = 0; i < hand_num; i++) {
             initCard(gui.get(i));
-        }
+        }*/
 
-        Pane mapPane = mapView.initPane();
+        mapPane = mapView.initPane();
         pane.getChildren().add(mapPane);
-        for (int i = 0; i < hand_num; i++) {
+        /*for (int i = 0; i < hand_num; i++) {
             pane.getChildren().add(gui.get(i));
             gui.get(i).setTranslateX(20 + 80 * i);
             gui.get(i).setTranslateY(590);
         }
         for (int i = 0; i < hand_num; i++)
             gui.get(i).setHandler(mapView, gui, shuffler, pane);
-
+*/
         mapView.setLayoutX(13);
         mapView.setLayoutY(40);
         mapPane.toBack();
@@ -150,7 +157,7 @@ public class MainController implements Initializable {
         }
         Rectangle[] rct = new Rectangle[]{rct1,rct2,rct3,rct4,rct5,rct6,rct7,rct8,rct9,rct10};
         for(int i = pnum; i < 10; i++){
-            rct[i].setVisible(false);
+            rct[i].setDisable(true);
         }
     }
 
@@ -165,6 +172,18 @@ public class MainController implements Initializable {
     public void setRound(int rnd){
         /* Init */
         this.round.setText(rnd+"/3");
+    }
+
+    @FXML
+    public void setNowPlayer(int n){
+        Label[] llb = new Label[]{llb1, llb2, llb3, llb4, llb5, llb6, llb7, llb8, llb9, llb10};
+        for(int i = 0; i < 10; i++) {
+            if(i == n){
+                llb[i].setVisible(true);
+            }else{
+                llb[i].setVisible(false);
+            }
+        }
     }
 
     /* chatroom */
@@ -260,33 +279,153 @@ public class MainController implements Initializable {
 
     /* In the gaevent */
     @FXML
-    public void setCardNum(int n){
-        this.card_num.setText(n+"");
+    public void setCardCnt(int n){
+        this.card_cnt.setText(n+"");
     }
 
-    @FXML
-    public void cardPressed(MouseEvent event){
-        ImageView tmp = (ImageView) event.getTarget();
-
-
-    }
-
-    @FXML
-    public void cardDrag(MouseEvent event){
-        ImageView tmp = (ImageView) event.getTarget();
-
-    }
 
     @FXML
     public void statusMark(MouseEvent event){
-        Rectangle tmp = (Rectangle) event.getTarget();
-        tmp.setStroke(Color.BLACK);
+        if(event.isDragDetect()){
+            Rectangle tmp = (Rectangle) event.getTarget();
+            tmp.setStroke(Color.BLACK);
+        }
     }
 
     @FXML
     public void statusUnmark(MouseEvent event){
-        Rectangle tmp = (Rectangle) event.getTarget();
-        tmp.setStroke(Color.TRANSPARENT);
+        if(event.isDragDetect()) {
+            Rectangle tmp = (Rectangle) event.getTarget();
+            tmp.setStroke(Color.TRANSPARENT);
+        }
     }
 
+    @FXML
+    public void setStatusGreen(boolean b, Rectangle r){
+        if(b)
+            r.setStroke(Color.GREEN);
+        else
+            r.setStroke(Color.TRANSPARENT);
+    }
+
+    @FXML
+    public void setStatusRed(boolean b, Rectangle r){
+        if(b)
+            r.setStroke(Color.RED);
+        else
+            r.setStroke(Color.TRANSPARENT);    }
+
+    @FXML
+    public void showHand(ArrayList<Card> hand){
+
+        if(gui != null){
+            for(int i = 0; i < gui.size(); i++){
+                pane.getChildren().remove(gui.get(i));
+            }
+        }
+
+        gui = new ArrayList<CardGUI>();
+
+        for(int i = 0; i < hand.size(); i++){
+            String url = new String();
+            if(hand.get(i).IsRoad()){
+                url += "Road_";
+                if(hand.get(i).getType().equals("intersection")){
+                    url += "Intersection";
+                }else if(hand.get(i).getType().equals("longT")){
+                    url += "LongT";
+                }else if(hand.get(i).getType().equals("shortT")){
+                    url += "ShortT";
+                }else if(hand.get(i).getType().equals("longI")){
+                    url += "LongI";
+                }else if(hand.get(i).getType().equals("shortI")){
+                    url += "ShortI";
+                }else if(hand.get(i).getType().equals("LeftTop")){
+                    url += "LeftTop";
+                }else if(hand.get(i).getType().equals("RightTop")){
+                    url += "RightTop";
+                }else if(hand.get(i).getType().equals("fullblock")){
+                    url += "FullBlock";
+                }else if(hand.get(i).getType().equals("longTblock")){
+                    url += "LongTBlock";
+                }else if(hand.get(i).getType().equals("shortTblock")){
+                    url += "ShortTBlock";
+                }else if(hand.get(i).getType().equals("LeftTopblock")){
+                    url += "LeftTopBlock";
+                }else if(hand.get(i).getType().equals("RightTopblock")){
+                    url += "RightTopBlock";
+                }else if(hand.get(i).getType().equals("longIblock")){
+                    url += "LongIBlock";
+                }else if(hand.get(i).getType().equals("shortIblock")){
+                    url += "ShortIBlock";
+                }else if(hand.get(i).getType().equals("longDeadEnd")){
+                    url += "LongDeadEnd";
+                }else if(hand.get(i).getType().equals("shortDeadEnd")){
+                    url += "ShortDeadEnd";
+                }
+            }else if(hand.get(i).IsFunction()){
+                url += "Func_";
+                if(hand.get(i).getType().equals("fix")) {
+                    url += "Fix";
+                }else if(hand.get(i).getType().equals("break")){
+                    url += "Break";
+                }else if(hand.get(i).getType().equals("map")){
+                    url += "Map";
+                }else if(hand.get(i).getType().equals("collapse")){
+                    url += "Collapse";
+                }
+                if(hand.get(i).getItem().equals("pick")){
+                    url += "_pick";
+                }else if(hand.get(i).getItem().equals("oil_lamp")){
+                    url += "_lamp";
+                }else if(hand.get(i).getItem().equals("mine_cart")){
+                    url += "_cart";
+                }else if(hand.get(i).getItem().equals("pick & oil_lamp")){
+                    url += "_pick&lamp";
+                }else if(hand.get(i).getItem().equals("oil_lamp & mine_cart")){
+                    url += "_lamp&cart";
+                }else if(hand.get(i).getItem().equals("mine_cart & pick")){
+                    url += "_cart&pick";
+                }
+            }
+            url = "file:"+System.getProperty("user.dir")+"/src/sample/img/game/"+url+".png";
+
+            gui.add(new CardGUI(i, url));
+        }
+
+        for (int i = 0; i < gui.size(); i++) {
+            initCard(gui.get(i));
+            pane.getChildren().add(gui.get(i));
+            gui.get(i).setTranslateX(20 + 80 * i);
+            gui.get(i).setTranslateY(590);
+            gui.get(i).setHandler(mapView, gui, shuffler, pane);
+        }
+
+    }
+
+    @FXML
+    public void askWhich(int item){
+        switch (item){
+            case 3:
+                ChooseBox.display("Choice", "Choose one to fix", "pick", "oil_lamp");
+            case 4:
+                ChooseBox.display("Choice", "Choose one to fix", "oil_lamp", "mine_cart");
+            case 5:
+                ChooseBox.display("Choice", "Choose one to fix", "mine_cart", "pick");
+        }
+    }
+
+    @FXML
+    public void clearTable(){
+        for(int i = 0; i < gui.size(); i++){
+            pane.getChildren().remove(gui.get(i));
+        }
+        for(int i = 0; i < onMap.size(); i++){
+            pane.getChildren().remove(onMap.get(i));
+        }
+        gui.clear();
+        onMap.clear();
+        pane.getChildren().remove(mapPane);
+        mapPane.getChildren().clear();
+    }
 }
