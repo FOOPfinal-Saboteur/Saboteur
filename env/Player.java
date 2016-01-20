@@ -24,21 +24,21 @@ class ActiveStatus{
 	}
 	// Mutator
 	public void destroy(String cmd){
-		if(cmd == "pick"){
+		if(cmd.equals("pick"){
 			pick = false;
-		}else if(cmd == "oil_lamp"){
+		}else if(cmd.equals("oil_lamp"){
 			oil_lamp = false;
-		}else if(cmd == "mine_cart"){
+		}else if(cmd.equals("mine_cart"){
 			mine_cart = false;
 		}
 	}
 
 	public void fix(String cmd){
-		if(cmd == "pick"){
+		if(cmd.equals("pick"){
 			pick = true;
-		}else if(cmd == "oil_lamp"){
+		}else if(cmd.equals("oil_lamp"){
 			oil_lamp = true;
-		}else if(cmd == "mine_cart"){
+		}else if(cmd.equals("mine_cart"){
 			mine_cart = true;
 		}
 	}
@@ -62,19 +62,21 @@ public class Player{
 	protected ArrayList<Card> hand;
 	protected int card_num;
 	protected String name;
+	protected int my_num;
 	protected int role; // 0:Saboteur, 1:Miner  
 	protected ActiveStatus status = new ActiveStatus();
 	protected boolean isAI;
 
 	/* Constructor */
-	public Player(String _name, int _role, int _num){
+	public Player(String _name, int _role, int _num, int m_num){
 		hand = new ArrayList<Card>();
 		name = new String(_name);
 		role = _role;
 		card_num = _num;
 		isAI = false;
+		my_num = m_num;
 	}
-	public Player(String _name, String _role, int _num){
+	public Player(String _name, String _role, int _num, int m_num){
 		hand = new ArrayList<Card>();
 		name = new String(_name);
 		if(_role == "Saboteur"){
@@ -84,6 +86,7 @@ public class Player{
 		}
 		card_num = _num;
 		isAI = false;
+		my_num = m_num;
 	}
 
 	/* Accessor */
@@ -115,6 +118,7 @@ public class Player{
 		return toReturn;		
 	}
 	public boolean isAI(){return isAI;}
+	public boolean stillHaveCard(){return hand.size() > 0;}
 	/* Mutator */
 		/* About Hand */
 	public boolean setHand(ArrayList<Card> cards){
@@ -133,6 +137,7 @@ public class Player{
 	public boolean removeCard(int index){
 		if(index < 0 || index >= card_num){
 			System.out.println("[ERROR] Remove card error: index out of bound");
+			System.out.println(index);
 			return false; // exception
 		}else{
 			hand.remove(index);
@@ -166,19 +171,19 @@ public class Player{
 	}
 		/* Active Status */
 	public boolean destroy(String cmd){
-		if(cmd == "pick"){
+		if(cmd.equals("pick")){
 			if(status.pickOK()){
 				status.destroy(cmd);
 				return true;
 			}
 			return false;
-		}else if(cmd == "oil_lamp"){
+		}else if(cmd.equals("oil_lamp")){
 			if(status.oil_lampOK()){
 				status.destroy(cmd);
 				return true;
 			}
 			return false;
-		}else if(cmd == "mine_cart"){
+		}else if(cmd.equals("mine_cart")){
 			if(status.mine_cartOK()){
 				status.destroy(cmd);
 				return true;
@@ -190,19 +195,19 @@ public class Player{
 	}
 
 	public boolean fix(String cmd){
-		if(cmd == "pick"){
+		if(cmd.equals("pick")){
 			if(!status.pickOK()){
 				status.fix(cmd);
 				return true;
 			}
 			return false;
-		}else if(cmd == "oil_lamp"){
+		}else if(cmd.equals("oil_lamp")){
 			if(!status.oil_lampOK()){
 				status.fix(cmd);
 				return true;
 			}
 			return false;
-		}else if(cmd == "mine_cart"){
+		}else if(cmd.equals("mine_cart")){
 			if(!status.mine_cartOK()){
 				status.fix(cmd);
 				return true;
