@@ -79,8 +79,8 @@ class InnerMap{
 		//	}
 		//	System.out.println();
 		}
-		source = EdgeNum(1,2,Vertical);
-		assignCard(1,2,new RoadCard("intersection"));
+		source = EdgeNum(0,2,Vertical);
+		assignCard(0,2,new RoadCard("intersection"));
 		Distance[source] = 0;
 		Dijkstra();
 		minT = minDist(8,4);
@@ -104,18 +104,18 @@ class InnerMap{
 		return true;
 	}
 	public boolean shouldPut(int x,int y){
-		if(x == 1 && y == 2)
+		if(x == 0 && y == 2)
 			return false;
 		if(noRoad(x,y))
 			return false;
-			if(Distance[EdgeNum(x,y,Vertical)] == 0)
-				return true;
-			if(Distance[EdgeNum(x + 1,y,Vertical)] == 0)
-				return true;
-			if(Distance[EdgeNum(x,y,Horizontal)] == 0)
-				return true;
-			if(Distance[EdgeNum(x,y + 1,Horizontal)] == 0)
-				return true;
+		if(Distance[EdgeNum(x,y,Vertical)] == 0)
+			return true;
+		if(Distance[EdgeNum(x + 1,y,Vertical)] == 0)
+			return true;
+		if(Distance[EdgeNum(x,y,Horizontal)] == 0)
+			return true;
+		if(Distance[EdgeNum(x,y + 1,Horizontal)] == 0)
+			return true;
 		return true;
 	}
 	private boolean noRoad(int x, int y){

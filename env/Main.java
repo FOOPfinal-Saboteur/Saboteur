@@ -265,14 +265,15 @@ public class Main {
                                 }
                             }
                         }
-                        System.out.println(nowAction);
+             //           System.out.println(nowAction);
                     }
 
                     /* server handle */
                     // boolean[] before = new boolean[]{map.isFlipped(4), map.isFlipped(2), map.isFlipped(0)};
                     if(valid = isValid(nowAction, map, player, sts)){
                         if(nowAction.getIsOnMap() && nowAction.getCard().IsRoad()){
-//                            player[nowPlayer].removeCard(cardid);
+				if(!player[nowPlayer].isAI())
+	                            player[nowPlayer].removeCard(cardid);
                             if(map.isFlipped(4)){
                                 if(map.haveGold(4)){
                                     end = true;
