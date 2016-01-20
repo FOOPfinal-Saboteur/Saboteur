@@ -195,7 +195,7 @@ public class Main {
                     if(player[nowPlayer].isAI()){
                         AIPlayer tmp = (AIPlayer) player[nowPlayer];
                         nowAction = tmp.makeDecision();
-			System.out.println(nowAction);
+//			System.out.println(nowAction);
                     }else{
                         printStatus(nowPlayer, player[nowPlayer].showHand());
                         System.out.print("Which card: ");
