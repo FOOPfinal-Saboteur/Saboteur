@@ -118,17 +118,17 @@ class InnerMap{
 		return true;
 	}
 	private boolean noRoad(int x, int y){
-		if(EdgeWeight(EdgeNum(x,y+1,Horizontal),EdgeNum(x,y,Vertical)) == 1)
+		if(EdgeWeight(EdgeNum(x,y+1,Horizontal),EdgeNum(x,y,Vertical)) == 1 ||EdgeWeight(EdgeNum(x,y+1,Horizontal),EdgeNum(x,y,Vertical)) == 600)
 			return true;
-		if(EdgeWeight(EdgeNum(x,y,Horizontal),EdgeNum(x,y,Vertical)) == 1)
+		if(EdgeWeight(EdgeNum(x,y,Horizontal),EdgeNum(x,y,Vertical)) == 1 ||EdgeWeight(EdgeNum(x,y,Horizontal),EdgeNum(x,y,Vertical)) == 600)
 			return true;
-		if(EdgeWeight(EdgeNum(x,y,Horizontal),EdgeNum(x+1,y,Vertical)) == 1)
+		if(EdgeWeight(EdgeNum(x,y,Horizontal),EdgeNum(x+1,y,Vertical)) == 1 ||EdgeWeight(EdgeNum(x,y,Horizontal),EdgeNum(x+1,y,Vertical)) == 600)
 			return true;
-		if(EdgeWeight(EdgeNum(x,y+1,Horizontal),EdgeNum(x+1,y,Vertical)) == 1)
+		if(EdgeWeight(EdgeNum(x,y+1,Horizontal),EdgeNum(x+1,y,Vertical)) == 1 ||EdgeWeight(EdgeNum(x,y+1,Horizontal),EdgeNum(x+1,y,Vertical)) == 600)
 			return true;
-		if(EdgeWeight(EdgeNum(x,y+1,Horizontal),EdgeNum(x,y,Horizontal)) == 1)
+		if(EdgeWeight(EdgeNum(x,y+1,Horizontal),EdgeNum(x,y,Horizontal)) == 1||EdgeWeight(EdgeNum(x,y+1,Horizontal),EdgeNum(x,y,Horizontal)) == 600)
 			return true;
-		if(EdgeWeight(EdgeNum(x+1,y,Vertical),EdgeNum(x,y,Vertical)) == 1)
+		if(EdgeWeight(EdgeNum(x+1,y,Vertical),EdgeNum(x,y,Vertical)) == 1 ||EdgeWeight(EdgeNum(x+1,y,Vertical),EdgeNum(x,y,Vertical)) == 600)
 			return true;
 		return false;
 	}
@@ -199,6 +199,8 @@ class InnerMap{
 			minT = minDist(8,4);
 			minM = minDist(8,2);
 			minB = minDist(8,0);
+			if(minT == 500)
+				System.out.println("something wrong\n" + card);
 		}
 		return toReturn;
 	//	if()
@@ -262,27 +264,27 @@ class InnerMap{
 		if(card.getConnect(0))
 			changeEdge(EdgeNum(x,y+1,Horizontal),EdgeNum(x,y,Vertical),0);
 		else
-			changeEdge(EdgeNum(x,y+1,Horizontal),EdgeNum(x,y,Vertical),600);	
+			changeEdge(EdgeNum(x,y+1,Horizontal),EdgeNum(x,y,Vertical),700);	
 		if(card.getConnect(1))
 			changeEdge(EdgeNum(x,y,Horizontal),EdgeNum(x,y,Vertical),0);
 		else 
-			changeEdge(EdgeNum(x,y,Horizontal),EdgeNum(x,y,Vertical),600);
+			changeEdge(EdgeNum(x,y,Horizontal),EdgeNum(x,y,Vertical),700);
 		if(card.getConnect(2)) 
 			changeEdge(EdgeNum(x,y,Horizontal),EdgeNum(x + 1,y,Vertical),0);
 		else 
-			changeEdge(EdgeNum(x,y,Horizontal),EdgeNum(x + 1,y,Vertical),600);
+			changeEdge(EdgeNum(x,y,Horizontal),EdgeNum(x + 1,y,Vertical),700);
 		if(card.getConnect(3)) 
 			changeEdge(EdgeNum(x,y+1,Horizontal),EdgeNum(x+1,y,Vertical),0);
 		else 
-			changeEdge(EdgeNum(x,y+1,Horizontal),EdgeNum(x+1,y,Vertical),600);
+			changeEdge(EdgeNum(x,y+1,Horizontal),EdgeNum(x+1,y,Vertical),700);
 		if(card.getConnect(4)) 
 			changeEdge(EdgeNum(x,y+1,Horizontal),EdgeNum(x,y,Horizontal),0);
 		else
-			changeEdge(EdgeNum(x,y+1,Horizontal),EdgeNum(x,y,Horizontal),600);
+			changeEdge(EdgeNum(x,y+1,Horizontal),EdgeNum(x,y,Horizontal),700);
 		if(card.getConnect(5))
 			changeEdge(EdgeNum(x+1,y,Vertical),EdgeNum(x,y,Vertical),0);
 		else
-			changeEdge(EdgeNum(x+1,y,Vertical),EdgeNum(x,y,Vertical),600);
+			changeEdge(EdgeNum(x+1,y,Vertical),EdgeNum(x,y,Vertical),700);
 	}
 
 	public void breakRoad(int x, int y){
@@ -292,6 +294,49 @@ class InnerMap{
 		changeEdge(EdgeNum(x,y+1,Horizontal),EdgeNum(x + 1,y,Vertical),1);
 		changeEdge(EdgeNum(x,y+1,Horizontal),EdgeNum(x,y,Horizontal),1);
 		changeEdge(EdgeNum(x+1,y,Vertical),EdgeNum(x,y,Vertical),1);
+		for(Edge e:AdjList.get(EdgeNum(x,y,Horizontal))){
+			if(used_to_be_dead(EdgeNum(x,y,Horizontal))){ //unable because of edge
+				if(e.weight == 1)
+					changeEdge(EdgeNum(x,y,Horizontal), e.toWhere, 600);
+			}
+			else
+				if(e.weight == 600&& !used_to_be_dead(e.toWhere))
+					changeEdge(EdgeNum(x,y,Horizontal), e.toWhere, 1);
+
+		}
+		for(Edge e:AdjList.get(EdgeNum(x,y + 1,Horizontal))){
+			if(used_to_be_dead(EdgeNum(x,y + 1,Horizontal))){ //unable because of edge
+				if(e.weight == 1)
+					changeEdge(EdgeNum(x,y + 1,Horizontal), e.toWhere, 600);
+			}
+			else
+				if(e.weight == 600&& !used_to_be_dead(e.toWhere))
+					changeEdge(EdgeNum(x,y + 1,Horizontal), e.toWhere, 1);
+		}
+		for(Edge e:AdjList.get(EdgeNum(x,y,Vertical))){
+			if(used_to_be_dead(EdgeNum(x,y,Vertical))){ //unable because of edge
+				if(e.weight == 1)
+					changeEdge(EdgeNum(x,y,Vertical), e.toWhere, 600);
+			}
+			else
+				if(e.weight == 600&& !used_to_be_dead(e.toWhere))
+					changeEdge(EdgeNum(x,y,Vertical), e.toWhere, 1);
+		}
+		for(Edge e:AdjList.get(EdgeNum(x + 1,y,Vertical))){
+			if(used_to_be_dead(EdgeNum(x,y,Vertical))){ //unable because of edge
+				if(e.weight == 1)
+					changeEdge(EdgeNum(x + 1,y,Vertical), e.toWhere, 600);
+			}
+			else
+				if(e.weight == 600&& !used_to_be_dead(e.toWhere))
+					changeEdge(EdgeNum(x + 1,y,Vertical), e.toWhere, 1);
+		}
+	}
+	private boolean used_to_be_dead(int place){
+		for(Edge e:AdjList.get(place))
+			if(e.weight == 700)
+				return true;
+		return false;
 	}
 	private void isolate(int place){
 		Distance[place] = 500;
@@ -311,7 +356,7 @@ class InnerMap{
 		for(int i = 0; i < all_num; i ++)
 			Distance[i] = 500;
 		Distance[source] = 0;
-		PriorityQueue<Node> NodeQ = new PriorityQueue<Node>(10);
+		PriorityQueue<Node> NodeQ = new PriorityQueue<Node>(200);
 		NodeQ.add(new Node(source,0));
 		while(NodeQ.size() > 0){
 			Node head = NodeQ.poll();
@@ -326,7 +371,7 @@ class InnerMap{
 	//		System.out.println();
 		}
 	}
-	private int minDist(int x, int y){
+	public int minDist(int x, int y){
 		int min = 10000;
 		if(min > Distance[EdgeNum(x,y,Vertical)]) min = Distance[EdgeNum(x,y,Vertical)];
 		if(min > Distance[EdgeNum(x + 1,y ,Vertical)]) min = Distance[EdgeNum(x,y + 1,Vertical)];

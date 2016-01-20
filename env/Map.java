@@ -354,7 +354,7 @@ public class Map{
 					continue;
 				if(!pos[i][j].getBindToAny())
 					continue;
-				System.out.println(i +" " + j);
+			//	System.out.println(i +" " + j);
 				int centerx = i * 4 + 2;
 				int centery = j * 4 + 2;
 				if(pos[i][j].getConnect(0)){

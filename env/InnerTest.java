@@ -2,7 +2,7 @@ import java.util.*;
 
 public class InnerTest{
 	public static void main(String[] args){
-		InnerMap inner = new InnerMap(10,5);
+		InnerMap inner = new InnerMap(9,5);
 		inner.printMap();
 		Scanner scanner = new Scanner(System.in);
 		int x,y;
@@ -63,9 +63,11 @@ public class InnerTest{
 						ro = scanner.next();
 					}
 					System.out.println("Where to place:");
-					x = scanner.nextInt();
-					y = scanner.nextInt();
-					inner.tryCard(x,y,new Card(kind,rot));
+					for(int p = 0; p < 9 ;p++)
+						for(int q = 0; q < 5; q ++){
+							inner.tryCard(p,q,new Card(kind,rot));
+							inner.tryCard(p,q,new Card(kind,!rot));
+						}
 				}
 				else{
 					System.out.println("Where to break:");
