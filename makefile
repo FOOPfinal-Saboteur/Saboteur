@@ -1,4 +1,5 @@
 TARGET=Saboteur.class FunctionCard.class RoadCard.class Card.class Map.class ActiveStatus.class Player.class Deck.class MapTest.class Action.class GamerStatus.class AIPlayer.class Main.class
+SRC=src/sample
 ENV=env
 GUI=gui
 MAIN=main
@@ -57,11 +58,64 @@ Main.class: $(ENV)/Main.java
 	@echo "making: " $@
 	javac -d $(MAIN) -classpath $(MAIN) $(ENV)/ActiveStatus.java $(ENV)/Player.java $(ENV)/GamerStatus.java $(ENV)/ToWhere.java $(ENV)/WhatHappen.java $(ENV)/DestinyStatus.java $(ENV)/InnerMap.java $(ENV)/AIPlayer.java $(ENV)/Main.java
 
+ui:
+	javac -d $(MAIN) -classpath $(MAIN) $(SRC)/*.java
+
+	javac -d $(MAIN) -classpath $(MAIN) $(SRC)/AlertBox.java
+
+	javac -d $(MAIN) -classpath $(MAIN) $(SRC)/ChooseBox.java
+
+	javac -d $(MAIN) -classpath $(MAIN) $(SRC)/MapGUI.java
+
+	javac -d $(MAIN) -classpath $(MAIN) $(SRC)/CardGUI.java
+
+	javac -d $(MAIN) -classpath $(MAIN) $(SRC)/Shuffler.java
+
+	javac -d $(MAIN) -classpath $(MAIN) $(SRC)/MainController.java
+
+	javac -d $(MAIN) -classpath $(MAIN) $(SRC)/DestinyStatus.java
+
+	javac -d $(MAIN) -classpath $(MAIN) $(SRC)/InnerMap.java
+
+	javac -d $(MAIN) -classpath $(MAIN) $(SRC)/ToWhere.java
+
+	javac -d $(MAIN) -classpath $(MAIN) $(SRC)/WhatHappen.java
+
+	javac -d $(MAIN) -classpath $(MAIN) $(SRC)/Card.java
+
+	javac -d $(MAIN) -classpath $(MAIN) $(SRC)/FunctionCard.java $(SRC)/RoadCard.java $(SRC)/Card.java $(SRC)/Deck.java
+
+	javac -d $(MAIN) -classpath $(MAIN) $(SRC)/RoadCard.java
+
+	javac -d $(MAIN) -classpath $(MAIN) $(SRC)/FunctionCard.java
+
+	javac -d $(MAIN) -classpath $(MAIN) $(SRC)/ActiveStatus.java
+
+	javac -d $(MAIN) -classpath $(MAIN) $(SRC)/ActiveStatus.java $(SRC)/GamerStatus.java
+
+	javac -d $(MAIN) -classpath $(MAIN) $(SRC)/ActiveStatus.java $(SRC)/DestinyStatus.java $(SRC)/Player.java
+
+	javac -d $(MAIN) -classpath $(MAIN) $(SRC)/Map.java $(SRC)/RoadCard.java
+
+	javac -d $(MAIN) -classpath $(MAIN) $(SRC)/Map.java $(SRC)/RoadCard.java $(SRC)/MapTest.java
+
+	javac -d $(MAIN) -classpath $(MAIN) $(SRC)/ToWhere.java $(SRC)/FunctionCard.java $(SRC)/RoadCard.java $(SRC)/Action.java
+
+	javac -d $(MAIN) -classpath $(MAIN) $(SRC)/ActiveStatus.java $(SRC)/Player.java $(SRC)/GamerStatus.java $(SRC)/ToWhere.java $(SRC)/WhatHappen.java $(SRC)/DestinyStatus.java $(SRC)/InnerMap.java $(SRC)/AIPlayer.java
+
+	javac -d $(MAIN) -classpath $(MAIN) $(SRC)/*.java
+
 clean: 
 	rm -rf env/*.class env/*.java~
 	rm -rf GUI/*.class GUI/*.java~
 	rm -rf main/*.class main/*.java~
+	rm -rf main/sample/*.class
+
 run:
 	@echo "Cheap start to run... "
 	java -cp $(MAIN) Main
+run2:
+	@echo "Try to run... "
+	java -cp $(MAIN) sample.Main
+
 
