@@ -1047,10 +1047,10 @@ public class Main extends Application{
                 AlertBox.display("Round Over", "Saboteurs win!!!");
             } else if(winner == 1){
                 ctrl.mapView.revealDest(dest);
-                window3 = new Stage();
+                /*window3 = new Stage();
                 window3.initStyle(StageStyle.TRANSPARENT);
                 window3.initOwner(window);
-                window3.showAndWait();
+                window3.showAndWait();*/
                 AlertBox.display("Round Over", "Miners win!!!");
 //                System.out.println("*Miners win!!!");
                 ctrl.clearTable();

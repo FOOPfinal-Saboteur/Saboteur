@@ -1,4 +1,5 @@
 package sample;
+
 public class DestinyStatus{
 	public int where;//0 top, 1 mid, 2 btm
 	public boolean isGold;

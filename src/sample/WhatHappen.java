@@ -24,9 +24,6 @@ class WhatHappen{
 		if(BtmChange > 0) num ++;
 		return num;
 	}
-	public boolean fartherToTop(){ return TopChange < 0;}
-	public boolean fartherToMid(){ return MidChange < 0;}
-	public boolean fartherToBtm(){ return BtmChange < 0;}
 	public boolean closerToTop(){ return TopChange > 0;}
 	public boolean closerToMid(){ return MidChange > 0;}
 	public boolean closerToBtm(){ return BtmChange > 0;}
